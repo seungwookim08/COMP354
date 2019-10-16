@@ -1,0 +1,73 @@
+[
+    {
+        "id": "1",
+        "name": "Thing 1",
+        "category": "Electronics",
+        "price": 200.50,
+        "seller": "Patrick"
+    },
+    {
+        "id": "2",
+        "name": "Thing 2",
+        "category": "Fashion",
+        "price": 77.45,
+        "seller": "Allan"
+    },
+    {
+        "id": "3",
+        "name": "Thing 3",
+        "category": "Electronics",
+        "price": 45.00,
+        "seller": "Jeremy"
+    },
+    {
+        "id": "4",
+        "name": "Thing 4",
+        "category": "Fashion",
+        "price": 28.75,
+        "seller": "Alexander"
+    },
+    {
+        "id": "5",
+        "name": "Thing 5",
+        "category": "Electronics",
+        "price": 125.50,
+        "seller": "Seungwoo"
+    },
+    {
+        "id": "6",
+        "name": "Thing 6",
+        "category": "Fashion",
+        "price": 89.00,
+        "seller": "Francesco"
+    },
+    {
+        "id": "7",
+        "name": "Thing 7",
+        "category": "Consumable",
+        "price": 99.99,
+        "seller": "Matthew"
+    },
+    {
+        "id": "8",
+        "name": "Thing 8",
+        "category": "Consumable",
+        "price": 35.99,
+        "seller": "Joseph"
+    },
+    {
+        "id": "9",
+        "name": "Thing 9",
+        "category": "Electronics",
+        "price": 12.50,
+        "seller": "Vicent"
+    },
+    {
+        "id": "10",
+        "name": "Thing 10",
+        "category": "Fashion",
+        "price": 14.75,
+        "seller": "Uriel"
+    }
+   
+]
