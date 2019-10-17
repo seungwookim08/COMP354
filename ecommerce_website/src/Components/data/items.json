@@ -68,6 +68,146 @@
         "category": "Fashion",
         "price": 14.75,
         "seller": "Uriel"
+    },
+    {
+        "id": "11",
+        "name": "Lightning Charger",
+        "category": "Electronics",
+        "price": 20.50,
+        "seller": "Patrick"
+    },
+    {
+        "id": "12",
+        "name": "Some Nice Socks",
+        "category": "Fashion",
+        "price": 77.45,
+        "seller": "Allan"
+    },
+    {
+        "id": "13",
+        "name": "USB C Cable",
+        "category": "Electronics",
+        "price": 45.00,
+        "seller": "Jeremy"
+    },
+    {
+        "id": "14",
+        "name": "Umbrella",
+        "category": "Fashion",
+        "price": 28.75,
+        "seller": "Alexander"
+    },
+    {
+        "id": "15",
+        "name": "Nintendo Switch Charger",
+        "category": "Electronics",
+        "price": 125.50,
+        "seller": "Seungwoo"
+    },
+    {
+        "id": "16",
+        "name": "Panama Hat",
+        "category": "Fashion",
+        "price": 89.00,
+        "seller": "Francesco"
+    },
+    {
+        "id": "17",
+        "name": "Pepsi Bottle",
+        "category": "Consumable",
+        "price": 99.99,
+        "seller": "Matthew"
+    },
+    {
+        "id": "18",
+        "name": "Coca Cola Bottle",
+        "category": "Consumable",
+        "price": 35.99,
+        "seller": "Joseph"
+    },
+    {
+        "id": "19",
+        "name": "Uncle Ben Rice",
+        "category": "Consumable",
+        "price": 12.50,
+        "seller": "Vicent"
+    },
+    {
+        "id": "20",
+        "name": "Sneakers",
+        "category": "Fashion",
+        "price": 14.75,
+        "seller": "Uriel"
+    },
+    {
+        "id": "21",
+        "name": "Nintendo Controller",
+        "category": "Electronics",
+        "price": 70.50,
+        "seller": "Patrick"
+    },
+    {
+        "id": "22",
+        "name": "Flannel Shirt",
+        "category": "Fashion",
+        "price": 77.45,
+        "seller": "Allan"
+    },
+    {
+        "id": "23",
+        "name": "PS4 Controller",
+        "category": "Electronics",
+        "price": 45.00,
+        "seller": "Jeremy"
+    },
+    {
+        "id": "24",
+        "name": "A Warm Scarf",
+        "category": "Fashion",
+        "price": 50.00,
+        "seller": "Alexander"
+    },
+    {
+        "id": "25",
+        "name": "Xbox Controller",
+        "category": "Electronics",
+        "price": 50.50,
+        "seller": "Seungwoo"
+    },
+    {
+        "id": "26",
+        "name": "Blue Suit",
+        "category": "Fashion",
+        "price": 500.00,
+        "seller": "Francesco"
+    },
+    {
+        "id": "27",
+        "name": "Can of Tuna",
+        "category": "Consumable",
+        "price": 5.50,
+        "seller": "Matthew"
+    },
+    {
+        "id": "28",
+        "name": "Loaf of Bread",
+        "category": "Consumable",
+        "price": 5.00,
+        "seller": "Joseph"
+    },
+    {
+        "id": "29",
+        "name": "Overear Headphones",
+        "category": "Electronics",
+        "price": 400,
+        "seller": "Vicent"
+    },
+    {
+        "id": "30",
+        "name": "Nice Tuque",
+        "category": "Fashion",
+        "price": 29.00,
+        "seller": "Uriel"
     }
    
 ]
