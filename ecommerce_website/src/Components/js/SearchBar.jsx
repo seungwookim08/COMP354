@@ -2,21 +2,20 @@ import React from "react";
 import "../css/SearchBar.css";
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
-class SearchBar extends React.Component {
+export const SearchBar = ({ handleChange }) => (
+  <div className="outer-container">
+    <TextField
+      type="search"
+      id="searchBar"
+      label="Search items"
+      onChange={handleChange}
+      InputProps={{
+        startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
+      }}
+    />
 
-  render() {
-    return (
-      <div className="outer-container">
-        <SearchIcon />
-        <input type='search'
-          placeholder='search items'
-          className="searchbar"
-          onChange={e => this.setState({ searchField: e.target.value })}
-        />
-      </div>
-    );
-  }
-}
+  </div>
+)
 
-export default SearchBar;

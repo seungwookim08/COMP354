@@ -11,7 +11,7 @@ export const Item = props => (
             <div className='item-container'>
                 <img alt="item" src={`https://robohash.org/${props.item.id}?set=set1&size=180x180`} />
                 <Typography variant="h5" component="h2"> {props.item.name} </Typography>
-                <Typography> Price: {props.item.price} </Typography>
+                <Typography> Price: {props.item.price} $</Typography>
                 <Typography> Category: {props.item.category} </Typography>
                 <Typography> Seller: {props.item.seller} </Typography>
             </div>
