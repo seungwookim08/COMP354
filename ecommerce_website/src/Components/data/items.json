@@ -1,0 +1,73 @@
+[
+    {
+        "id": "1",
+        "name": "Xbox",
+        "category": "Electronics",
+        "price": 200.50,
+        "seller": "Patrick"
+    },
+    {
+        "id": "2",
+        "name": "A Cool Hat",
+        "category": "Fashion",
+        "price": 77.45,
+        "seller": "Allan"
+    },
+    {
+        "id": "3",
+        "name": "PS4",
+        "category": "Electronics",
+        "price": 45.00,
+        "seller": "Jeremy"
+    },
+    {
+        "id": "4",
+        "name": "A Warm Jacket",
+        "category": "Fashion",
+        "price": 28.75,
+        "seller": "Alexander"
+    },
+    {
+        "id": "5",
+        "name": "Nintendo Switch",
+        "category": "Electronics",
+        "price": 125.50,
+        "seller": "Seungwoo"
+    },
+    {
+        "id": "6",
+        "name": "A Nice Shrubbery",
+        "category": "Fashion",
+        "price": 89.00,
+        "seller": "Francesco"
+    },
+    {
+        "id": "7",
+        "name": "Can of Beans",
+        "category": "Consumable",
+        "price": 99.99,
+        "seller": "Matthew"
+    },
+    {
+        "id": "8",
+        "name": "Gorilla Glue",
+        "category": "Consumable",
+        "price": 35.99,
+        "seller": "Joseph"
+    },
+    {
+        "id": "9",
+        "name": "Airpods",
+        "category": "Electronics",
+        "price": 12.50,
+        "seller": "Vicent"
+    },
+    {
+        "id": "10",
+        "name": "Nice Jeans",
+        "category": "Fashion",
+        "price": 14.75,
+        "seller": "Uriel"
+    }
+   
+]
