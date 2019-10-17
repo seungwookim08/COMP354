@@ -6,7 +6,7 @@ import items from "./Components/data/items.json";
 import { ItemList } from "./Components/js/ItemList";
 import { PriceFilter } from "./Components/js/PriceFilter";
 import { CategoryFilter } from "./Components/js/CategoryFilter";
-
+import { SortRatingFilter } from "./Components/js/SortRatingFilter";
 class App extends Component {
   constructor() {
     super();
@@ -15,7 +15,8 @@ class App extends Component {
       items: items,
       searchField: "",
       priceFilter: 999, //intially set to a high value so it displays all options
-      categoryFilter: ""
+      categoryFilter: "",
+      ratingSort: ""
     };
   }
 
@@ -24,15 +25,33 @@ class App extends Component {
 
     //instead of modifying the array of items, make new array and filter
     //allows us to take off properties from object, and set to const
-    const { items, searchField, priceFilter, categoryFilter } = this.state;
+    const { items, searchField, priceFilter, categoryFilter, ratingSort } = this.state;
     const filteredItems = items.filter(item =>
       (
         (item.name.toLowerCase().includes(searchField.toLowerCase())) &&
         (item.category.toLowerCase().includes(categoryFilter.toLowerCase())) &&
         (item.price <= priceFilter)
       )
-
     );
+
+    if (ratingSort == "highlow") { //sorting from high to low
+
+      //sorting array by rating in descending order
+      filteredItems.sort(function (a, b) {
+        return parseFloat(b.rating) - parseFloat(a.rating);
+      });
+
+    } else if (ratingSort == "lowhigh") { //sorting from low to high
+
+      //sorting array by rating in ascending order
+      filteredItems.sort(function (a, b) {
+        return parseFloat(a.rating) - parseFloat(b.rating);
+      });
+
+    } else { //do nothing
+
+    }
+
     return (
       <div className="App">
         <NavBar />
@@ -45,6 +64,9 @@ class App extends Component {
           />
           <CategoryFilter
             handleChange={e => this.setState({ categoryFilter: e.target.value })}
+          />
+          <SortRatingFilter
+            handleChange={e => this.setState({ ratingSort: e.target.value })}
           />
         </div>
         <ItemList

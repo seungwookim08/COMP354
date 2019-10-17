@@ -14,6 +14,7 @@ export const Item = props => (
                 <Typography> Price: {props.item.price} $</Typography>
                 <Typography> Category: {props.item.category} </Typography>
                 <Typography> Seller: {props.item.seller} </Typography>
+                <Typography> Rating: {props.item.rating} </Typography>
             </div>
         </CardContent>
     </Card>
