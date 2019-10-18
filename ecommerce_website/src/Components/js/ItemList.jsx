@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Item } from './Item';
-import "../css/Items.css";;
+import "../css/Items.css";
+import Pagination from "./Pagination";
 
-export const ItemList = props => (
-    <div className = 'card-list'>
-        {props.items.map(item => (
-            <Item key = {item.id} item ={item}/>
-        ))}
-    </div>
-);
+const ItemList = (props) => {
+    //lets use some hooks so we can use State without writing a class
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
+
+    // Get current items
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = props.items.slice(indexOfFirstItem, indexOfLastItem);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
+    return (
+        <div>
+            <div className='item-list'>
+                {currentItems.map(item => (
+                    <Item key={item.id} item={item} />
+                ))}
+            </div>
+            <Pagination
+                itemsPerPage={itemsPerPage}
+                totalItems={props.items.length}
+                paginate={paginate}
+            />
+        </div>
+    );
+};
+
+export default ItemList;

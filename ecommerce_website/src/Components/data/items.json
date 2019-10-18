@@ -68,7 +68,7 @@
         "name": "Airpods",
         "category": "Electronics",
         "price": 12.50,
-        "seller": "Vicent",
+        "seller": "Vincent",
         "rating": 0.5
     },
     {
@@ -148,7 +148,7 @@
         "name": "Uncle Ben Rice",
         "category": "Consumable",
         "price": 12.50,
-        "seller": "Vicent",
+        "seller": "Vincent",
         "rating": 4.5
     },
     {
@@ -228,7 +228,7 @@
         "name": "Overear Headphones",
         "category": "Electronics",
         "price": 400,
-        "seller": "Vicent",
+        "seller": "Vincent",
         "rating": 0.5
     },
     {

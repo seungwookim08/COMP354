@@ -3,10 +3,11 @@ import './App.css';
 import NavBar from "./Components/js/NavBar.js";
 import { SearchBar } from "./Components/js/SearchBar";
 import items from "./Components/data/items.json";
-import { ItemList } from "./Components/js/ItemList";
+import  ItemList  from "./Components/js/ItemList";
 import { PriceFilter } from "./Components/js/PriceFilter";
 import { CategoryFilter } from "./Components/js/CategoryFilter";
 import { SortRatingFilter } from "./Components/js/SortRatingFilter";
+
 class App extends Component {
   constructor() {
     super();
@@ -18,11 +19,10 @@ class App extends Component {
       categoryFilter: "",
       ratingSort: ""
     };
+
   }
-
-
+  
   render() {
-
     //instead of modifying the array of items, make new array and filter
     //allows us to take off properties from object, and set to const
     const { items, searchField, priceFilter, categoryFilter, ratingSort } = this.state;
@@ -47,10 +47,7 @@ class App extends Component {
       filteredItems.sort(function (a, b) {
         return parseFloat(a.rating) - parseFloat(b.rating);
       });
-
-    } else { //do nothing
-
-    }
+    } 
 
     return (
       <div className="App">
