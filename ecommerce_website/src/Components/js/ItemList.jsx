@@ -6,7 +6,7 @@ import Pagination from "./Pagination";
 const ItemList = (props) => {
     //lets use some hooks so we can use State without writing a class
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(20);
+    const [itemsPerPage] = useState(20); //20 items per page as per the requirements
 
     // Get current items
     const indexOfLastItem = currentPage * itemsPerPage;
