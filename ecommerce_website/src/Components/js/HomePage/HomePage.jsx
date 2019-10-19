@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import NavBar from "../NavBar.js";
 import { SearchBar } from "./SearchBar";
 import ItemList from "./ItemList";
 import { PriceFilter } from "./PriceFilter";
@@ -44,7 +43,6 @@ const HomePage = () => {
 
   return (
     <div className="App">
-      <NavBar />
       <div>
         <SearchBar
           handleChange={e => setSearchField(e.target.value)}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import items from "./Components/data/items.json";
-
+import NavBar from "./Components/js/NavBar";
 import HomePage from "./Components/js/HomePage/HomePage";
 
 class App extends Component {
@@ -20,7 +20,10 @@ class App extends Component {
 
   render() {
     return (
-      <HomePage />
+      <div>
+        <NavBar />
+        <HomePage />
+      </div>
     );
   }
 }
