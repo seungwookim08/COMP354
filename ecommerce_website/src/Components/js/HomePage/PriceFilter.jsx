@@ -1,10 +1,10 @@
 import React from "react";
-import "../css/SearchBar.css";
+import "../../css/SearchBar.css";
 import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import "../css/Filters.css";
+import "../../css/Filters.css";
 
 export const PriceFilter = ({ handleChange }) => (
 

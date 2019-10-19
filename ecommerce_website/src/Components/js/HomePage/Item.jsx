@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/Items.css";
+import "../../css/Items.css";
 import Card from '@material-ui/core/card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';

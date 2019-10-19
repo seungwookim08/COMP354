@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Item } from './Item';
-import "../css/Items.css";
+import "../../css/Items.css";
 import Pagination from "./Pagination";
 
 const ItemList = (props) => {

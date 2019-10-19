@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/SearchBar.css";
+import "../../css/SearchBar.css";
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';

@@ -3,7 +3,7 @@
 import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import Button from '@material-ui/core/Button';
-import "../css/Pagination.css";
+import "../../css/Pagination.css";
 
 
 
