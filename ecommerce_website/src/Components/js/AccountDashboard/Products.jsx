@@ -1,5 +1,8 @@
 /* eslint-disable no-script-url */
-
+//todo
+//this will be current products not yet sold
+//need to make a seperate table for products sold
+//need to make "add product" function 
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';

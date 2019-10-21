@@ -15,16 +15,16 @@ export default function SoldItems() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Deposits</Title>
+      <Title>Total Sales</Title>
       <Typography component="p" variant="h4">
-        $3,024.00
+        Amount of Sales
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        on 15 March, 2019
+        from X amount of products sold
       </Typography>
       <div>
         <Link color="primary" href="javascript:;">
-          View balance
+         view breakdown here
         </Link>
       </div>
     </React.Fragment>

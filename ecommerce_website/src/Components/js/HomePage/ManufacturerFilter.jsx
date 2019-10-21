@@ -7,16 +7,15 @@ import "../../css/Filters.css";
 import axios from "axios";
 
 
-export const CategoryFilter = ({ handleChange }) => {
+export const ManufacturerFilter = ({ handleChange }) => {
 //hook for categories
-const [allCategories, setAllCategories] = useState([]);
-
+const [allManufacturers, setAllManufacturers] = useState([]);
 //get categories from api
 useEffect(() => {
   axios
-  .get('https://rocky-shore-99218.herokuapp.com/categories/')
+  .get('https://rocky-shore-99218.herokuapp.com/manufacturers')
   .then(({data}) => {
-    setAllCategories(data.contents);
+    setAllManufacturers(data.contents);
   });
 });
 
@@ -24,14 +23,16 @@ useEffect(() => {
   return (
     <div className="filter">
       <FormControl>
-        <InputLabel htmlFor="age-native-simple">Categories</InputLabel>
+        <InputLabel htmlFor="age-native-simple">Manufacturer</InputLabel>
         <Select
           native
           onChange={handleChange}
+          autoWidth={true}
+          
         >
           <option value={""}></option>
-          {allCategories.map(category =>
-            <option value = {category.name.toLowerCase()}>{category.name}</option> )}
+          {allManufacturers.map(manufacturer =>
+            <option value = {manufacturer.name.toLowerCase()}>{manufacturer.name}</option> )}
         </Select>
       </FormControl>
     </div>

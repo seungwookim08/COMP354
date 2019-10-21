@@ -10,11 +10,11 @@ export const Item = props => (
     <Card>
         <CardContent>
             <div className='item-container'>
-                <img alt="item" src={`https://robohash.org/${props.item.id}?set=set1&size=180x180`} />
+                <img alt="item" src={props.item.imageUrl} />
                 <Typography variant="h5" component="h2"> {props.item.name} </Typography>
                 <Typography> Price: {props.item.price} $</Typography>
                 <Typography> Category: {props.item.category} </Typography>
-                <Typography> Seller: {props.item.seller} </Typography>
+                <Typography> Manufacturer: {props.item.manufacturer} </Typography>
                 <Typography> Rating: {props.item.rating} </Typography>
                 <Button variant="contained">Add to Cart</Button>
             </div>

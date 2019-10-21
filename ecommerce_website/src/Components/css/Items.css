@@ -25,3 +25,8 @@
   border: none;
   padding: none;
 }
+
+img {
+  width: 225px ;
+  height: auto;
+}
