@@ -7,10 +7,8 @@ import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard"
 class App extends Component {
   constructor() {
     super();
-
   }
   
-
   render() {
     return (
       <div>
@@ -20,5 +18,8 @@ class App extends Component {
     );
   }
 }
+
+
+
 export default App;
 

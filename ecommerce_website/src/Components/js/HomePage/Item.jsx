@@ -16,7 +16,7 @@ export const Item = props => (
                 <Typography> Category: {props.item.category} </Typography>
                 <Typography> Manufacturer: {props.item.manufacturer} </Typography>
                 <Typography> Rating: {props.item.rating} </Typography>
-                <Button variant="contained">Add to Cart</Button>
+                <Button variant="contained">Product Info</Button>
             </div>
         </CardContent>
     </Card>
