@@ -12,3 +12,8 @@
 #cart-icon, #profile-icon, #about-page, #seller-dashboard-icon {
   float: right;
 }
+
+.align-right{
+  margin-left:auto;
+  margin-right:0;
+}

@@ -5,7 +5,6 @@ import { PriceFilter } from "./PriceFilter";
 import { CategoryFilter } from "./CategoryFilter";
 import { SortRatingFilter } from "./SortRatingFilter";
 import { ManufacturerFilter } from "./ManufacturerFilter";
-import Header  from "./Header";
 import axios from "axios";
 
 const HomePage = () => {
@@ -56,7 +55,6 @@ const HomePage = () => {
   return (
     <div className="App">
       <div>
-        <Header/>
         <SearchBar
           handleChange={e => setSearchField(e.target.value)}
         />

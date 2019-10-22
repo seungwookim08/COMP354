@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import NavBar from "./Components/js/NavBar";
-import HomePage from "./Components/js/HomePage/HomePage";
-import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
+import NavBar from "./Components/js//NavBar";
 
 class App extends Component {
   constructor() {
@@ -11,10 +9,9 @@ class App extends Component {
   
   render() {
     return (
-      <div>
-        <NavBar />
-        <HomePage />
-      </div>
+       <React.Fragment>
+       <NavBar />
+     </React.Fragment>
     );
   }
 }

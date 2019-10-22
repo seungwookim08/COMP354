@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import CartIcon from "../UserCart/CartIcon";
-import Cart from "../UserCart/CartDropdown";
+import CartIcon from "./CartIcon";
+import Cart from "./CartDropdown";
 import {connect} from "react-redux";
 
 const Header = ({currentUser, hidden}) => (
-    <div>
+    <div className="icon-outer">
         <CartIcon/>
         {hidden ? null : <Cart /> }
     </div>

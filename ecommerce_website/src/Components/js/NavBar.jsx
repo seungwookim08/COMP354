@@ -1,7 +1,3 @@
-// import React from "react";
-// 
-
-
 import React from 'react';
 import "../css/NavBar.css"
 import PropTypes from 'prop-types';
@@ -10,6 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Header  from "./UserCart/Header";
+import HomePage from "./HomePage/HomePage";
+import AccountDashboard from "./AccountDashboard/AccountDashboard";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +43,7 @@ function a11yProps(index) {
 function LinkTab(props) {
   return (
     <Tab
-      component="a"
+      to="href"
       onClick={event => {
         event.preventDefault();
       }}
@@ -70,14 +69,35 @@ export default function NavBar() {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab className="no-hover" label="LOGO" />
+          <LinkTab className="no-hover" label="LOGO"/>
           <LinkTab label="Home" href="/home" {...a11yProps(0)} />
-          <LinkTab label="Cart" href="/cart" {...a11yProps(1)} />
+          <LinkTab label="Cart" href="/cart" {...a11yProps(1)}/> 
           <LinkTab label="Profile" href="/profile" {...a11yProps(2)} />
-          <LinkTab label="Seller Dashboard" href="/seller-dashboard" {...a11yProps(3)} />
-          <LinkTab label="About" href="/about" {...a11yProps(3)} />
+          <LinkTab label="Seller Dashboard" href="/seller-dashboard" {...a11yProps(3)}/>
+          <LinkTab label="About" href="/about" {...a11yProps(4)} />
         </Tabs>
       </AppBar>
+      <div>
+          <Header/>
+      </div>
+      
+
+      <TabPanel value={value} index={1}>
+        <HomePage/>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Cart checkout goes here
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        profile goes here
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <AccountDashboard/>
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        About page goes here
+      </TabPanel>
+
     </div>
   );
 }
