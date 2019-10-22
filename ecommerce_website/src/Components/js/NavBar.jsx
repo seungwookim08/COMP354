@@ -53,7 +53,7 @@ function LinkTab(props) {
   );
 }
 
-export default function NavTabs() {
+export default function NavBar() {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
