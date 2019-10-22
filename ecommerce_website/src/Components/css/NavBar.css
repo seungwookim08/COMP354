@@ -1,27 +1,7 @@
-/* Part of the code is from: https://www.w3schools.com/css/css_navbar.asp */
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #FFF;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
+.nav-items {
+  flex-grow: 1;
+  background-color: white;
   color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover {
-  color: white;
-  background-color: #000;
 }
 
 /* Class to remove hover events for nav item */
@@ -29,6 +9,6 @@ li a:hover {
   pointer-events: none;
 }
 
-#cart-icon, #profile-icon, #about-page {
+#cart-icon, #profile-icon, #about-page, #seller-dashboard-icon {
   float: right;
 }
