@@ -1,12 +1,24 @@
 import React from 'react';
 import "../../css/Cart.css";
 import Button from '@material-ui/core/Button';
+import CartItem from '../UserCart/CartItem';
+import Card from '@material-ui/core/card';
+import {connect} from 'react-redux';
 
-const Cart = () => (
-    <div className = "cart-dropdown">
+const CartDropdown = ({cartItems}) => (
+    <Card className="cart-dropdown">
+    
         <div  className = "cart-items">
-        <Button variant="contained">Checkout</Button>
+        {cartItems.map(cartItem => (
+        <CartItem key={cartItem.id} item={cartItem}/>
+        ))}
         </div>
-    </div>
+        <Button variant="contained">Checkout</Button>
+    
+    </Card>
 )
-export default Cart;
+
+const mapStateToProps = ({cart: { cartItems }}) => ({
+    cartItems
+})
+export default connect(mapStateToProps)(CartDropdown);
