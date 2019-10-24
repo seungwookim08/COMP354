@@ -32,13 +32,13 @@ export default function Products() {
         <React.Fragment>
             <Title>Products</Title>
             <Grid container spacing={3}>
-                <Grid item xs={3}>
+                <Grid item xs={1}>
                     <Button variant="contained" color="primary" width="50px">Add Item </Button>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={1}>
                     <Button variant="contained" color="Secondary">Delete Item </Button>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={1}>
                     <Button variant="contained" color="default"> Edit Item </Button>
                 </Grid>
             </Grid>
