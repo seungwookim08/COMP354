@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SoldItems() {
+export default function TotalSales() {
   const classes = useStyles();
   return (
     <React.Fragment>
