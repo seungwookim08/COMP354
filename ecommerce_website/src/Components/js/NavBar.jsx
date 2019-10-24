@@ -7,50 +7,48 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Header  from "./UserCart/Header";
-import HomePage from "./HomePage/HomePage";
-import AccountDashboard from "./AccountDashboard/AccountDashboard";
+import { Link } from 'react-router-dom';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
 
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`nav-tabpanel-${index}`}
-      aria-labelledby={`nav-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-}
+//   return (
+//     <Typography
+//       component="div"
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`nav-tabpanel-${index}`}
+//       aria-labelledby={`nav-tab-${index}`}
+//       {...other}
+//     >
+//       <Box p={3}>{children}</Box>
+//     </Typography>
+//   );
+// }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.any.isRequired,
+//   value: PropTypes.any.isRequired,
+// };
 
-function a11yProps(index) {
-  return {
-    id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `nav-tab-${index}`,
+//     'aria-controls': `nav-tabpanel-${index}`,
+//   };
+// }
 
-function LinkTab(props) {
-  return (
-    <Tab
-      to="href"
-      onClick={event => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
+// function LinkTab(props) {
+//   return (
+//     <Tab
+//       onClick={event => {
+//         event.preventDefault();
+//       }}
+//       {...props}
+//     />
+//   );
+// }
 
 export default function NavBar() {
   const [value, setValue] = React.useState(1);
@@ -69,35 +67,17 @@ export default function NavBar() {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab className="no-hover" label="LOGO"/>
-          <LinkTab label="Home" href="/home" {...a11yProps(0)} />
-          <LinkTab label="Cart" href="/cart" {...a11yProps(1)}/> 
-          <LinkTab label="Profile" href="/profile" {...a11yProps(2)} />
-          <LinkTab label="Seller Dashboard" href="/seller-dashboard" {...a11yProps(3)}/>
-          <LinkTab label="About" href="/about" {...a11yProps(4)} />
+          <Tab className="no-hover" label="LOGO"/>
+          <Tab label="Home"  to="/" component={Link} />
+          <Tab label="Cart" /> 
+          <Tab label="Profile"  />
+          <Tab label="Seller Dashboard" to="/dashboard" component={Link}  />
+          <Tab label="About"  />
         </Tabs>
       </AppBar>
       <div>
           <Header/>
       </div>
-      
-
-      <TabPanel value={value} index={1}>
-        <HomePage/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Cart checkout goes here
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        profile goes here
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <AccountDashboard/>
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        About page goes here
-      </TabPanel>
-
     </div>
   );
 }
