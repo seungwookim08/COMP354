@@ -1,7 +1,3 @@
-// import React from "react";
-// 
-
-
 import React from 'react';
 import "../css/NavBar.css"
 import PropTypes from 'prop-types';
@@ -10,6 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import HomePage from '../js/HomePage/HomePage';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,22 +60,24 @@ export default function NavBar() {
 
   return (
     <div className="navigation-bar">
-      <AppBar position="static">
-        <Tabs
-          className="nav-items"
-          variant="fullWidth"
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-        >
-          <LinkTab className="no-hover" label="LOGO" />
-          <LinkTab label="Home" href="/home" {...a11yProps(0)} />
-          <LinkTab label="Cart" href="/cart" {...a11yProps(1)} />
-          <LinkTab label="Profile" href="/profile" {...a11yProps(2)} />
-          <LinkTab label="Seller Dashboard" href="/seller-dashboard" {...a11yProps(3)} />
-          <LinkTab label="About" href="/about" {...a11yProps(3)} />
-        </Tabs>
-      </AppBar>
+      <Router>
+        <AppBar position="static">
+          <Tabs
+            className="nav-items"
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+          >
+            <Tab className="no-hover" label="LOGO" />
+            <Tab label="Home" component={Link} to="/"/>
+            <Tab label="Cart" component={Link} to={"/cart"} />
+            <Tab label="Profile" component={Link} to={"/profile"} />
+            <Tab label="Seller Dashboard" component={Link} to={"/seller-dashboard"} />
+            <Tab label="About" component={Link} to={"/about"} />
+          </Tabs>
+        </AppBar>
+      </Router>
     </div>
   );
 }

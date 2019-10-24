@@ -4,11 +4,16 @@ import Card from '@material-ui/core/card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import {Router, Route, Link} from 'react-router-dom';
 
 
 export const Item = props => (
     <Card>
-        <CardContent>
+        <CardContent
+        onClick={event => {
+            <Route></Route>
+        }}
+        >
             <div className='item-container'>
                 <img alt="item" src={props.item.imageUrl} />
                 <Typography variant="h5" component="h2"> {props.item.name} </Typography>

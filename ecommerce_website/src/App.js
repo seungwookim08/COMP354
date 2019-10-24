@@ -3,6 +3,7 @@ import './App.css';
 import NavBar from "./Components/js/NavBar";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends Component {
   constructor() {
@@ -13,10 +14,14 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <NavBar />
-        <HomePage />
-      </div>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+          </Switch>
+        </Router>
+      </React.Fragment>
     );
   }
 }
