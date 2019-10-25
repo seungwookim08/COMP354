@@ -69,7 +69,7 @@ export default function NavBar() {
         >
           <Tab className="no-hover" label="LOGO"/>
           <Tab label="Home"  to="/" component={Link} />
-          <Tab label="Cart" /> 
+          <Tab label="Cart" to="/checkout" component={Link} /> 
           <Tab label="Profile"  />
           <Tab label="Seller Dashboard" to="/dashboard" component={Link}  />
           <Tab label="About"  />
