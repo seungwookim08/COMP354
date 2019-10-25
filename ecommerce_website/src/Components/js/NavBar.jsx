@@ -21,7 +21,6 @@ export default function NavBar() {
 
   return (
     <div className="navigation-bar">
-      <Router>
         <AppBar position="static">
           <Tabs
             className="nav-items"
@@ -32,13 +31,15 @@ export default function NavBar() {
           >
             <Tab className="no-hover" label="LOGO" />
             <Tab label="Home" component={Link} to="/"/>
-            <Tab label="Cart" component={Link} to={"/cart"} />
+            <Tab label="Cart" component={Link} to={"/checkout"} />
             <Tab label="Profile" component={Link} to={"/profile"} />
-            <Tab label="Seller Dashboard" component={Link} to={"/seller-dashboard"} />
+            <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
             <Tab label="About" component={Link} to={"/about"} />
           </Tabs>
         </AppBar>
-      </Router>
+        <div>
+          <Header/>
+        </div>
     </div>
   );
 }

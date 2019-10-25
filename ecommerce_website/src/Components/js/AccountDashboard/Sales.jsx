@@ -14,12 +14,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
+function createData(id, date, item, quantity, shipTo, paymentMethod, amount) {
+  return { id, date, item, quantity, shipTo, paymentMethod, amount };
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Nice Socks', 'Patrick', 'Montreal,QC', 20.00)
+  createData(0, '16 Mar, 2019', 'Nice Socks', 1 , 'Patrick', 'Montreal,QC', 20.00)
   
 ];
 
@@ -39,6 +39,7 @@ export default function Sales() {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Item</TableCell>
+            <TableCell>Quantity</TableCell>
             <TableCell>Customer</TableCell>
             <TableCell>Ship To</TableCell>
             <TableCell align="right">Sale Amount</TableCell>
@@ -48,7 +49,8 @@ export default function Sales() {
           {rows.map(row => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.item}</TableCell>
+              <TableCell>{row.quantity}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
               <TableCell align="right">${row.amount}</TableCell>

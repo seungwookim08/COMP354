@@ -8,15 +8,15 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
+  createData('2019-04-10', 0),
+  createData('2019-04-12', 300),
+  createData('2019-04-15', 600),
+  createData('2019-04-19', 800),
+  createData('2019-04-20', 1500),
+  createData('2019-04-30', 2000),
+  createData('2019-05-10', 2400),
+  createData('2019-05-13', 2400),
+  createData('2019-06-10', 3000)
 ];
 
 export default function Chart() {

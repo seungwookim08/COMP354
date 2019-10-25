@@ -5,8 +5,10 @@ import CartItem from '../UserCart/CartItem';
 import Card from '@material-ui/core/card';
 import {connect} from 'react-redux';
 import { selectCartItems } from '../../../Redux/cart/cart.selectors';
+import { withRouter } from 'react-router-dom';
+import {toggleCartHidden} from "../../../Redux/cart/cart.actions";
 
-const CartDropdown = ({cartItems}) => (
+const CartDropdown = ({cartItems, history, dispatch}) => (
     <Card className="cart-dropdown">
     
         <div  className = "cart-items">
@@ -16,11 +18,16 @@ const CartDropdown = ({cartItems}) => (
         :
         (<span>Your cart is empty</span>)}
         </div>
-        <Button variant="contained">Checkout</Button>
+        <Button variant="contained" onClick={()=>{
+            history.push('/checkout');
+            dispatch(toggleCartHidden());
+            }}
+            >
+             Go To Checkout</Button>
     </Card>
 )
 
 const mapStateToProps = state => ({
     cartItems: selectCartItems(state)
 })
-export default connect(mapStateToProps)(CartDropdown);
+export default withRouter(connect(mapStateToProps)(CartDropdown));

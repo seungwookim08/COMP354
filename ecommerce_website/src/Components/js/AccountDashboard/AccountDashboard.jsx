@@ -3,7 +3,6 @@ This Dashboard, as well as the corresponding files that make up this dashboard a
 retrieved from https://material-ui.com/getting-started/templates/
 code has been modified to suit the needs of this project
 */
-
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
