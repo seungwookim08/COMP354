@@ -15,18 +15,10 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
-<<<<<<< HEAD
-        <Router>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-          </Switch>
-        </Router>
-=======
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/dashboard' component={AccountDashboard} />
         </Switch>
->>>>>>> master
       </React.Fragment>
     );
   }
