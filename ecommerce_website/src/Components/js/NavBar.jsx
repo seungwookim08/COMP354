@@ -14,6 +14,8 @@ export default function NavBar() {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
+    console.log(event);
+    console.log(newValue);
     setValue(newValue);
   };
 
