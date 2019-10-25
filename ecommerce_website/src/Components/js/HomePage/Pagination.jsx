@@ -17,21 +17,18 @@ const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
     }
 
     return (
-        <BottomNavigation>
-            <div className="pagination">
-                <nav>
-                    <ul>
-                        {pageNumbers.map(number => (
-                            <li key={number}>
-                                <Button variant="outlined" onClick={() => paginate(number)} href='!#'>
-                                    {number}
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-            </div>
-        </BottomNavigation>
+        <div className="pagination">
+            <nav>
+                {pageNumbers.map(number => (
+                    <div key={number}>
+                        <Button variant="outlined" onClick={() => paginate(number)}>
+                            {number}
+                        </Button>
+                    </div>
+                ))}
+            </nav>
+        </div>
+
     );
 };
 

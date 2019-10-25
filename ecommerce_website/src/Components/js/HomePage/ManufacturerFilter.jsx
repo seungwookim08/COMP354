@@ -31,6 +31,7 @@ useEffect(() => {
           
         >
           <option value={""}></option>
+          <option value={""}>Testing to increase width</option>
           {allManufacturers.map(manufacturer =>
             <option value = {manufacturer.name.toLowerCase()}>{manufacturer.name}</option> )}
         </Select>

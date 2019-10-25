@@ -12,7 +12,8 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from './Chart';
-import SoldItems from './SoldItems';
+import TotalSales from './TotalSales';
+import Sales from './Sales';
 import Products from './Products';
 
 const useStyles = makeStyles(theme => ({
@@ -71,10 +72,15 @@ export default function Dashboard() {
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <SoldItems />
+                <TotalSales />
               </Paper>
             </Grid>
             {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Sales />
+              </Paper>
+            </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Products />
