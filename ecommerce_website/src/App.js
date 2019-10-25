@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
-import NavBar from "./Components/js/NavBar";
+import NavBar from "./Components/js//NavBar";
+import { Route, Switch} from "react-router-dom";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
 
 class App extends Component {
   constructor() {
     super();
-
   }
-  
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <NavBar />
-        <HomePage />
-      </div>
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/dashboard' component={AccountDashboard} />
+        </Switch>
+      </React.Fragment>
     );
   }
 }
+
+
+
 export default App;
 
