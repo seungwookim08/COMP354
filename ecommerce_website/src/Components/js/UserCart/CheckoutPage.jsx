@@ -13,6 +13,9 @@ import {toggleCartHidden} from "../../../Redux/cart/cart.actions";
 import CheckoutItem from "./CheckoutItem";
 
 const CheckoutPage = ({cartItems, total}) => (
+    <div>
+    {cartItems.length ? 
+    (
     <div className="checkout">
         <Table size="small">
                 <TableHead>
@@ -32,6 +35,13 @@ const CheckoutPage = ({cartItems, total}) => (
             </Table>
     <div>Total:${total}</div>
     <Button variant="contained" color="primary"> Complete Purchase </Button>
+    </div>
+    ) 
+    :
+    (
+        <div> your cart is empty </div>
+    )
+    }
     </div>
 )
 

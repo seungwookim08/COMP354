@@ -76,3 +76,21 @@ img {
 .checkout{
   margin: 40px 40px 40px 40px;
 }
+
+.quantity{
+  display: flex;
+}
+
+.quantity-button{
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.remove-button {
+  padding-left: 12px;
+  cursor: pointer;
+}
+
+.value {
+  text-align: center;
+}
