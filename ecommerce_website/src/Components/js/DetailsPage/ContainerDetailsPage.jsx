@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Button from '@material-ui/core/Button';
+import {addItem} from '../../../Redux/cart/cart.actions';
 import "../../css/ContainerDetails.css"
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +24,9 @@ const useStyles = makeStyles(theme => ({
 const ContainerDetailsPage = (props) => {
   const classes = useStyles();
 
-  // console.log(props.description);
+  const mapDispatchToProps = dispatch => ({
+    addItem: item => dispatch(addItem(item))
+  })
 
   return (
     <div className="container">
@@ -68,9 +72,7 @@ const ContainerDetailsPage = (props) => {
                   </Typography>
                </Grid>
               <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  Add to Cart
-                </Typography>
+                <Button variant="contained" onClick={() => addItem(props)}>Add To Cart</Button>
               </Grid>
             </Grid>
           </Grid>
