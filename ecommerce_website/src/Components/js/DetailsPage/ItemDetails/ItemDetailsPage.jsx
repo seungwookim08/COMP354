@@ -28,6 +28,7 @@ const ItemDetailsPage = (props) => {
         id = {item.id}
         category = {categoryName}
         price = {item.price}
+        sellerName = {item.sellerName}
       />
     </div>
   );

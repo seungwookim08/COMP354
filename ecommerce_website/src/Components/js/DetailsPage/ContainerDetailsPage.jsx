@@ -53,6 +53,9 @@ const ContainerDetailsPage = (props) => {
                 <Typography variant="subtitle1">
                   Price: {props.price}
                 </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Seller: {props.sellerName}
+                </Typography>
               </Grid>
               <Grid item>
                  <Typography variant="body2">
