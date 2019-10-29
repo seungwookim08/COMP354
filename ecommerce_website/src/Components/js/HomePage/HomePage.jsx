@@ -22,9 +22,7 @@ const HomePage = () => {
     axios
     .get('https://rocky-shore-99218.herokuapp.com/products/')
     .then(({data}) => {
-      console.log(data);
       setAllItems(data.contents);
-      console.log(allItems);
     });
   });
   

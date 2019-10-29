@@ -4,9 +4,10 @@ import Card from '@material-ui/core/card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {addItem} from '../../../Redux/cart/cart.actions';
+import ItemDetailsPage from "../DetailsPage/ItemDetails/ItemDetailsPage"
 
 const Item = ({item, history, addItem}) => {
     const {id, name, price, imageUrl, category, manufacturer} = item;
@@ -14,18 +15,19 @@ const Item = ({item, history, addItem}) => {
     return(
         <Card>
             <CardContent
-            onClick={ () => {
-                history.push("/item-details-page/" + item.id);
-            }}
+                onClick={() => {
+                    history.push("/product/" + item.id);
+                }}
             >
                 <div className='item-container'>
                     <img alt="item" src={imageUrl} />
                     <Typography variant="h5" component="h2"> {name} </Typography>
+                    <Typography> ID: {id} $</Typography>
                     <Typography> Price: {price} $</Typography>
                     <Typography> Category: {category} </Typography>
                     <Typography> Manufacturer: {manufacturer} </Typography>
                     {/* <Typography> Rating: {props.item.rating} </Typography> */}
-                    <Button variant="contained" onClick={() => addItem(item)}>Add To Cart </Button>
+                    <Button variant="contained" onClick={() => addItem(item)}>Add To Cart</Button>
                 </div>
             </CardContent>
         </Card>

@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/profile"/>
           <Route path='/dashboard' component={AccountDashboard} />
           <Route path="/about"/>
-          <Route path="/item-details-page" component={ItemDetailsPage}/>
+          <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route path='/checkout' component={CheckoutPage}/>
         </Switch>
       </React.Fragment>
