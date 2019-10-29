@@ -1,13 +1,9 @@
 import React from 'react';
 import "../css/NavBar.css"
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import HomePage from '../js/HomePage/HomePage';
+import {Link} from 'react-router-dom';
 import Header  from "./UserCart/Header";
 
 export default function NavBar() {
