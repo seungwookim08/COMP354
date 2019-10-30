@@ -21,7 +21,7 @@ const Item = ({item, history, addItem}) => {
                 <div className='item-container'>
                     <img alt="item" src={imageUrl} />
                     <Typography variant="h5" component="h2"> {name} </Typography>
-                    <Typography> ID: {id} $</Typography>
+                    {/* <Typography> ID: {id} </Typography> */}
                     <Typography> Price: {price} $</Typography>
                     <Typography> Category: {category} </Typography>
                     <Typography> Manufacturer: {manufacturer} </Typography>
