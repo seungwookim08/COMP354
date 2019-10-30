@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import {withRouter, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {addItem} from '../../../Redux/cart/cart.actions';
-import ItemDetailsPage from "../DetailsPage/ItemDetails/ItemDetailsPage"
 
 const Item = ({item, history, addItem}) => {
     const {id, name, price, imageUrl, category, manufacturer} = item;

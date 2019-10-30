@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import ContainerDetailsPage from '../ContainerDetailsPage';
 import axios from "axios";
 
-
 const ItemDetailsPage = (props) => {
   const[item, setItem] = useState("");
-  // const[itemImage, setItemImage] = useState("");
-  // const[itemDescription, setItemDescription] = useState("");
   const[categoryName, setCategoryName] = useState("");
-  // const[manufacturerFilter, setManufacturerFilter] = useState("");
-  // const[ratingSort, setRatingSort] = useState("");
 
+  // Retrieve specific product for the details page with the id
   useEffect(() => {
-    // pass id number at the end of products/ with the use a stringbuilder
     axios
     .get('https://rocky-shore-99218.herokuapp.com/products/' + props.match.params.id)
     .then(({data}) => {
@@ -23,7 +18,8 @@ const ItemDetailsPage = (props) => {
 
   return (
     <div>
-      <ContainerDetailsPage 
+      <ContainerDetailsPage
+      // Retrieve and set values for the details page 
         name = {item.name}
         description = {item.description}
         id = {item.id}

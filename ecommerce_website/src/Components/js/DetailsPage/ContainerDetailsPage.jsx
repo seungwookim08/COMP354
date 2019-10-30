@@ -6,34 +6,28 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 import {addItem} from '../../../Redux/cart/cart.actions';
+import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css"
 
+// Basic style for paper - can't retrieve 'theme.spacing(2)' inside css file
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2),
     margin: 'auto',
     maxWidth: "95%",
   },
-  image: {
-  // try important in css file
-    width: "100%",
-    height: "100%",
-  },
 }));
 
 const ContainerDetailsPage = (props) => {
   const classes = useStyles();
-
-  const mapDispatchToProps = dispatch => ({
-    addItem: item => dispatch(addItem(item))
-  })
 
   return (
     <div className="container">
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item sm={4}>
-            <ButtonBase className={classes.image}>
+            <ButtonBase className="image">
+              {/* TODO: Add props.imageURL */}
               <img className="img" alt="complex" src="/static/images/grid/complex.jpg" />
             </ButtonBase>
           </Grid>
@@ -72,7 +66,15 @@ const ContainerDetailsPage = (props) => {
                   </Typography>
                </Grid>
               <Grid item>
-                <Button variant="contained" onClick={() => addItem(props)}>Add To Cart</Button>
+                <Button 
+                  variant="contained" 
+                  onClick={() => {
+                    alert("clicked");
+                    addItem(props);
+                }}
+                >
+                  Add To Cart
+                </Button>
               </Grid>
             </Grid>
           </Grid>
@@ -82,4 +84,8 @@ const ContainerDetailsPage = (props) => {
   );
 }
 
-export default ContainerDetailsPage;
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item))
+})
+
+export default connect(null, mapDispatchToProps)(ContainerDetailsPage);
