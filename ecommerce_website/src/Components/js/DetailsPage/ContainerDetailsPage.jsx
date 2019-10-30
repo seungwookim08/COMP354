@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContainerDetailsPage = (props) => {
+const ContainerDetailsPage = ({addItem, item, name, description, id, category, price, sellerName}) => {
   const classes = useStyles();
 
   return (
@@ -35,42 +35,41 @@ const ContainerDetailsPage = (props) => {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.name}
+                  {name}
                   </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {props.description}
+                  {description}
                 </Typography>
                 {/* <Typography variant="body2" color="textSecondary">
                   {props.id}
                 </Typography> */}
                 <Typography variant="body2" color="textSecondary">
-                  Category: {props.category}
+                  Category: {category}
                 </Typography>
               </Grid>
               <Grid item>
                 <Typography variant="subtitle1">
-                  Price: {props.price}
+                  Price: {price}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Seller: {props.sellerName}
+                  Seller: {sellerName}
                 </Typography>
               </Grid>
               <Grid item>
                  <Typography variant="body2">
-                   Ratings: {props.ratings}
+                   Ratings: coming soon
                   </Typography>
                </Grid>
                <Grid item>
                  <Typography variant="body2" color="textSecondary">
-                   Customer Reviews: {props.reviews}
+                   Customer Reviews: coming soon
                   </Typography>
                </Grid>
               <Grid item>
                 <Button 
                   variant="contained" 
                   onClick={() => {
-                    alert("clicked");
-                    addItem(props);
+                    addItem(item);
                 }}
                 >
                   Add To Cart

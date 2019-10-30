@@ -20,6 +20,7 @@ const ItemDetailsPage = (props) => {
     <div>
       <ContainerDetailsPage
       // Retrieve and set values for the details page 
+        item = {item}
         name = {item.name}
         description = {item.description}
         id = {item.id}
