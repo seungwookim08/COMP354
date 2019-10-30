@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as ShoppingIcon} from '../../../assets/shopping-bag.svg';
+import {ReactComponent as ShoppingIcon} from '../../../Assets/shopping-bag.svg';
 import '../../css/Cart.css';
 import {connect} from 'react-redux';
 import {toggleCartHidden} from '../../../Redux/cart/cart.actions';

@@ -19,21 +19,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerName}) => {
+const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerId}) => {
   const classes = useStyles();
+  const [sellerFullName, setSellerFullName] = useState("");
 
-  const [seller,setSeller] = useState("");
-  const [sellerFirstName, setSellerFirstName] = useState("");
-  const [sellerLastName, setSellerLastName] = useState("");
-  // retrieve specific seller id for personal info
+  // retrieve specific name for seller personal info
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + item.sellerId)
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + sellerId)
     .then(({data}) => {
       if(data.is_success) {
-        setSeller(data.contents[0]);
-        setSellerFirstName(data.contents[0].firstName);
-        setSellerLastName(data.contents[0].lastName);
+        setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
       }
     });
   });
@@ -69,7 +65,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                   Price: {price}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  Seller: {sellerName}
+                  Seller: {sellerFullName}
                 </Typography>
               </Grid>
               <Grid item>
@@ -83,12 +79,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                   </Typography>
                </Grid>
               <Grid item>
-                <Button 
-                  variant="contained" 
-                  onClick={() => {
-                    addItem(item);
-                }}
-                >
+                <Button variant="contained" onClick={() => {addItem(item);}}>
                   Add To Cart
                 </Button>
               </Grid>
