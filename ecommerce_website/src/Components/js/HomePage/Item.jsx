@@ -27,9 +27,11 @@ const Item = ({item, history, addItem}) => {
                     <Typography> Category: {category} </Typography>
                     <Typography> Manufacturer: {manufacturer} </Typography>
                     {/* <Typography> Rating: {props.item.rating} </Typography> */}
-                    <Button variant="contained" onClick={() => addItem(item)}>Add To Cart</Button>
                 </div>
             </CardContent>
+            <div className="button">
+                <Button variant="contained" onClick={() => addItem(item)}>Add To Cart</Button>
+            </div>
         </Card>
 )};
 
