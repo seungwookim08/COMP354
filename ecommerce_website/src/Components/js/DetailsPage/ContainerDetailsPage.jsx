@@ -19,13 +19,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContainerDetailsPage = ({addItem, item, name, description, id, category, price, sellerName}) => {
+const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerName}) => {
   const classes = useStyles();
 
+  const [seller,setSeller] = useState("");
+  const [sellerFirstName, setSellerFirstName] = useState("");
+  const [sellerLastName, setSellerLastName] = useState("");
   // retrieve specific seller id for personal info
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.sellerId)
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + item.sellerId)
     .then(({data}) => {
       if(data.is_success) {
         setSeller(data.contents[0]);
@@ -42,7 +45,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, id, category, p
           <Grid item sm={4}>
             <ButtonBase className="image">
               {/* TODO: Add props.imageURL */}
-              <img className="img" alt="product image" src={props.imageURL} />
+              <img className="img" alt="product image" src={imageUrl} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm={8} container>

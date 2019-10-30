@@ -25,6 +25,7 @@ const ItemDetailsPage = (props) => {
       <ContainerDetailsPage
       // Retrieve and set values for the details page 
         item = {item}
+        imageUrl = {itemImageURL}
         name = {item.name}
         description = {item.description}
         category = {categoryName}
