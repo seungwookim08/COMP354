@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css"
+import axios from "axios";
 
 // Basic style for paper - can't retrieve 'theme.spacing(2)' inside css file
 const useStyles = makeStyles(theme => ({
@@ -21,6 +22,19 @@ const useStyles = makeStyles(theme => ({
 const ContainerDetailsPage = ({addItem, item, name, description, id, category, price, sellerName}) => {
   const classes = useStyles();
 
+  // retrieve specific seller id for personal info
+  useEffect(() => {
+    axios
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.sellerId)
+    .then(({data}) => {
+      if(data.is_success) {
+        setSeller(data.contents[0]);
+        setSellerFirstName(data.contents[0].firstName);
+        setSellerLastName(data.contents[0].lastName);
+      }
+    });
+  });
+
   return (
     <div className="container">
       <Paper className={classes.paper}>
@@ -28,7 +42,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, id, category, p
           <Grid item sm={4}>
             <ButtonBase className="image">
               {/* TODO: Add props.imageURL */}
-              <img className="img" alt="complex" src="/static/images/grid/complex.jpg" />
+              <img className="img" alt="product image" src={props.imageURL} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm={8} container>
