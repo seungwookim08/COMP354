@@ -10,6 +10,7 @@ class ProfilePage extends React.Component {
   state = {
     userContents: "",
     userId: "",
+    profileImage: "",
     firstName: "",
     lastName: "",
     address: "",
@@ -21,6 +22,7 @@ class ProfilePage extends React.Component {
     this.state = {
       userContents: [],
       userId: [],
+      profileImage: [],
       firstName: [],
       lastName: [],
       address: [],
@@ -33,8 +35,17 @@ class ProfilePage extends React.Component {
     .get('https://rocky-shore-99218.herokuapp.com/users/' + "1")
     .then(({data}) => {
       if(data.is_success) {
-        console.log("success")
-        return data.contents[0];
+        console.log("success");
+        console.log(data.contents[0]);
+        const tempData = data.contents[0];
+        this.setState({
+          userContents: tempData,
+          profileImage: tempData.imageUrl,
+          firstName: tempData.firstName,
+          lastName: tempData.lastName,
+          emailAddress: tempData.email,
+          address: tempData.primaryAddress,
+        });
       } else {
         console.log("error");
       }
@@ -43,20 +54,17 @@ class ProfilePage extends React.Component {
 
   // Called right before componentDidMount
   componentWillMount() {
-    // Retrieve data needed to fill in page
-    this.setState((state,props) => ({
-      userContents: this.getUserInfo()
-    }));
+  
   }
 
   // Called once rendering occurs
   componentDidMount() {
-    console.log("in didMount" + this.userContents);
+    this.getUserInfo();
   }
 
   // Used for when values for the user are changed
   componentWillUpdate() {
-    console.log("in will update" + this.userContents);
+
   }
 
   // <ButtonBase className="image">
@@ -69,39 +77,27 @@ class ProfilePage extends React.Component {
         <Paper>
           <Grid container spacing={2}>
             <Grid item sm={4}>
-             image
+             <img alt="profile image" src={this.state.profileImage}/>
             </Grid>
             <Grid item xs={12} sm={8} container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <Typography gutterBottom variant="subtitle1">
-                    name
+                    name: {this.state.firstName}
                     </Typography>
                   <Typography variant="body2" gutterBottom>
-                    description
+                    lastName: {this.state.lastName}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    Category: 
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2" color="textSecondary">
-                    Seller: 
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2">
-                    Ratings: coming soon
+                    Email: {this.state.emailAddress} 
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
-                    Customer Reviews: coming soon
-                    </Typography>
+                    Address: {this.state.address} 
+                  </Typography>
                 </Grid>
-                <Grid item>
-                  button
-                </Grid>
+                Seller Section with information
               </Grid>
             </Grid>
           </Grid>
