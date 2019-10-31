@@ -26,6 +26,10 @@
   padding: none;
 }
 
+.button {
+    text-align: center;
+}
+
 img {
   width: 225px ;
   height: auto;

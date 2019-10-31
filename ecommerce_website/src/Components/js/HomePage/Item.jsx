@@ -14,20 +14,23 @@ const Item = ({item, history, addItem}) => {
     return(
         <Card>
             <CardContent
-            onClick={ () => {
-                history.push("/item-details-page/" + item.id);
-            }}
+                onClick={() => {
+                    history.push("/product/" + item.id);
+                }}
             >
                 <div className='item-container'>
                     <img alt="item" src={imageUrl} />
                     <Typography variant="h5" component="h2"> {name} </Typography>
+                    {/* <Typography> ID: {id} </Typography> */}
                     <Typography> Price: {price} $</Typography>
                     <Typography> Category: {category} </Typography>
                     <Typography> Manufacturer: {manufacturer} </Typography>
                     {/* <Typography> Rating: {props.item.rating} </Typography> */}
-                    <Button variant="contained" onClick={() => addItem(item)}>Add To Cart </Button>
                 </div>
             </CardContent>
+            <div className="button">
+                <Button variant="contained" onClick={() => addItem(item)}>Add To Cart</Button>
+            </div>
         </Card>
 )};
 

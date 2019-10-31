@@ -1,27 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import ContainerImage from '../ContainerImage';
+import ContainerDetailsPage from '../ContainerDetailsPage';
 import axios from "axios";
 
-const ItemDetailsPage = () => {
-  const[item, setItem] = useState([]);
-  const[itemImage, setItemImage] = useState("");
-  const[itemDescription, setItemDescription] = useState("");
-  const[categoryFilter, setCategoryFilter] = useState("");
-  const[manufacturerFilter, setManufacturerFilter] = useState("");
-  const[ratingSort, setRatingSort] = useState("");
+const ItemDetailsPage = (props) => {
+  const[item, setItem] = useState("");
+  const[categoryName, setCategoryName] = useState("");
+  const[itemImageURL, setItemImageURL] = useState("");
 
+  // Retrieve specific product for the details page with the id
   useEffect(() => {
-    // pass id number at the end of products/
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/products/')
+    .get('https://rocky-shore-99218.herokuapp.com/products/' + props.match.params.id)
     .then(({data}) => {
-      setItem(data.contents);
+      if(data.is_success) {
+        setItem(data.contents[0]);
+        setCategoryName(data.contents[0].categories[0].name);
+        setItemImageURL(data.contents[0].images[0].url);
+      }
     });
   });
 
   return (
     <div>
-      <ContainerImage />
+      <ContainerDetailsPage
+      // Retrieve and set values for the details page 
+        item = {item}
+        imageUrl = {itemImageURL}
+        name = {item.name}
+        description = {item.description}
+        category = {categoryName}
+        price = {item.price}
+        sellerId = {item.sellerId}
+        id = {item.id}
+      />
     </div>
   );
 }
