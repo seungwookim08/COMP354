@@ -10,23 +10,25 @@ class ProfilePage extends React.Component {
   state = {
     userContents: "",
     userId: "",
-    profileImage: "",
+    profileImageUrl: "",
     firstName: "",
     lastName: "",
-    address: "",
+    primaryAddress: "",
+    alternateAddress: "",
     emailAddress: "",
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      userContents: [],
-      userId: [],
-      profileImage: [],
-      firstName: [],
-      lastName: [],
-      address: [],
-      emailAddress: []
+      userContents: props.userContents,
+      userId: props.userID,
+      profileImageUrl: props.profileImageUrl,
+      firstName: props.firstName,
+      lastName: props.lastName,
+      address: props.primaryAddress,
+      alternateAddress: props.alternateAddress,
+      emailAddress: props.emailAddress
     }
   }
 
@@ -44,7 +46,8 @@ class ProfilePage extends React.Component {
           firstName: tempData.firstName,
           lastName: tempData.lastName,
           emailAddress: tempData.email,
-          address: tempData.primaryAddress,
+          primaryAddress: tempData.primaryAddress,
+          alternateAddress: tempData.alternateAddress,
         });
       } else {
         console.log("error");
@@ -77,7 +80,7 @@ class ProfilePage extends React.Component {
         <Paper>
           <Grid container spacing={2}>
             <Grid item sm={4}>
-             <img alt="profile image" src={this.state.profileImage}/>
+             <img alt="profile image" src={this.state.profileImageUrl}/>
             </Grid>
             <Grid item xs={12} sm={8} container>
               <Grid item xs container direction="column" spacing={2}>
@@ -94,7 +97,10 @@ class ProfilePage extends React.Component {
                 </Grid>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
-                    Address: {this.state.address} 
+                    Address: {this.state.primaryAddress} 
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Alternate Address: {this.state.alternateAddress} 
                   </Typography>
                 </Grid>
                 Seller Section with information
