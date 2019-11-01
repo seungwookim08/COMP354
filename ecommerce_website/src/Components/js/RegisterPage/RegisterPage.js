@@ -1,5 +1,5 @@
 
- import axios from "axios";
+import axios from "axios";
 import FormData from 'form-data'
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
@@ -71,14 +71,11 @@ export class Register extends Component {
     };
 
     // A function that submits the form to the backend (restAPI)
-    submit = () => {
-
-        
+    submit = () => { 
         // if condition to make sure all the required fields have some input (some value)
         if (this.state.firstName != null && this.state.lastName != null && this.state.email != null && this.state.primaryAddress != null && this.state.imageUrl != null && this.state.password != null && this.state.password == this.state.repeat_password) {
 
             const formData = new FormData();
-            //const formHeaders = formData.getHeaders;
             formData.append('firstName:', this.state.firstName);
             formData.append('lastName:', this.state.lastName);
             formData.append('email:', this.state.email);
@@ -95,10 +92,10 @@ export class Register extends Component {
             // Sending the form to the backend 
             axios.post('https://rocky-shore-99218.herokuapp.com/users', formData, {})
                 .then(function (response) {
-                    // response = data sent from backend
-                    // .content 
                     if (response.data.is_success) {
                         console.log("success");
+                        // If successful then we need to store the response.data.contents obeject somewhere
+                        // console.log(response.data.contents[0]);
                     } else {
                         console.log(response.data.message);
                     }

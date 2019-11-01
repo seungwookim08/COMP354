@@ -43,7 +43,11 @@ export class Login extends Component {
         password: this.state.password,
       })
         .then(function (response) {
-          console.log(response.data.message);
+           // The servers response 
+           console.log(response.data.message);
+           // If successful then we need to store the response.data.contents obeject   
+           // console.log(response.data.contents[0]);
+           // console.log(response.data.contents[0].email);
         })
         .catch(function (error) {
           console.log(error);
