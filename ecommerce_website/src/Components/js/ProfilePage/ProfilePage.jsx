@@ -3,6 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import "../../css/ProfilePage.css"
 import axios from "axios";
 
 class ProfilePage extends React.Component {
@@ -15,7 +17,7 @@ class ProfilePage extends React.Component {
     lastName: "",
     primaryAddress: "",
     alternateAddress: "",
-    emailAddress: "",
+    emailAddress: ""
   }
 
   constructor(props) {
@@ -38,7 +40,6 @@ class ProfilePage extends React.Component {
     .then(({data}) => {
       if(data.is_success) {
         console.log("success");
-        console.log(data.contents[0]);
         const tempData = data.contents[0];
         this.setState({
           userContents: tempData,
@@ -70,40 +71,229 @@ class ProfilePage extends React.Component {
 
   }
 
-  // <ButtonBase className="image">
-  // <img className="img" alt="product image" src="" />
-  // </ButtonBase>
+  useStyles = makeStyles(theme => ({
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 200,
+    },
+  }));
 
   render() {
     return(
       <div className="container">
-        <Paper>
+        <div>
+        {/* <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Hello World"
+          className="text-field"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+          className="text-field"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          className="text-field"
+          type="password"
+          autoComplete="current-password"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          className="text-field"
+          margin="normal"
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          className="text-field"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-search"
+          label="Search field"
+          type="search"
+          className="text-field"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          className="text-field"
+          helperText="Some important text"
+          margin="normal"
+          variant="outlined"
+        /> */}
+      </div>
+        <Paper className="paper">
           <Grid container spacing={2}>
-            <Grid item sm={4}>
-             <img alt="profile image" src={this.state.profileImageUrl}/>
+            <Grid item xs={12} sm={4}>
+             <img alt="User Profile Image" src={this.state.profileImageUrl}/>
             </Grid>
             <Grid item xs={12} sm={8} container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
-                    name: {this.state.firstName}
-                    </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    lastName: {this.state.lastName}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Email: {this.state.emailAddress} 
-                  </Typography>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="First Name"
+                    defaultValue="First Name"
+                    className="text-field"
+                    margin="normal"
+                    value={this.state.firstName}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
                 </Grid>
-                <Grid item>
-                  <Typography variant="body2" color="textSecondary">
-                    Address: {this.state.primaryAddress} 
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Alternate Address: {this.state.alternateAddress} 
-                  </Typography>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Last Name"
+                    defaultValue="Last Name"
+                    className="text-field"
+                    margin="normal"
+                    value={this.state.lastName}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
                 </Grid>
-                Seller Section with information
+                <Grid item xs>  
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Email Address"
+                    defaultValue="Email Address"
+                    className="text-field"
+                    margin="normal"
+                    value={this.state.emailAddress}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Primary Address"
+                    defaultValue="Primary Address"
+                    className="text-field"
+                    margin="normal"
+                    value={this.state.primaryAddress}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Alternate Address"
+                    defaultValue="Alternate Address"
+                    className="text-field"
+                    margin="normal"
+                    value={this.state.alternateAddress}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+        <Paper className="paper">
+          <Grid container spacing={2}>
+            <Grid item sm={4}>
+             <img alt="Seller Profile Image" src={this.state.profileImageUrl}/>
+            </Grid>
+            <Grid item xs={12} sm={8} container>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Business Name"
+                    defaultValue="Business Name"
+                    className="text-field"
+                    margin="normal"
+                    value="Coming Soon"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs>  
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Email Address"
+                    defaultValue="Email Address"
+                    className="text-field"
+                    margin="normal"
+                    value="Coming Soon"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Primary Address"
+                    defaultValue="Primary Address"
+                    className="text-field"
+                    margin="normal"
+                    value="Coming Soon"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Alternate Address"
+                    defaultValue="Alternate Address"
+                    className="text-field"
+                    margin="normal"
+                    value="Coming Soon"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
