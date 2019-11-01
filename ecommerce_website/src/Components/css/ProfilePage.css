@@ -5,8 +5,19 @@
   margin-bottom: 20px;
 }
 
-.text-field {
+.text-field-disabled {
   /* margin-left: 16px !important; */
   margin-right: 16px !important;
   min-width: 50% !important;
+}
+
+.text-field-enabled {
+  /* margin-left: 16px !important; */
+  margin-right: 16px !important;
+  min-width: 50% !important;
+}
+
+.edit {
+  background-color: black !important;
+  float: right;
 }
