@@ -20,20 +20,21 @@ const AddProduct = props => {
   const [sellerID, setSellerID] = useState(1);
   const [manufacturer, setManufacturer] = useState("");
   const [category, setCategory] = useState("");
-  const [image1, setImage1] = useState("");
+  const [image1, setImage1] = useState([]);
 
 
   function sendPostRequest() {
     //handle form submission
+    
     const formData = new FormData();
     formData.append("name:", name);
     formData.append("price:", price);
     formData.append("quantity:", quantity);
     formData.append("description:", description);
-    formData.append("sellerID:", sellerID);
+    formData.append("sellerId:", sellerID);
     formData.append("manufacturer:", manufacturer);
     formData.append("category:", category);
-    formData.append("image1:", document.getElementById("image1"));
+    formData.append("image1:", image1);
 
    
     console.log(name);
@@ -43,7 +44,7 @@ const AddProduct = props => {
     console.log(sellerID);
     console.log(manufacturer);
     console.log(category);
-    console.log(document.getElementById("image1"));
+    console.log(image1);
 
 
 
@@ -115,9 +116,9 @@ const AddProduct = props => {
           <TextField
           id="image1"
           type="file"
-          handleChange={e => setImage1(e.target.files[0])}
-
+          onChange={e => setImage1(e.target.files[0])}
           />
+          
 
         </DialogContent>
         <DialogActions>
