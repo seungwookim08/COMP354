@@ -37,9 +37,10 @@ export class Login extends Component {
 
     // if condition to make sure all the required fields have some input (some value)
     if (this.state.email != null && this.state.password != null ){
-      axios.post('https://rocky-shore-99218.herokuapp.com/users', {
+
+      axios.post('https://rocky-shore-99218.herokuapp.com/login', {
         email: this.state.email,
-        lastName: this.state.password,
+        password: this.state.password,
       })
         .then(function (response) {
           console.log(response.data.message);
@@ -64,7 +65,7 @@ export class Login extends Component {
     return (
       <Container component="main" maxWidth="xs">
         <form noValidate>
-          <Typography align="center" component="h1" variant="h5"> Create Account </Typography>
+          <Typography align="center" component="h1" variant="h5"> Sign In </Typography>
           <TextField
             required
             margin="normal"
