@@ -6,6 +6,8 @@ import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "./UserCart/Header";
 
+import logo from '../../ImageAssets/logo_smaller.svg';
+
 export default function NavBar() {
   const [value, setValue] = React.useState(1);
 
@@ -25,7 +27,8 @@ export default function NavBar() {
             onChange={handleChange}
             aria-label="nav tabs example"
           >
-            <Tab className="no-hover" label="LOGO" />
+
+            <Tab className="no-hover" icon={<img class="stelle" src={logo}/>}  />
             <Tab label="Home" component={Link} to="/"/>
             <Tab label="Cart" component={Link} to={"/checkout"} />
             <Tab label="Profile" component={Link} to={"/profile"} />
