@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "../../css/HomePage.css"
 import { SearchBar } from "./SearchBar";
 import ItemList from "./ItemList";
 import { PriceFilter } from "./PriceFilter";
@@ -6,6 +7,8 @@ import { CategoryFilter } from "./CategoryFilter";
 import { SortRatingFilter } from "./SortRatingFilter";
 import { ManufacturerFilter } from "./ManufacturerFilter";
 import axios from "axios";
+
+import logo from '../../../ImageAssets/logo.png';
 
 const HomePage = () => {
   
@@ -55,6 +58,9 @@ const HomePage = () => {
   return (
     <div className="App">
       <div>
+
+        <img class="central_logo" src={logo}/>
+
         <SearchBar
           handleChange={e => setSearchField(e.target.value)}
         />
