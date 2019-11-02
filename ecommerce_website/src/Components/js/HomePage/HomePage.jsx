@@ -64,19 +64,26 @@ const HomePage = () => {
         <SearchBar
           handleChange={e => setSearchField(e.target.value)}
         />
-        <PriceFilter
-          handleChange={e => setPriceFilter(e.target.value)}
-        />
-        <CategoryFilter
-          handleChange={e => setCategoryFilter(e.target.value)}
-        />
-        <ManufacturerFilter
-          handleChange={e => setManufacturerFilter(e.target.value)}
-        />
-        <SortRatingFilter
-          handleChange={e => setRatingSort(e.target.value)}
-        />
+
+        <br></br>
+        <div class="central_search_filters"> 
+          <PriceFilter
+            handleChange={e => setPriceFilter(e.target.value)}
+          />
+          <CategoryFilter
+            handleChange={e => setCategoryFilter(e.target.value)}
+          />
+          <ManufacturerFilter
+            handleChange={e => setManufacturerFilter(e.target.value)}
+          />
+          <SortRatingFilter
+            handleChange={e => setRatingSort(e.target.value)}
+          />
+        </div>
       </div>
+
+      <br></br><br></br><br></br>
+
       <ItemList
         items={filteredItems}
       />

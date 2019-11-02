@@ -5,17 +5,22 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 export const SearchBar = ({ handleChange }) => (
-  <div className="outer-container">
+  <div className="outer-container" class="central_search_bar">
     <TextField
-      type="search"
       id="searchBar"
-      label="Search items"
+      type="search"
+      margin="normal"
+      variant="outlined"
+      placeholder="Search for anything..."
+      /*label="Search for anything"*/
+      //fullWidth
+      style = {{width: 450}} 
+
       onChange={handleChange}
       InputProps={{
         startAdornment: <InputAdornment position="start"><SearchIcon/></InputAdornment>,
       }}
     />
-
   </div>
 )
 

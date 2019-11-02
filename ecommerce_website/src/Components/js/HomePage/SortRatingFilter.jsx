@@ -8,7 +8,7 @@ import "../../css/Filters.css";
 export const SortRatingFilter = ({ handleChange }) => (
 
     <div className="filter">
-        <FormControl>
+        <FormControl variant="outlined">
             <InputLabel htmlFor="age-native-simple">Rating </InputLabel>
             <Select
                 native
