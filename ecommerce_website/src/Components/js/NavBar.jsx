@@ -30,6 +30,8 @@ export default function NavBar() {
             <Tab label="Cart" component={Link} to={"/checkout"} />
             <Tab label="Profile" component={Link} to={"/profile"} />
             <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+            <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
+            <Tab label="Login" component={Link} to={"/Login"} />
             <Tab label="About" component={Link} to={"/about"} />
           </Tabs>
         </AppBar>
