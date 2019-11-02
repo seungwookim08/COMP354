@@ -26,7 +26,7 @@ export default function NavBar() {
             value={value}
             onChange={handleChange}
             aria-label="nav tabs example"
-            TabIndicatorProps={{style: {backgroundColor: "black"}}}
+            TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
           >
 
             <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>}  />
