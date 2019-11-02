@@ -1,25 +1,22 @@
 import React from "react";
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
 import "../../css/ProfilePage.css"
 import axios from "axios";
 
 class ProfilePage extends React.Component {
 
   state = {
-    userContents: "",
-    userId: "",
+    userContents: null,
+    userId: null,
     profileImageUrl: "",
-    firstName: "",
-    lastName: "",
-    primaryAddress: "",
-    alternateAddress: "",
-    emailAddress: "",
-    triggerEdit: false
+    firstName: null,
+    lastName: null,
+    primaryAddress: null,
+    alternateAddress: null,
+    emailAddress: null,
   }
 
   constructor(props) {
@@ -33,30 +30,23 @@ class ProfilePage extends React.Component {
       address: props.primaryAddress,
       alternateAddress: props.alternateAddress,
       emailAddress: props.emailAddress,
-      triggerEdit: false
     }
-  }
-
-  // Called right before componentDidMount
-  componentWillMount() {
-    console.log("will mount called");
   }
 
   // Called once rendering occurs
   componentDidMount() {
-    console.log("did mount called");
     this.getUserInfo();
   }
 
-  // Used for when values for the user are changed
-  componentWillUpdate() {
-    console.log("update called");
-  }
-
   getUserInfo() {
+    // TODO: Change id to userID rather than '1'
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
+
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + "1")
     .then(({data}) => {
+      console.log("receiving data");
       if(data.is_success) {
         console.log("success");
         const tempData = data.contents[0];
@@ -75,25 +65,21 @@ class ProfilePage extends React.Component {
     });
   }
 
-  triggerEdit() {
-    this.setState({
-      triggerEdit: !this.state.triggerEdit
+  setUserInfo() {
+    // TODO: Change id to userID rather than '1'
+    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + "1", {
+      imageUrl: this.state.profileImageUrl,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      primaryAddress: this.state.primaryAddress,
+      alternateAddress: this.state.alternateAddress,
+      emailAddress: this.state.emailAddress
+    }).then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-    this.setIdName();
-  }
-
-  setIdName() {
-    if(this.state.triggerEdit) {
-      // if true, we can edit
-      return "text-edit-enabled";
-    } else {
-      // if false, cannot edit
-      return "outlined-read-only-input";
-    }
-  }
-
-  changeAttributeValue(value) {
-  
   }
 
   render() {
@@ -101,11 +87,6 @@ class ProfilePage extends React.Component {
       <div className="container">
         <Paper className="paper">
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Fab color="secondary" aria-label="edit" className="edit button">
-                <EditIcon onClick={() => this.triggerEdit()}/>
-              </Fab>
-            </Grid>
             <Grid item xs={12} sm={4}>
              <img alt="User Profile Image" src={this.state.profileImageUrl}/>
             </Grid>
@@ -113,76 +94,122 @@ class ProfilePage extends React.Component {
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="First Name"
                     defaultValue="First Name"
                     className="text-field"
                     margin="normal"
                     value={this.state.firstName}
+                    onChange={e => {
+                      this.setState({
+                        firstName: e.target.value
+                      })
+                    }}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Last Name"
                     defaultValue="Last Name"
                     className="text-field"
                     margin="normal"
                     value={this.state.lastName}
+                    onChange={e => {
+                      this.setState({
+                        lastName: e.target.value
+                      })
+                    }}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>  
                   <TextField
-                    id={this.setIdName()}
+                    disabled
+                    id="outlined-disabled"
+                    label="Email Address"
+                    defaultValue="Email Address"
+                    className="text-field"
+                    margin="normal"
+                    variant="outlined"
+                    value={this.state.emailAddress}
+                  />
+                  <TextField
+                    id="outlined-read-only-input"
                     label="Email Address"
                     defaultValue="Email Address"
                     className="text-field"
                     margin="normal"
                     value={this.state.emailAddress}
+                    onChange={e => {
+                      this.setState({
+                        emailAddress: e.target.value
+                      })
+                    }}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Primary Address"
                     defaultValue="Primary Address"
                     className="text-field"
                     margin="normal"
                     value={this.state.primaryAddress}
+                    onChange={e => {
+                      this.setState({
+                        primaryAddress: e.target.value
+                      })
+                    }}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Alternate Address"
                     defaultValue=""
                     className="text-field"
                     margin="normal"
                     value={this.state.alternateAddress}
+                    onChange={e => {
+                      this.setState({
+                        alternateAddress: e.target.value
+                      })
+                    }}
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
-                    // onSubmit={alert("Clicked")}
                   />
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Button 
+                disabled
+                variant="contained" 
+                style={{
+                  margin: "25px"
+                }}
+                onClick={e => this.setUserInfo()}
+              >
+                Save
+              </Button>
             </Grid>
           </Grid>
         </Paper>
@@ -195,132 +222,74 @@ class ProfilePage extends React.Component {
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Business Name"
                     defaultValue="Business Name"
                     className="text-field"
                     margin="normal"
                     value="Coming Soon"
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>  
                   <TextField
-                    id={this.setIdName()}
+                    disabled
+                    id="outlined-disabled"
                     label="Email Address"
                     defaultValue="Email Address"
                     className="text-field"
                     margin="normal"
                     value="Coming Soon"
-                    InputProps={{
-                      readOnly: true,
-                    }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Primary Address"
                     defaultValue="Primary Address"
                     className="text-field"
                     margin="normal"
                     value="Coming Soon"
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
                 <Grid item xs>
                   <TextField
-                    id={this.setIdName()}
+                    id="outlined-read-only-input"
                     label="Alternate Address"
                     defaultValue="Alternate Address"
                     className="text-field"
                     margin="normal"
                     value="Coming Soon"
                     InputProps={{
-                      readOnly: true,
+                      readOnly: false,
                     }}
                     variant="outlined"
                   />
                 </Grid>
               </Grid>
             </Grid>
+            <Grid item xs={12}>
+              <Button 
+                disabled
+                variant="contained" 
+                style={{
+                  margin: "25px"
+                }}
+                onClick={e => this.setUserInfo()}
+              >
+                Save
+              </Button>
+            </Grid>
           </Grid>
         </Paper>
-        <div>
-        <TextField
-          required
-          id="outlined-required"
-          label="Required"
-          defaultValue="Hello World"
-          className="text-field"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          disabled
-          id="outlined-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
-          className="text-field"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          className="text-field"
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
-          className="text-field"
-          margin="normal"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-number"
-          label="Number"
-          type="number"
-          className="text-field"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-search"
-          label="Search field"
-          type="search"
-          className="text-field"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          className="text-field"
-          helperText="Some important text"
-          margin="normal"
-          variant="outlined"
-        />
-      </div>
       </div>
     );
   }
