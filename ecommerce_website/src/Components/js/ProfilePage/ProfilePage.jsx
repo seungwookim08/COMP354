@@ -44,7 +44,7 @@ class ProfilePage extends React.Component {
     const source = cancelToken.source();
 
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + "1")
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + localStorage.getItem("userId"))
     .then(({data}) => {
       console.log("receiving data");
       if(data.is_success) {
@@ -141,23 +141,6 @@ class ProfilePage extends React.Component {
                     variant="outlined"
                     value={this.state.emailAddress}
                   />
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Email Address"
-                    defaultValue="Email Address"
-                    className="text-field"
-                    margin="normal"
-                    value={this.state.emailAddress}
-                    onChange={e => {
-                      this.setState({
-                        emailAddress: e.target.value
-                      })
-                    }}
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
                 </Grid>
                 <Grid item xs>
                   <TextField
@@ -182,7 +165,7 @@ class ProfilePage extends React.Component {
                   <TextField
                     id="outlined-read-only-input"
                     label="Alternate Address"
-                    defaultValue=""
+                    defaultValue="Alternate Address"
                     className="text-field"
                     margin="normal"
                     value={this.state.alternateAddress}
