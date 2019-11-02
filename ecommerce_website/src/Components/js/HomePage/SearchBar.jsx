@@ -14,7 +14,7 @@ export const SearchBar = ({ handleChange }) => (
       placeholder="Search for anything..."
       /*label="Search for anything"*/
       //fullWidth
-      style = {{width: 450}} 
+      style = {{width: 700}} 
 
       onChange={handleChange}
       InputProps={{

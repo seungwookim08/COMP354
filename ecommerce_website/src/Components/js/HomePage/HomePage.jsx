@@ -70,7 +70,6 @@ export default class HomePage extends Component {
     }, this.loadItems);
   }
 
-
   handleSortOrderChanged(sortOrder) {
     this.setState({
       asc: sortOrder
@@ -87,12 +86,14 @@ export default class HomePage extends Component {
     return (
         <div className="App">
           <div>
-            <img class="central_logo" src={logo}/>
-            <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
-            <br></br>
-            <div class="central_search_filters"> 
-                <FilterByDropdown onFilterColumnChange={c => this.handleFilterColumnChanged(c)}/>
-                <SortOrderDropdown onSortOrderChanged={o => this.handleSortOrderChanged(o)}/>
+          <div class="central_search_elements">
+              <img class="central_logo" src={logo}/>
+              <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
+              <br></br>
+              <div class="central_search_filters"> 
+                  <FilterByDropdown onFilterColumnChange={c => this.handleFilterColumnChanged(c)}/>
+                  <SortOrderDropdown onSortOrderChanged={o => this.handleSortOrderChanged(o)}/>
+              </div>
             </div>
           </div>
           <br></br><br></br><br></br>
