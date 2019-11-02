@@ -213,7 +213,7 @@ class ProfilePage extends React.Component {
             </Grid>
           </Grid>
         </Paper>
-        <Paper className="paper">
+        {/* <Paper className="paper">
           <Grid container spacing={2}>
             <Grid item sm={4}>
              <img alt="Seller Profile Image" src={this.state.profileImageUrl}/>
@@ -289,7 +289,7 @@ class ProfilePage extends React.Component {
               </Button>
             </Grid>
           </Grid>
-        </Paper>
+        </Paper> */}
       </div>
     );
   }
