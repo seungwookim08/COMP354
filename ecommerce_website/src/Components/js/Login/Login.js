@@ -46,9 +46,7 @@ class Login extends Component {
       })
         .then(function (response) {
           if(response.data.is_success) {
-            console.log("in if")
             localStorage.setItem("userId", response.data.contents[0].id)
-            console.log(localStorage.getItem("userId"))
           }
           // The servers response 
           console.log(response.data.message);
