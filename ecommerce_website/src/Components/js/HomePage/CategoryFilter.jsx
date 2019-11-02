@@ -23,11 +23,14 @@ useEffect(() => {
 //add all the categories as options
   return (
     <div className="filter">
-      <FormControl>
-        <InputLabel htmlFor="age-native-simple">Categories</InputLabel>
+      <FormControl variant="outlined">
+        <InputLabel htmlFor="age-native-simple"categories>
+           Categories
+        </InputLabel>
         <Select
           native
           onChange={handleChange}
+          autoWidth={true}
         >
           <option value={""}></option>
           {allCategories.map(category =>
