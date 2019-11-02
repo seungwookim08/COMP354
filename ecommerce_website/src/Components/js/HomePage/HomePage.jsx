@@ -61,26 +61,27 @@ const HomePage = () => {
 
         <img class="central_logo" src={logo}/>
 
-        <SearchBar
-          handleChange={e => setSearchField(e.target.value)}
-        />
-
-        <br></br>
-        <div class="central_search_filters"> 
-          <PriceFilter
-            handleChange={e => setPriceFilter(e.target.value)}
-          />
-          <CategoryFilter
-            handleChange={e => setCategoryFilter(e.target.value)}
-          />
-          <ManufacturerFilter
-            handleChange={e => setManufacturerFilter(e.target.value)}
-          />
-          <SortRatingFilter
-            handleChange={e => setRatingSort(e.target.value)}
-          />
+        <div class="central_search_elements">
+              <SearchBar
+                handleChange={e => setSearchField(e.target.value)}
+              />
+              <br></br>
+              <div class="central_search_filters"> 
+                <PriceFilter
+                  handleChange={e => setPriceFilter(e.target.value)}
+                />
+                <CategoryFilter
+                  handleChange={e => setCategoryFilter(e.target.value)}
+                />
+                <ManufacturerFilter
+                  handleChange={e => setManufacturerFilter(e.target.value)}
+                />
+                <SortRatingFilter
+                  handleChange={e => setRatingSort(e.target.value)}
+                />
+              </div>
         </div>
-      </div>
+      </div>  
 
       <br></br><br></br><br></br>
 

@@ -3,6 +3,13 @@
 	display: block;
 	margin: 0 auto;
 
-	width: 25%;
-	height: 25%;
+	width: 30%;
+	height: 30%;
+}
+.central_search_elements{
+	display: block;
+	margin: 0 auto;
+
+	width: 65%;
+	height: 65%;
 }
