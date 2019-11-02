@@ -26,9 +26,10 @@ export default function NavBar() {
             value={value}
             onChange={handleChange}
             aria-label="nav tabs example"
+            TabIndicatorProps={{style: {backgroundColor: "black"}}}
           >
 
-            <Tab className="no-hover" icon={<img class="stelle" src={logo}/>}  />
+            <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>}  />
             <Tab label="Home" component={Link} to="/"/>
             <Tab label="Cart" component={Link} to={"/checkout"} />
             <Tab label="Profile" component={Link} to={"/profile"} />
