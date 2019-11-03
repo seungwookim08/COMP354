@@ -1,10 +1,10 @@
 import React from 'react';
-import "../css/NavBar.css"
+import "../../css/NavBar.css";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
-import Header  from "./UserCart/Header";
+import Header  from "../UserCart/Header";
 
 export default function NavBar() {
   const [value, setValue] = React.useState(1);

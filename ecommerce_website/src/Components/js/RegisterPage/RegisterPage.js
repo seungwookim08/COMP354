@@ -76,13 +76,13 @@ class Register extends Component {
         if (this.state.firstName != null && this.state.lastName != null && this.state.email != null && this.state.primaryAddress != null && this.state.imageUrl != null && this.state.password != null && this.state.password == this.state.repeat_password) {
 
             const formData = new FormData();
-            formData.append('firstName:', this.state.firstName);
-            formData.append('lastName:', this.state.lastName);
-            formData.append('email:', this.state.email);
-            formData.append('primaryAddress:', this.state.primaryAddress);
-            formData.append('alternateAddress:', this.state.alternateAddress);
-            formData.append('password:', this.state.password);
-            formData.append('repeat_password:', this.state.repeat_password);
+            formData.append('firstName', this.state.firstName);
+            formData.append('lastName', this.state.lastName);
+            formData.append('email', this.state.email);
+            formData.append('primaryAddress', this.state.primaryAddress);
+            formData.append('alternateAddress', this.state.alternateAddress);
+            formData.append('password', this.state.password);
+            formData.append('repeat_password', this.state.repeat_password);
             formData.append('imageUrl', this.state.imageUrl, this.state.imageUrl.name) ;
 
             for (var key of formData.entries()) {
