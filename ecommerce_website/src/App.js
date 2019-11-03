@@ -22,6 +22,7 @@ class App extends Component {
         <NavBar />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/COMP354" component={HomePage} />
           <Route path="/cart" />
           <Route path="/profile" component={ProfilePage}/>
           <Route path='/dashboard' component={AccountDashboard} />
