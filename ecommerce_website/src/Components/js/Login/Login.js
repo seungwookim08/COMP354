@@ -44,10 +44,13 @@ export class Login extends Component {
       })
         .then(function (response) {
            // The servers response 
-           console.log(response.data.message);
-           // If successful then we need to store the response.data.contents obeject   
-           // console.log(response.data.contents[0]);
-           // console.log(response.data.contents[0].email);
+          console.log(response.data.message);
+          if(response.data.is_success) {
+            localStorage.setItem("userId", response.data.contents[0].id)
+          }
+          // If successful then we need to store the response.data.contents obeject   
+          // console.log(response.data.contents[0]);
+          // console.log(response.data.contents[0].email);
         })
         .catch(function (error) {
           console.log(error);

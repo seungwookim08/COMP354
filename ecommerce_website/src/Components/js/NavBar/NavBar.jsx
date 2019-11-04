@@ -15,25 +15,54 @@ export default function NavBar() {
     setValue(newValue);
   };
 
+  const userIsLoggedIn = function() {
+    if(localStorage.getItem("userId") !== null) {
+      console.log("if: userid = ", localStorage.getItem("userId"));
+      return true;
+    }
+    console.log("else");
+    return false;
+  }
+
   return (
     <div className="navigation-bar">
         <AppBar position="static">
-          <Tabs
-            className="nav-items"
-            variant="fullWidth"
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <Tab className="no-hover" label="LOGO" />
-            <Tab label="Home" component={Link} to="/"/>
-            <Tab label="Cart" component={Link} to={"/checkout"} />
-            <Tab label="Profile" component={Link} to={"/profile"} />
-            <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
-            <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
-            <Tab label="Login" component={Link} to={"/Login"} />
-            <Tab label="About" component={Link} to={"/about"} />
-          </Tabs>
+            {
+              userIsLoggedIn() ? 
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="nav tabs example"
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Profile" component={Link} to={"/profile"} />
+                  <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+              :
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="nav tabs example"
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
+                  <Tab label="Login" component={Link} to={"/Login"} />
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+            }
         </AppBar>
         <div>
           <Header/>
