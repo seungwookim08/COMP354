@@ -5,8 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
+import {connect} from 'react-redux';
 
-export default function NavBar() {
+const NavBar = () => {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
@@ -41,3 +42,9 @@ export default function NavBar() {
     </div>
   );
 }
+
+const mapStateToProps = ({user}) => ({
+  currentUser: user
+});
+
+export default connect(mapStateToProps)(NavBar);

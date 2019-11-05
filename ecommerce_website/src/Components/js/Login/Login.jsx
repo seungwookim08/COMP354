@@ -1,71 +1,78 @@
 
 import axios from "axios";
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import {setCurrentUser} from '../../../Redux/user/user.actions';
+import {connect} from 'react-redux';
 
+const Login = ({setCurrentUser}) => {
 
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
+  const emailRegex = RegExp(
+    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  );
 
-export class Login extends Component {
-  state = {
-    email: null,
-    password: null,
-  };
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
 
   // A function that vaildates input and then changes state 
-  handleChange = (input) => e => {
+  const handleChange = (input) => e => {
 
     if ([input] == 'email' && emailRegex.test(e.target.value) == true) {
-      this.setState({ [input]: e.target.value });
+      setEmail(e.target.value );
     }
     else if ([input] == 'password' && e.target.value.length != 0) {
-      this.setState({ [input]: e.target.value });
+      setPassword(e.target.value );
     }
     else
-      this.setState({ [input]: null });
+    {
+      setEmail(null);
+      setPassword(null);
+    }
+      
   };
 
   // A function that submits the form to the backend (restAPI)
-  submit = () => {
+  const submit = () => {
 
     // if condition to make sure all the required fields have some input (some value)
-    if (this.state.email != null && this.state.password != null ){
+    if (email != null && password != null ){
 
       axios.post('https://rocky-shore-99218.herokuapp.com/login', {
-        email: this.state.email,
-        password: this.state.password,
+        email: email,
+        password: password,
       })
         .then(function (response) {
            // The servers response 
-           console.log(response.data.message);
+           console.log(response);
            // If successful then we need to store the response.data.contents obeject   
            // console.log(response.data.contents[0]);
            // console.log(response.data.contents[0].email);
+           setCurrentUser(response.data.contents[0]);
+
         })
         .catch(function (error) {
           console.log(error);
         });
     }
     else
-      console.log("not vaild")
-    this.print();
+      console.log("not vaild");
+
+    print();
   }
 
   // A function that console logs the fields of the form
-  print = () => {
-    console.log(this.state.email)
-    console.log(this.state.password)
+  const print = () => {
+    console.log(email)
+    console.log(password)
   };
 
   // rendering the actually form 
-  render() {
+  
     return (
       <Container component="main" maxWidth="xs">
         <form noValidate>
@@ -77,8 +84,8 @@ export class Login extends Component {
             variant="outlined"
             label="Email"
             placeholder="Enter Your Email"
-            defaultValue={this.props.email}
-            onChange={this.handleChange('email')}
+            defaultValue=""
+            onChange={handleChange('email')}
           /> <br />
           <TextField
             required
@@ -88,14 +95,14 @@ export class Login extends Component {
             variant="outlined"
             label="Password"
             placeholder="Enter A Password"
-            defaultValue={this.props.password}
-            onChange={this.handleChange('password')}
+            defaultValue=""
+            onChange={handleChange('password')}
           /> <br />
           <Button
             fullWidth="true"
             color="primary"
             variant="contained"
-            onClick={this.submit}
+            onClick={submit}
           > Sign In
           </Button>
           <Grid container justify="flex-end">
@@ -107,8 +114,12 @@ export class Login extends Component {
       </Container>
     );
   }
-}
-export default Login;
+
+  const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+  });
+
+export default connect(null, mapDispatchToProps)(Login);
 
 /*
 error
