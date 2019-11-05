@@ -5,36 +5,64 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
+import {connect} from 'react-redux';
 
-export default function NavBar() {
-  const [value, setValue] = React.useState(1);
+const mapStateToProps = (isUserLoggedIn) => {
+  const {isLoggedIn} = isUserLoggedIn
+  return isLoggedIn
+}
 
-  const handleChange = (event, newValue) => {
-    console.log(event);
-    console.log(newValue);
-    setValue(newValue);
+class NavBar extends React.Component {
+  
+  state = {
+    value: null,
+    userIsLoggedIn: false,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+      userIsLoggedIn: props.userIsLoggedIn
+    }
+  }
+
+  handleChange(event, newValue) {
+    this.setState({
+      value: newValue,
+    }) 
   };
 
-  const userIsLoggedIn = function() {
+  isUserLoggedIn() {
     if(localStorage.getItem("userId") !== null) {
       console.log("if: userid = ", localStorage.getItem("userId"));
-      return true;
+      this.setState({
+        userIsLoggedIn: true
+      })
     }
     console.log("else");
+    this.setState({
+      userIsLoggedIn: false
+    })
     return false;
   }
 
-  return (
-    <div className="navigation-bar">
+  logUserOut() {
+    localStorage.clear();
+  }
+
+  render() {
+    return(
+      <div className="navigation-bar">
         <AppBar position="static">
             {
-              userIsLoggedIn() ? 
+              this.state.userIsLoggedIn ? 
               (
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={value}
-                  onChange={handleChange}
+                  value={this.state.value}
+                  onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />
@@ -42,6 +70,7 @@ export default function NavBar() {
                   <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Profile" component={Link} to={"/profile"} />
                   <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+                  <Tab label="Logout" onClick={e => this.logUserOut()} />
                   <Tab label="About" component={Link} to={"/about"} />
                 </Tabs>
               )
@@ -50,8 +79,8 @@ export default function NavBar() {
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={value}
-                  onChange={handleChange}
+                  value={this.state.value}
+                  onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />
@@ -68,5 +97,8 @@ export default function NavBar() {
           <Header/>
         </div>
     </div>
-  );
+    )
+  }
 }
+
+export default connect (mapStateToProps)(NavBar);
