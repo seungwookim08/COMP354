@@ -15,12 +15,6 @@ const emailRegex = RegExp(
 );
 
 class Login extends Component {
-  
-  state = {
-    email: null,
-    password: null,
-    redirect: false,
-  };
 
   constructor(props) {
     console.log("constructor Login: Props: " + props);
@@ -35,7 +29,7 @@ class Login extends Component {
 
   userIsLoggedInCallback(isLoggedIn) {
     console.log("userIsLoggedInCallback in called from login");
-    console.log(localStorage.getItem("userId") !== null);
+    // console.log(localStorage.getItem("userId") !== null);
     this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
@@ -72,7 +66,7 @@ class Login extends Component {
             localStorage.setItem("userId", response.data.contents[0].id);
             // Set current component redirect value to change current position to home page after user logs in
 
-            console.log(localStorage.getItem("userId"));
+            // console.log(localStorage.getItem("userId"));
 
             currentComponent.setState({
               redirect: true

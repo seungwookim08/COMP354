@@ -7,11 +7,6 @@ import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
 
 class NavBar extends React.Component {
-  
-  state = {
-    value: null,
-    isUserLoggedIn: null,
-  }
 
   constructor(props) {
     console.log("constructor called in navbar, props: " + props);
@@ -34,7 +29,7 @@ class NavBar extends React.Component {
 
   userIsLoggedInCallback(isLoggedIn) {
     console.log("userIsLoggedInCallback in called from navbar");
-    var isLoggedIn = localStorage.getItem("userId") !== null;
+    // var isLoggedIn = localStorage.getItem("userId") !== null;
     this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
@@ -42,7 +37,7 @@ class NavBar extends React.Component {
     console.log("logout clicked");
     window.localStorage.clear();
     console.log("cleared userId data");
-    console.log(localStorage.getItem("userId"));
+    // console.log(localStorage.getItem("userId"));
     this.setState({
       isUserLoggedIn: false
     });

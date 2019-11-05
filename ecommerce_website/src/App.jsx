@@ -13,18 +13,17 @@ import UserDetails from "./Components/js/RegisterPage/RegisterPage";
 
 class App extends Component {
 
-  state = {
-    isUserLoggedIn: false
-  }
-
   constructor(props) {
     super(props);
+    this.state = {
+      isUserLoggedIn: false,
+    }
     this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
   userIsLoggedInCallback(isLoggedIn) {
     console.log("userIsLoggedInCallback is called from App");
-    console.log(localStorage.getItem("userId") !== null);
+    // console.log(localStorage.getItem("userId") !== null);
     console.log("user login variable: " + this.state.isUserLoggedIn + " - before setState in App");
     // var isLoggedIn = localStorage.getItem("userId") !== null;
     console.log("user isLoggedIn parameter: " + isLoggedIn);
@@ -32,6 +31,7 @@ class App extends Component {
     this.setState({
       isUserLoggedIn: isLoggedIn
     })
+
     console.log("isUserLoggedIn app after setState: " + this.state.isUserLoggedIn);
   }
 
