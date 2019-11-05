@@ -7,48 +7,57 @@ import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
 import {connect} from 'react-redux';
 
-const mapStateToProps = (isUserLoggedIn) => {
-  const {isLoggedIn} = isUserLoggedIn
-  return isLoggedIn
-}
+// const mapStateToProps = (isUserLoggedIn) => {
+//   const {isLoggedIn} = isUserLoggedIn
+//   return isLoggedIn
+// }
 
 class NavBar extends React.Component {
   
   state = {
     value: null,
-    userIsLoggedIn: false,
+    isUserLoggedIn: null,
   }
 
   constructor(props) {
+    console.log("constructor called in navbar, props: " + props);
     super(props);
     this.state = {
       value: props.value,
-      userIsLoggedIn: props.userIsLoggedIn
+      isUserLoggedIn: props.isUserLoggedIn,
     }
+    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+  }
+
+  componentDidMount() {
+    console.log("mount isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
+  }
+
+  componentDidUpdate() {
+    console.log("update isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
+    // this.checkIfUserIsLoggedIn();
   }
 
   handleChange(event, newValue) {
+    console.log("handle change in navbar called");
     this.setState({
       value: newValue,
     }) 
   };
 
-  isUserLoggedIn() {
-    if(localStorage.getItem("userId") !== null) {
-      console.log("if: userid = ", localStorage.getItem("userId"));
-      this.setState({
-        userIsLoggedIn: true
-      })
-    }
-    console.log("else");
-    this.setState({
-      userIsLoggedIn: false
-    })
-    return false;
+  checkIfUserIsLoggedIn() {
+    console.log("checkIfUserIsLogged in called from navbar");
+    this.props.checkIfUserIsLoggedIn();
   }
 
   logUserOut() {
-    localStorage.clear();
+    console.log("logout clicked");
+    // window.localStorage.clear();
+    console.log(localStorage.getItem("userId"));
+    this.setState({
+      isUserLoggedIn: false
+    });
+    this.checkIfUserIsLoggedIn();
   }
 
   render() {
@@ -56,7 +65,7 @@ class NavBar extends React.Component {
       <div className="navigation-bar">
         <AppBar position="static">
             {
-              this.state.userIsLoggedIn ? 
+              this.state.isUserLoggedIn ? 
               (
                 <Tabs
                   className="nav-items"
@@ -101,4 +110,4 @@ class NavBar extends React.Component {
   }
 }
 
-export default connect (mapStateToProps)(NavBar);
+export default NavBar;

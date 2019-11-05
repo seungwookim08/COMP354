@@ -8,8 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router';
-import { setCurrentUser } from "../../../Redux/user/user.actions";
-import {connect} from 'react-redux';
 
 
 const emailRegex = RegExp(
@@ -25,12 +23,19 @@ class Login extends Component {
   };
 
   constructor(props) {
+    console.log("constructor Login: Props: " + props);
     super(props);
     this.state = {
       email: props.email,
       password: props.password,
       redirect: props.redirect,
     }
+    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+  }
+
+  checkIfUserIsLoggedIn() {
+    console.log("checkIfUserIsLoggedIn in called from login");
+    this.props.checkIfUserIsLoggedIn();
   }
 
   // A function that vaildates input and then changes state 
@@ -63,12 +68,17 @@ class Login extends Component {
            // The servers response 
           console.log(response.data.message);
           if(response.data.is_success) {
+            console.log(response.data.contents[0]);
             localStorage.setItem("userId", response.data.contents[0].id);
             // Set current component redirect value to change current position to home page after user logs in
 
+            console.log(localStorage.getItem("userId"));
+
             currentComponent.setState({
               redirect: true
-            })
+            });
+
+            currentComponent.checkIfUserIsLoggedIn();
           }
         })
         .catch(function (error) {

@@ -11,14 +11,42 @@ import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
 import UserDetails from "./Components/js/RegisterPage/RegisterPage";
 
 class App extends Component {
-  constructor() {
-    super();
+
+  state = {
+    isUserLoggedIn: (localStorage.getItem("userId") !== null) ? true : false
+  }
+
+  constructor(props) {
+    super(props);
+    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+  }
+
+  checkIfUserIsLoggedIn() {
+    console.log("checkIfUserIsLoggedIn is called from App");
+    console.log(localStorage.getItem("userId") !== null);
+    // this.isUserLoggedIn = (localStorage.getItem("userId") !== null) ? true : false;
+
+    this.setState({
+      isUserLoggedIn: (localStorage.getItem("userId") !== null) ? true : false
+    })
+    console.log("isUserLoggedIn app: " + this.state.isUserLoggedIn);
+  }
+
+  componentDidMount() {
+    console.log("mount called in App");
+  }
+
+  componentDidUpdate() {
+    console.log("update called in App");
   }
 
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <NavBar 
+          isUserLoggedIn={e => this.isUserLoggedIn}
+          checkIfUserIsLoggedIn={this.checkIfUserIsLoggedIn}
+          />
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/cart" />
@@ -27,7 +55,11 @@ class App extends Component {
           <Route path="/about"/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route path='/RegisterPage' component={RegisterPage}/>
-          <Route path='/Login' component={Login}/>
+          <Route path='/Login' 
+            component={()=> 
+              <Login checkIfUserIsLoggedIn={this.checkIfUserIsLoggedIn}/>
+            }
+          />
           <Route path='/checkout' component={CheckoutPage}/>
           <Route path='/login' component={UserDetails}/>
         </Switch>
