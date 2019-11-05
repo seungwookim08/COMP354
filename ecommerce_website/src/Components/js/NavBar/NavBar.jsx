@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
 
-import logo from '../../ImageAssets/logo_smaller.svg';
+import logo from '../../../ImageAssets/logo_smaller.svg';
 
 export default function NavBar() {
   const [value, setValue] = React.useState(1);
