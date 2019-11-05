@@ -16,7 +16,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isUserLoggedIn: window.localStorage.getItem("userId") ? true : false
+      isUserLoggedIn: window.localStorage.getItem("userId") ? true : false,
+      history: props.history,
     }
     this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
@@ -24,7 +25,7 @@ class App extends Component {
   userIsLoggedInCallback(isLoggedIn) {
     this.setState({
       isUserLoggedIn: isLoggedIn
-    })
+    });
   }
 
   render() {
@@ -33,6 +34,7 @@ class App extends Component {
         <NavBar 
           isUserLoggedIn={this.state.isUserLoggedIn}
           userIsLoggedInCallback={this.userIsLoggedInCallback}
+          history={this.state.history}
           />
         <Switch>
           <Route exact path="/" component={HomePage} />
