@@ -1,87 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { SearchBar } from "./SearchBar";
 import ItemList from "./ItemList";
-import { PriceFilter } from "./PriceFilter";
-import { CategoryFilter } from "./CategoryFilter";
-import { SortRatingFilter } from "./SortRatingFilter";
-import { ManufacturerFilter } from "./ManufacturerFilter";
 import axios from "axios";
+import FilterByDropdown from "./FilterByDropdown";
+import SortOrderDropdown from "./SortOrderDropdown";
 
-const HomePage = () => {
-  
-  //using hooks because this state information is only pertinent to homepage
-  const[allItems, setAllItems] = useState([]);
-  const[searchField, setSearchField] = useState("");
-  const[priceFilter, setPriceFilter] = useState(999); //intially set to a high value so it displays all options
-  const[categoryFilter, setCategoryFilter] = useState("");
-  const[manufacturerFilter, setManufacturerFilter] = useState("");
-  const[ratingSort, setRatingSort] = useState("");
-  
-  //lets fetch the items using the api
+export default class HomePage extends Component {
 
-  //TODO generate a string for querying with the API URL
-  //Change filters: need sort by: {category, manufacturer}
-  //AScending/descending
-  useEffect(() => {
-    axios
-    .get('https://rocky-shore-99218.herokuapp.com/products/')
-    .then(({data}) => {
-      setAllItems(data.contents);
-    });
-  });
-  
-  //instead of modifying the array of items, make new array and filter
-  //allows us to take off properties from object, and set to const
-  const filteredItems = allItems.filter(item =>
-    (
-      (item.name.toLowerCase().includes(searchField.toLowerCase())) &&
-      (item.category.toLowerCase().includes(categoryFilter.toLowerCase())) &&
-      (item.manufacturer.toLowerCase().includes(manufacturerFilter.toLowerCase())) &&
-      (item.price <= priceFilter)
-    )
-  );
+  constructor(props) {
+    super(props);
 
-  if (ratingSort === "highlow") { //sorting from high to low
+    this.getProductsUrl = this.getProductsUrl.bind(this);
+    this.handleFilterColumnChanged = this.handleFilterColumnChanged.bind(this);
+    this.handleSearchChanged = this.handleSearchChanged.bind(this);
+    this.handleSortOrderChanged = this.handleSortOrderChanged.bind(this);
+    this.handlePageChanged = this.handlePageChanged.bind(this);
+    this.loadItems = this.loadItems.bind(this);
 
-    //sorting array by rating in descending order
-    filteredItems.sort(function (a, b) {
-      return parseFloat(b.rating) - parseFloat(a.rating);
-    });
-
-  } else if (ratingSort === "lowhigh") { //sorting from low to high
-
-    //sorting array by rating in ascending order
-    filteredItems.sort(function (a, b) {
-      return parseFloat(a.rating) - parseFloat(b.rating);
-    });
+    this.state = {
+      page: 1,
+      max: 8,
+      sort: "",
+      search: "",
+      asc: true,
+      pages: 1,
+      items: []
+    };
   }
 
-  return (
-    <div className="App">
-      <div>
-        <SearchBar
-          handleChange={e => setSearchField(e.target.value)}
-        />
-        <PriceFilter
-          handleChange={e => setPriceFilter(e.target.value)}
-        />
-        <CategoryFilter
-          handleChange={e => setCategoryFilter(e.target.value)}
-        />
-        <ManufacturerFilter
-          handleChange={e => setManufacturerFilter(e.target.value)}
-        />
-        <SortRatingFilter
-          handleChange={e => setRatingSort(e.target.value)}
-        />
-      </div>
-      <ItemList
-        items={filteredItems}
-      />
-      
-    </div>
-  );
+  componentDidMount() {
+    this.loadItems();
+  }
+
+  loadItems() {
+    axios.get(this.getProductsUrl())
+        .then((res) => {
+          let response = res.data;
+          if(response.is_success) {
+            this.setState({
+              items: response.contents,
+              pages: response.pages
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+  }
+
+  getProductsUrl() {
+    // return `https://rocky-shore-99218.herokuapp.com/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
+    return `http://localhost:3040/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
+  }
+
+  handleSearchChanged(searchValue) {
+    this.setState({
+      search: searchValue
+    }, this.loadItems);
+  }
+
+  handleFilterColumnChanged(filterColumn) {
+    this.setState({
+      sort: filterColumn
+    }, this.loadItems);
+  }
+
+  handleSortOrderChanged(sortOrder) {
+    this.setState({
+      asc: sortOrder
+    }, this.loadItems);
+  }
+
+  handlePageChanged(page) {
+    this.setState({
+      page: page
+    }, this.loadItems);
+  }
+
+  render() {
+    return (
+        <div className="App">
+          <div>
+            <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
+            <FilterByDropdown onFilterColumnChange={c => this.handleFilterColumnChanged(c)}/>
+            <SortOrderDropdown onSortOrderChanged={o => this.handleSortOrderChanged(o)}/>
+          </div>
+          <ItemList items={this.state.items} page={this.state.page}
+                    pages={this.state.pages} max={this.state.max}
+                    onPageClicked={this.handlePageChanged}/>
+        </div>
+    );
+  }
+
 }
-
-
-export default HomePage;
