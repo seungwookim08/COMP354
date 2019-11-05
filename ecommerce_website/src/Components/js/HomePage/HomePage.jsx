@@ -21,6 +21,10 @@ const HomePage = () => {
   const[ratingSort, setRatingSort] = useState("");
   
   //lets fetch the items using the api
+
+  //TODO generate a string for querying with the API URL
+  //Change filters: need sort by: {category, manufacturer}
+  //AScending/descending
   useEffect(() => {
     axios
     .get('https://rocky-shore-99218.herokuapp.com/products/')

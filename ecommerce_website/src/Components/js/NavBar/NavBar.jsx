@@ -1,10 +1,10 @@
 import React from 'react';
-import "../css/NavBar.css"
+import "../../css/NavBar.css";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
-import Header  from "./UserCart/Header";
+import Header  from "../UserCart/Header";
 
 import logo from '../../ImageAssets/logo_smaller.svg';
 
@@ -34,6 +34,8 @@ export default function NavBar() {
             <Tab label="Cart" component={Link} to={"/checkout"} />
             <Tab label="Profile" component={Link} to={"/profile"} />
             <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+            <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
+            <Tab label="Login" component={Link} to={"/Login"} />
             <Tab label="About" component={Link} to={"/about"} />
           </Tabs>
         </AppBar>
