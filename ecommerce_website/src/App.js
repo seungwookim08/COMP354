@@ -8,6 +8,7 @@ import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard"
 import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetailsPage";
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
 import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
+import ProfilePage from "./Components/js/ProfilePage/ProfilePage";
 import UserDetails from "./Components/js/RegisterPage/RegisterPage";
 
 class App extends Component {
@@ -49,8 +50,9 @@ class App extends Component {
           />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/COMP354" component={HomePage} />
           <Route path="/cart" />
-          <Route path="/profile"/>
+          <Route path="/profile" component={ProfilePage}/>
           <Route path='/dashboard' component={AccountDashboard} />
           <Route path="/about"/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
