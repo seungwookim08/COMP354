@@ -8,6 +8,7 @@ import Header  from "../UserCart/Header";
 import {connect} from 'react-redux';
 import {useState} from 'react';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
+import logo from '../../../ImageAssets/logo_smaller.svg';
 
 const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [navItemValue,setNavItemValue] = useState(1);
