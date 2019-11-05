@@ -30,12 +30,13 @@ class Login extends Component {
       password: props.password,
       redirect: props.redirect,
     }
-    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+    this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
-  checkIfUserIsLoggedIn() {
-    console.log("checkIfUserIsLoggedIn in called from login");
-    this.props.checkIfUserIsLoggedIn();
+  userIsLoggedInCallback(isLoggedIn) {
+    console.log("userIsLoggedInCallback in called from login");
+    console.log(localStorage.getItem("userId") !== null);
+    this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
   // A function that vaildates input and then changes state 
@@ -77,7 +78,7 @@ class Login extends Component {
               redirect: true
             });
 
-            currentComponent.checkIfUserIsLoggedIn();
+            currentComponent.userIsLoggedInCallback(true);
           }
         })
         .catch(function (error) {

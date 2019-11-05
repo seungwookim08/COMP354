@@ -14,23 +14,23 @@ import UserDetails from "./Components/js/RegisterPage/RegisterPage";
 class App extends Component {
 
   state = {
-    isUserLoggedIn: (localStorage.getItem("userId") !== null) ? true : false
+    isUserLoggedIn: false
   }
 
   constructor(props) {
     super(props);
-    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+    this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
-  checkIfUserIsLoggedIn() {
-    console.log("checkIfUserIsLoggedIn is called from App");
+  userIsLoggedInCallback(isLoggedIn) {
+    console.log("userIsLoggedInCallback is called from App");
     console.log(localStorage.getItem("userId") !== null);
-    console.log(this.state.isUserLoggedIn + " before setState in App");
-    var isLoggedIn = localStorage.getItem("userId") !== null;
-    console.log("user isLoggedIn: " + isLoggedIn);
+    console.log("user login variable: " + this.state.isUserLoggedIn + " - before setState in App");
+    // var isLoggedIn = localStorage.getItem("userId") !== null;
+    console.log("user isLoggedIn parameter: " + isLoggedIn);
 
     this.setState({
-      isUserLoggedIn: (isLoggedIn) ? true : false
+      isUserLoggedIn: isLoggedIn
     })
     console.log("isUserLoggedIn app after setState: " + this.state.isUserLoggedIn);
   }
@@ -40,8 +40,8 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props);
     console.log("update called in App isUserLoggedIn: " + this.state.isUserLoggedIn);
+    console.log(this.props);
   }
 
   render() {
@@ -49,7 +49,7 @@ class App extends Component {
       <React.Fragment>
         <NavBar 
           isUserLoggedIn={this.state.isUserLoggedIn}
-          checkIfUserIsLoggedIn={this.checkIfUserIsLoggedIn}
+          userIsLoggedInCallback={this.userIsLoggedInCallback}
           />
         <Switch>
           <Route exact path="/" component={HomePage} />
@@ -62,7 +62,7 @@ class App extends Component {
           <Route path='/RegisterPage' component={RegisterPage}/>
           <Route path='/Login' 
             component={()=> 
-              <Login checkIfUserIsLoggedIn={this.checkIfUserIsLoggedIn}/>
+              <Login userIsLoggedInCallback={this.userIsLoggedInCallback}/>
             }
           />
           <Route path='/checkout' component={CheckoutPage}/>

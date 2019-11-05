@@ -20,7 +20,7 @@ class NavBar extends React.Component {
       value: props.value,
       isUserLoggedIn: props.isUserLoggedIn,
     }
-    this.checkIfUserIsLoggedIn = this.checkIfUserIsLoggedIn.bind(this);
+    this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
   componentDidMount() {
@@ -28,14 +28,14 @@ class NavBar extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props);
     console.log("update isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
-    // this.checkIfUserIsLoggedIn();
+    console.log(this.props);
   }
 
-  checkIfUserIsLoggedIn() {
-    console.log("checkIfUserIsLogged in called from navbar");
-    this.props.checkIfUserIsLoggedIn();
+  userIsLoggedInCallback(isLoggedIn) {
+    console.log("userIsLoggedInCallback in called from navbar");
+    var isLoggedIn = localStorage.getItem("userId") !== null;
+    this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
   logUserOut() {
@@ -46,7 +46,8 @@ class NavBar extends React.Component {
     this.setState({
       isUserLoggedIn: false
     });
-    this.props.checkIfUserIsLoggedIn();
+    // check here
+    this.props.userIsLoggedInCallback(false);
   }
 
   render() {
