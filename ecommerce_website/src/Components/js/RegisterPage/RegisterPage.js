@@ -14,7 +14,7 @@ const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
-export class Register extends Component {
+class Register extends Component {
     state = {
         firstName: null,
         lastName: null,
@@ -202,7 +202,7 @@ export class Register extends Component {
                         variant="contained"
                         onClick={this.submit}
                     > Confirm
-            </Button>
+                    </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Link href="#" variant="body2" /* onClick={ } */> Already have an account? Sign in  </Link>

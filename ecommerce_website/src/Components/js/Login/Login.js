@@ -13,11 +13,13 @@ const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
-export class Login extends Component {
+class Login extends Component {
   state = {
     email: null,
     password: null,
   };
+
+  
 
   // A function that vaildates input and then changes state 
   handleChange = (input) => e => {
@@ -43,11 +45,14 @@ export class Login extends Component {
         password: this.state.password,
       })
         .then(function (response) {
-           // The servers response 
-           console.log(response.data.message);
-           // If successful then we need to store the response.data.contents obeject   
-           // console.log(response.data.contents[0]);
-           // console.log(response.data.contents[0].email);
+          if(response.data.is_success) {
+            localStorage.setItem("userId", response.data.contents[0].id)
+          }
+          // The servers response 
+          console.log(response.data.message);
+          // If successful then we need to store the response.data.contents object   
+          // console.log(response.data.contents[0]);
+          // console.log(response.data.contents[0].email);
         })
         .catch(function (error) {
           console.log(error);
