@@ -53,7 +53,6 @@ class Login extends Component {
 
   // A function that submits the form to the backend (restAPI)
   submit = () => {
-
     // if condition to make sure all the required fields have some input (some value)
     if (this.state.email != null && this.state.password != null ){
 

@@ -5,12 +5,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
-import {connect} from 'react-redux';
-
-// const mapStateToProps = (isUserLoggedIn) => {
-//   const {isLoggedIn} = isUserLoggedIn
-//   return isLoggedIn
-// }
 
 class NavBar extends React.Component {
   
@@ -34,16 +28,10 @@ class NavBar extends React.Component {
   }
 
   componentDidUpdate() {
+    console.log(this.props);
     console.log("update isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
     // this.checkIfUserIsLoggedIn();
   }
-
-  handleChange(event, newValue) {
-    console.log("handle change in navbar called");
-    this.setState({
-      value: newValue,
-    }) 
-  };
 
   checkIfUserIsLoggedIn() {
     console.log("checkIfUserIsLogged in called from navbar");
@@ -52,12 +40,13 @@ class NavBar extends React.Component {
 
   logUserOut() {
     console.log("logout clicked");
-    // window.localStorage.clear();
+    window.localStorage.clear();
+    console.log("cleared userId data");
     console.log(localStorage.getItem("userId"));
     this.setState({
       isUserLoggedIn: false
     });
-    this.checkIfUserIsLoggedIn();
+    this.props.checkIfUserIsLoggedIn();
   }
 
   render() {
@@ -71,7 +60,7 @@ class NavBar extends React.Component {
                   className="nav-items"
                   variant="fullWidth"
                   value={this.state.value}
-                  onChange={e => this.handleChange}
+                  // onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />
@@ -89,7 +78,7 @@ class NavBar extends React.Component {
                   className="nav-items"
                   variant="fullWidth"
                   value={this.state.value}
-                  onChange={e => this.handleChange}
+                  // onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />

@@ -25,27 +25,30 @@ class App extends Component {
   checkIfUserIsLoggedIn() {
     console.log("checkIfUserIsLoggedIn is called from App");
     console.log(localStorage.getItem("userId") !== null);
-    // this.isUserLoggedIn = (localStorage.getItem("userId") !== null) ? true : false;
+    console.log(this.state.isUserLoggedIn + " before setState in App");
+    var isLoggedIn = localStorage.getItem("userId") !== null;
+    console.log("user isLoggedIn: " + isLoggedIn);
 
     this.setState({
-      isUserLoggedIn: (localStorage.getItem("userId") !== null) ? true : false
+      isUserLoggedIn: (isLoggedIn) ? true : false
     })
-    console.log("isUserLoggedIn app: " + this.state.isUserLoggedIn);
+    console.log("isUserLoggedIn app after setState: " + this.state.isUserLoggedIn);
   }
 
   componentDidMount() {
-    console.log("mount called in App");
+    console.log("mount called in App isUserLoggedIn: " + this.state.isUserLoggedIn);
   }
 
   componentDidUpdate() {
-    console.log("update called in App");
+    console.log(this.props);
+    console.log("update called in App isUserLoggedIn: " + this.state.isUserLoggedIn);
   }
 
   render() {
     return (
       <React.Fragment>
         <NavBar 
-          isUserLoggedIn={e => this.isUserLoggedIn}
+          isUserLoggedIn={this.state.isUserLoggedIn}
           checkIfUserIsLoggedIn={this.checkIfUserIsLoggedIn}
           />
         <Switch>
