@@ -49,13 +49,14 @@ export default class HomePage extends Component {
   }
 
   getProductsUrl() {
-    // return `https://rocky-shore-99218.herokuapp.com/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
-    return `http://localhost:3040/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
+    let url = `https://rocky-shore-99218.herokuapp.com/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
+    return url;
   }
 
   handleSearchChanged(searchValue) {
     this.setState({
-      search: searchValue
+      search: searchValue,
+      page: 1
     }, this.loadItems);
   }
 
