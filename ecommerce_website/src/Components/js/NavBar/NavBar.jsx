@@ -5,39 +5,79 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
+import { Redirect } from 'react-router';
 
-export default function NavBar() {
-  const [value, setValue] = React.useState(1);
+class NavBar extends React.Component {
 
-  const handleChange = (event, newValue) => {
-    console.log(event);
-    console.log(newValue);
-    setValue(newValue);
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+      isUserLoggedIn: props.isUserLoggedIn,
+    }
+    this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
+  }
 
-  return (
-    <div className="navigation-bar">
+  userIsLoggedInCallback(isLoggedIn) {
+    this.props.userIsLoggedInCallback(isLoggedIn);
+  }
+
+  logUserOut() {
+    window.localStorage.clear();
+    this.setState({
+      isUserLoggedIn: false
+    },
+      this.props.userIsLoggedInCallback(false)
+    );
+    this.props.history.push("/");
+  }
+
+  render() {
+    return(
+      <div className="navigation-bar">
         <AppBar position="static">
-          <Tabs
-            className="nav-items"
-            variant="fullWidth"
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <Tab className="no-hover" label="LOGO" />
-            <Tab label="Home" component={Link} to="/"/>
-            <Tab label="Cart" component={Link} to={"/checkout"} />
-            <Tab label="Profile" component={Link} to={"/profile"} />
-            <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
-            <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
-            <Tab label="Login" component={Link} to={"/Login"} />
-            <Tab label="About" component={Link} to={"/about"} />
-          </Tabs>
+            {
+              this.props.isUserLoggedIn ? 
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={this.state.value}
+                  aria-label="nav tabs example"
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Profile" component={Link} to={"/profile"} />
+                  <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+                  <Tab label="Logout" onClick={e => this.logUserOut()} />
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+              :
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={this.state.value}
+                  aria-label="nav tabs example"
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
+                  <Tab label="Login" component={Link} to={"/Login"} />
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+            }
         </AppBar>
         <div>
           <Header/>
         </div>
     </div>
-  );
+    )
+  }
 }
+
+export default NavBar;
