@@ -9,7 +9,6 @@ import Header  from "../UserCart/Header";
 class NavBar extends React.Component {
 
   constructor(props) {
-    console.log("constructor called in navbar, props: " + props);
     super(props);
     this.state = {
       value: props.value,
@@ -18,31 +17,17 @@ class NavBar extends React.Component {
     this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
-  componentDidMount() {
-    console.log("mount isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
-  }
-
-  componentDidUpdate() {
-    console.log("update isUserLoggedIn in NavBar: " + this.state.isUserLoggedIn);
-    console.log(this.props);
-  }
-
   userIsLoggedInCallback(isLoggedIn) {
-    console.log("userIsLoggedInCallback in called from navbar");
-    // var isLoggedIn = localStorage.getItem("userId") !== null;
     this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
   logUserOut() {
-    console.log("logout clicked");
     window.localStorage.clear();
-    console.log("cleared userId data");
-    // console.log(localStorage.getItem("userId"));
     this.setState({
       isUserLoggedIn: false
-    });
-    // check here
-    this.props.userIsLoggedInCallback(false);
+    },
+      this.props.userIsLoggedInCallback(false)
+    );
   }
 
   render() {
@@ -50,13 +35,12 @@ class NavBar extends React.Component {
       <div className="navigation-bar">
         <AppBar position="static">
             {
-              this.state.isUserLoggedIn ? 
+              this.props.isUserLoggedIn ? 
               (
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
                   value={this.state.value}
-                  // onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />
@@ -74,7 +58,6 @@ class NavBar extends React.Component {
                   className="nav-items"
                   variant="fullWidth"
                   value={this.state.value}
-                  // onChange={e => this.handleChange}
                   aria-label="nav tabs example"
                 >
                   <Tab className="no-hover" label="LOGO" />

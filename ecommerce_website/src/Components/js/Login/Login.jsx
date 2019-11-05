@@ -28,8 +28,6 @@ class Login extends Component {
   }
 
   userIsLoggedInCallback(isLoggedIn) {
-    console.log("userIsLoggedInCallback in called from login");
-    // console.log(localStorage.getItem("userId") !== null);
     this.props.userIsLoggedInCallback(isLoggedIn);
   }
 
@@ -64,10 +62,8 @@ class Login extends Component {
           if(response.data.is_success) {
             console.log(response.data.contents[0]);
             localStorage.setItem("userId", response.data.contents[0].id);
-            // Set current component redirect value to change current position to home page after user logs in
-
-            // console.log(localStorage.getItem("userId"));
-
+            
+            // Set current component redirect value to change current position to 
             currentComponent.setState({
               redirect: true
             });
@@ -147,9 +143,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-/*
-error
-id="standard-error"
-label="Error"
-*/

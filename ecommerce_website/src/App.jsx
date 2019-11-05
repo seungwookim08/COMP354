@@ -16,32 +16,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isUserLoggedIn: false,
+      isUserLoggedIn: window.localStorage.getItem("userId") ? true : false
     }
     this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
   }
 
   userIsLoggedInCallback(isLoggedIn) {
-    console.log("userIsLoggedInCallback is called from App");
-    // console.log(localStorage.getItem("userId") !== null);
-    console.log("user login variable: " + this.state.isUserLoggedIn + " - before setState in App");
-    // var isLoggedIn = localStorage.getItem("userId") !== null;
-    console.log("user isLoggedIn parameter: " + isLoggedIn);
-
     this.setState({
       isUserLoggedIn: isLoggedIn
     })
-
-    console.log("isUserLoggedIn app after setState: " + this.state.isUserLoggedIn);
-  }
-
-  componentDidMount() {
-    console.log("mount called in App isUserLoggedIn: " + this.state.isUserLoggedIn);
-  }
-
-  componentDidUpdate() {
-    console.log("update called in App isUserLoggedIn: " + this.state.isUserLoggedIn);
-    console.log(this.props);
   }
 
   render() {
