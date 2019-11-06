@@ -17,7 +17,6 @@ const emailRegex = RegExp(
 class Login extends Component {
 
   constructor(props) {
-    console.log("constructor Login: Props: " + props);
     super(props);
     this.state = {
       email: props.email,

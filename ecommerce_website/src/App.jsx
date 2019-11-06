@@ -44,7 +44,11 @@ class App extends Component {
           <Route path='/dashboard' component={AccountDashboard} />
           <Route path="/about"/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
-          <Route path='/RegisterPage' component={RegisterPage}/>
+          <Route path='/RegisterPage' 
+            component={()=> 
+              <RegisterPage />
+            }
+          />
           <Route path='/Login' 
             component={()=> 
               <Login userIsLoggedInCallback={this.userIsLoggedInCallback}/>
