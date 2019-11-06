@@ -9,8 +9,11 @@ import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetails
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
 import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
 import UserDetails from "./Components/js/RegisterPage/RegisterPage";
+import {connect} from "react-redux";
 
 class App extends Component {
+
+  
 
   render() {
     return (
@@ -20,11 +23,19 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/cart" />
           <Route path="/profile"/>
-          <Route path='/dashboard' component={AccountDashboard} />
+          <Route 
+          path='/dashboard' 
+          render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
+          />
           <Route path="/about"/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
-          <Route path='/RegisterPage' component={RegisterPage}/>
-          <Route path='/Login' component={Login}/>
+          <Route 
+          path='/RegisterPage' 
+          render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }
+          />
+          <Route path='/Login' 
+          render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
+          />
           <Route path='/checkout' component={CheckoutPage}/>
           <Route path='/login' component={UserDetails} />
         </Switch>
@@ -33,5 +44,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+})
+export default connect(mapStateToProps)(App);
 
