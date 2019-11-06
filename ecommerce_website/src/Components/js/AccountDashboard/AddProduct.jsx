@@ -20,7 +20,7 @@ const AddProduct = props => {
   const [category, setCategory] = useState("");
   const [image1, setImage1] = useState([]);
 
-
+ 
   function sendPostRequest() {
     //handle form submission
     
@@ -57,7 +57,8 @@ const AddProduct = props => {
       .catch(function (response) {
           console.log(response);
       });
-  
+
+  props.handleClose();
   }
 
   return (
@@ -133,7 +134,10 @@ const AddProduct = props => {
           <Button onClick={props.handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={props.handleClose} color="primary" onClick={e=>{sendPostRequest()}}>
+          <Button color="primary" onClick={e=>{
+            sendPostRequest();
+            }}>
+
             Add Product
           </Button>
         </DialogActions>

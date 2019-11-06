@@ -5,52 +5,40 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
-import { Redirect } from 'react-router';
+import {connect} from 'react-redux';
+import {useState} from 'react';
+import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 
-class NavBar extends React.Component {
+const NavBar = ({currentUser, logoutCurrentUser}) => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value,
-      isUserLoggedIn: props.isUserLoggedIn,
-    }
-    this.userIsLoggedInCallback = this.userIsLoggedInCallback.bind(this);
-  }
+  const [value,setValue] = useState(1);
 
-  userIsLoggedInCallback(isLoggedIn) {
-    this.props.userIsLoggedInCallback(isLoggedIn);
-  }
+  const handleChange = (event, newValue) => {
+    console.log(event);
+    console.log(newValue);
+    setValue(newValue);
+  };
 
-  logUserOut() {
-    window.localStorage.clear();
-    this.setState({
-      isUserLoggedIn: false
-    },
-      this.props.userIsLoggedInCallback(false)
-    );
-    this.props.history.push("/");
-  }
-
-  render() {
     return(
       <div className="navigation-bar">
         <AppBar position="static">
             {
-              this.props.isUserLoggedIn ? 
+              currentUser ? 
               (
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={this.state.value}
+                  value={value}
                   aria-label="nav tabs example"
+                  onChange={handleChange}
+            
                 >
                   <Tab className="no-hover" label="LOGO" />
                   <Tab label="Home" component={Link} to="/"/>
                   <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Profile" component={Link} to={"/profile"} />
                   <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
-                  <Tab label="Logout" onClick={e => this.logUserOut()} />
+                  {<Tab label="Logout" onClick={() => logoutCurrentUser()}/> }
                   <Tab label="About" component={Link} to={"/about"} />
                 </Tabs>
               )
@@ -59,8 +47,9 @@ class NavBar extends React.Component {
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={this.state.value}
+                  value={value}
                   aria-label="nav tabs example"
+                  onChange={handleChange}
                 >
                   <Tab className="no-hover" label="LOGO" />
                   <Tab label="Home" component={Link} to="/"/>
@@ -78,6 +67,13 @@ class NavBar extends React.Component {
     </div>
     )
   }
-}
 
-export default NavBar;
+  const mapStateToProps = ({user}) => ({
+    currentUser: user.currentUser
+  });
+
+  const mapDispatchToProps = dispatch => ({
+    logoutCurrentUser:() => dispatch(logoutCurrentUser())
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
