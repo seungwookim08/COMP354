@@ -68,9 +68,7 @@ const HomePage = () => {
         <CategoryFilter
           handleChange={e => setCategoryFilter(e.target.value)}
         />
-        <ManufacturerFilter
-          handleChange={e => setManufacturerFilter(e.target.value)}
-        />
+       
         <SortRatingFilter
           handleChange={e => setRatingSort(e.target.value)}
         />

@@ -6,8 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { ManufacturerFilter } from "../HomePage/ManufacturerFilter";
-import { CategoryFilter } from "../HomePage/CategoryFilter";
 import axios from 'axios';
 
 
@@ -17,7 +15,7 @@ const AddProduct = props => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
-  const [sellerID, setSellerID] = useState(1);
+  const [sellerID, setSellerID] = useState(props.sellerId);
   const [manufacturer, setManufacturer] = useState("");
   const [category, setCategory] = useState("");
   const [image1, setImage1] = useState([]);
@@ -106,11 +104,21 @@ const AddProduct = props => {
             onChange={e => setDescription(e.target.value)}
           />
 
-          <CategoryFilter
-            handleChange={e => setCategory(e.target.value)}
+          <TextField
+            autoFocus
+            margin="dense"
+            id="category"
+            label="category"
+            fullWidth
+            onChange={e => setCategory(e.target.value)}
           />
-          <ManufacturerFilter
-            handleChange={e => setManufacturer(e.target.value)}
+         <TextField
+            autoFocus
+            margin="dense"
+            id="manufacturer"
+            label="manufacturer"
+            fullWidth
+            onChange={e => setManufacturer(e.target.value)}
           />
 
           <TextField

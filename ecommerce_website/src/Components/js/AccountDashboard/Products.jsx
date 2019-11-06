@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Products() {
+export default function Products(props) {
 
     const [open, setOpen] = useState(false);
 
@@ -44,7 +44,7 @@ export default function Products() {
     return (
         <React.Fragment>
             <Title>Products</Title>
-            <AddProduct open={open} handleClose={handleClose}/>
+            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose}/>
             <Grid  spacing={6}>
                 <div>
                 <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button> 

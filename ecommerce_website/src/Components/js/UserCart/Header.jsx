@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import { Typography } from '@material-ui/core';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 import {Link} from 'react-router-dom';
-import {Button} from '@material-ui/core';
 
 const Header = ({hidden, currentUser, logoutCurrentUser}) => (
     <div>
@@ -16,7 +15,7 @@ const Header = ({hidden, currentUser, logoutCurrentUser}) => (
     </div>
     <div className="header">
       <Typography> 
-            {currentUser == null ? <Link to="/login"> Sign In</Link> : <Link onClick={() => logoutCurrentUser()}>Sign Out</Link>}
+            {currentUser == null ? <Link to="/login"> Sign In</Link> : <Link to="/login" onClick={() => logoutCurrentUser()}>Sign Out</Link>}
           </Typography>
       </div>
       <div className="icon-outer">
