@@ -25,14 +25,14 @@ const AddProduct = props => {
     //handle form submission
     
     const formData = new FormData();
-    formData.append("name:", name);
-    formData.append("price:", price);
-    formData.append("quantity:", quantity);
-    formData.append("description:", description);
-    formData.append("sellerId:", sellerID);
-    formData.append("manufacturer:", manufacturer);
-    formData.append("category:", category);
-    formData.append("image1:", image1);
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("description", description);
+    formData.append("sellerId", sellerID);
+    formData.append("manufacturer", manufacturer);
+    formData.append("category", category);
+    formData.append("image1", image1);
 
    
     console.log(name);

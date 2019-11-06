@@ -1,36 +1,29 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import Item from './Item';
 import "../../css/Items.css";
-import Pagination from "./Pagination";
+import Pagination from "material-ui-flat-pagination";
 
-const ItemList = (props) => {
-    //lets use some hooks so we can use State without writing a class
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(20); //20 items per page as per the requirements
+export default class ItemList extends Component{
 
-    // Get current items
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = props.items.slice(indexOfFirstItem, indexOfLastItem);
+    constructor(props) {
+        super(props);
+    }
 
-    // Change page
-    const paginate = pageNumber => setCurrentPage(pageNumber);
-
-
-    return (
-        <div>
-            <div className='item-list'>
-                {currentItems.map(item => (
-                    <Item key={item.id} item={item} />
-                ))}
+    render() {
+        return (
+            <div>
+                <div className='item-list'>
+                    {this.props.items.map(item => (
+                        <Item key={item.id} item={item} />
+                    ))}
+                </div>
+                <Pagination
+                    limit={1}
+                    offset={this.props.page - 1}
+                    total={this.props.pages}
+                    onClick={(e, offset) => this.props.onPageClicked(offset + 1)}
+                />
             </div>
-            <Pagination
-                itemsPerPage={itemsPerPage}
-                totalItems={props.items.length}
-                paginate={paginate}
-            />
-        </div>
-    );
+        );
+    }
 };
-
-export default ItemList;
