@@ -17,7 +17,9 @@ export default class ItemList extends Component{
                         <Item key={item.id} item={item} />
                     ))}
                 </div>
-                <Pagination
+                <br></br>
+                <Pagination class = "central_search_filters"
+                    size = 'large'
                     limit={1}
                     offset={this.props.page - 1}
                     total={this.props.pages}
