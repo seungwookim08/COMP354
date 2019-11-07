@@ -8,15 +8,7 @@ function createData(time, amount) {
 }
 
 const data = [
-  createData('2019-04-10', 0),
-  createData('2019-04-12', 300),
-  createData('2019-04-15', 600),
-  createData('2019-04-19', 800),
-  createData('2019-04-20', 1500),
-  createData('2019-04-30', 2000),
-  createData('2019-05-10', 2400),
-  createData('2019-05-13', 2400),
-  createData('2019-06-10', 3000)
+ //todo when we start selling items
 ];
 
 export default function Chart() {

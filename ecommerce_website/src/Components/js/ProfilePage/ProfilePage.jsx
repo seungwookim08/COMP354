@@ -8,17 +8,6 @@ import axios from "axios";
 
 class ProfilePage extends React.Component {
 
-  state = {
-    userContents: null,
-    userId: null,
-    profileImageUrl: "",
-    firstName: null,
-    lastName: null,
-    primaryAddress: null,
-    alternateAddress: null,
-    emailAddress: null,
-  }
-
   constructor(props) {
     super(props);
     this.state = {

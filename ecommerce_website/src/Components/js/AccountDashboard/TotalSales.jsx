@@ -17,15 +17,12 @@ export default function TotalSales() {
     <React.Fragment>
       <Title>Total Sales</Title>
       <Typography component="p" variant="h4">
-        Amount of Sales
+        $0
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        from X amount of products sold
+        from 0 amount of products sold
       </Typography>
       <div>
-        <Link color="primary" href="javascript:;">
-         view breakdown here
-        </Link>
       </div>
     </React.Fragment>
   );
