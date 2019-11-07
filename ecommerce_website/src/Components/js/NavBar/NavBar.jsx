@@ -33,7 +33,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   onChange={handleChange}
             
                 >
-                  <Tab className="no-hover" label="LOGO" />
+                  <Tab className="no-hover" icon={<img class="stelle" src={logo}/>} />
                   <Tab label="Home" component={Link} to="/"/>
                   <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Profile" component={Link} to={"/profile"} />
@@ -51,7 +51,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   aria-label="nav tabs example"
                   onChange={handleChange}
                 >
-                  <Tab className="no-hover" label="LOGO" />
+                  <Tab className="no-hover" icon={<img class="stelle" src={logo}/>} />
                   <Tab label="Home" component={Link} to="/"/>
                   <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
