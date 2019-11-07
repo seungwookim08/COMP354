@@ -10,7 +10,6 @@ import {useState} from 'react';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 
 const NavBar = ({currentUser, logoutCurrentUser}) => {
-
   const [value,setValue] = useState(1);
 
   const handleChange = (event, newValue) => {

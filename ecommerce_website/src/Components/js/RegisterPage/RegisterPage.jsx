@@ -17,6 +17,7 @@ const emailRegex = RegExp(
 class Register extends Component {
     
     constructor(props) {
+        super(props);
         this.state = {
             firstName: props.firstName,
             lastName: props.lastName,
