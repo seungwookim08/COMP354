@@ -15,16 +15,20 @@ const emailRegex = RegExp(
 );
 
 class Register extends Component {
-    state = {
-        firstName: null,
-        lastName: null,
-        email: null,
-        primaryAddress: null,
-        alternateAddress: null,
-        password: null,
-        repeat_password: null,
-        imageUrl: null,
-    };
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: props.firstName,
+            lastName: props.lastName,
+            email: props.email,
+            primaryAddress: props.primaryAddress,
+            alternateAddress: props.alternateAddress,
+            password: props.password,
+            repeat_password: props.repeat_password,
+            imageUrl: props.imageUrl,
+        }
+    }
 
     // A function that vaildates input and changes the state of my attributes. 
     handleChange = (input) => e => {
