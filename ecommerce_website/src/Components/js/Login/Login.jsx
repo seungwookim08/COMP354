@@ -53,6 +53,8 @@ const Login = ({ setCurrentUser }) => {
             // console.log(response.data.contents[0]);
             // console.log(response.data.contents[0].email);
             setCurrentUser(response.data.contents[0]);
+          } else {
+            console.log(response.data.message);
           }
         })
         .catch(function (error) {
