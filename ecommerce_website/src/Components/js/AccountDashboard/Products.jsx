@@ -21,40 +21,42 @@ const useStyles = makeStyles(theme => ({
 
 export default function Products(props) {
 
-    const[allItems, setAllItems] = useState([]);
+    const [allItems, setAllItems] = useState([]);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/products/`;
         axios
-        .get(url)
-        .then(({data}) => {
-          setAllItems(data.contents);
-        });
-      });
+            .get(url)
+            .then(({ data }) => {
+                if (data.is_success) {
+                    setAllItems(data.contents);
+                }
+            });
+    });
 
     const handleClickOpen = () => {
         setOpen(true);
-      };
-    
-      const handleClose = () => {
+    };
+
+    const handleClose = () => {
         setOpen(false);
-      };
+    };
 
     return (
         <React.Fragment>
             <Title>Products</Title>
-            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose}/>
-            <Grid  spacing={6}>
+            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose} />
+            <Grid spacing={6}>
                 <div>
-                <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button> 
-                
-                
-                   <Button variant="contained" color="Secondary">Delete Product </Button> 
-                
-                
-                 <Button variant="contained" color="default"> Modify Product </Button>   
-                 </div>
+                    <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button>
+
+
+                    <Button variant="contained" color="Secondary">Delete Product </Button>
+
+
+                    <Button variant="contained" color="default"> Modify Product </Button>
+                </div>
             </Grid>
             <Grid item xs={3}>
             </Grid>
