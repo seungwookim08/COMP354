@@ -20,20 +20,21 @@ class App extends Component {
         <NavBar/>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="/COMP354" component={HomePage} />
           <Route path="/cart" />
-          <Route path="/profile"/>
+          <Route path="/profile" component={ProfilePage}/>
           <Route 
-          path='/dashboard' 
-          render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
+            path='/dashboard' 
+            render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
           <Route path="/about"/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route 
-          path='/RegisterPage' 
-          render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }
+            path='/RegisterPage' 
+            render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }
           />
           <Route path='/Login' 
-          render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
+            render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
           />
           <Route path='/checkout' component={CheckoutPage}/>
           <Route path='/login' component={UserDetails} />

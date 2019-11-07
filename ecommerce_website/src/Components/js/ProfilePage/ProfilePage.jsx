@@ -28,10 +28,6 @@ class ProfilePage extends React.Component {
   }
 
   getUserInfo() {
-    // TODO: Change id to userID rather than '1'
-    const cancelToken = axios.CancelToken;
-    const source = cancelToken.source();
-
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + localStorage.getItem("userId"))
     .then(({data}) => {
@@ -56,7 +52,7 @@ class ProfilePage extends React.Component {
 
   setUserInfo() {
     // TODO: Change id to userID rather than '1'
-    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + "1", {
+    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + this.state.userId, {
       imageUrl: this.state.profileImageUrl,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
