@@ -14,6 +14,8 @@ import Chart from './Chart';
 import TotalSales from './TotalSales';
 import Sales from './Sales';
 import Products from './Products';
+import {connect} from 'react-redux';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+function Dashboard({currentUser, firstName, lastName, sellerId}) {
   const classes = useStyles();
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -60,6 +62,7 @@ export default function Dashboard() {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+        <Typography>Seller Name: {firstName + " " + lastName} Seller ID: {sellerId}</Typography>
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
@@ -71,7 +74,7 @@ export default function Dashboard() {
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <TotalSales />
+                <TotalSales/>
               </Paper>
             </Grid>
             {/* Recent Orders */}
@@ -82,7 +85,7 @@ export default function Dashboard() {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Products />
+                <Products sellerId={sellerId}/>
               </Paper>
             </Grid>
           </Grid>
@@ -92,3 +95,11 @@ export default function Dashboard() {
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+  firstName: state.user.firstName,
+  lastName: state.user.lastName,
+  sellerId: state.user.sellerId
+
+})
+export default connect(mapStateToProps)(Dashboard);

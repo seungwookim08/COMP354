@@ -19,7 +19,7 @@ function createData(id, date, item, quantity, shipTo, paymentMethod, amount) {
 }
 
 const rows = [
-  createData(0, '16 Mar, 2019', 'Nice Socks', 1 , 'Patrick', 'Montreal,QC', 20.00)
+  
   
 ];
 

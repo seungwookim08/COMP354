@@ -5,39 +5,74 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Link} from 'react-router-dom';
 import Header  from "../UserCart/Header";
+import {connect} from 'react-redux';
+import {useState} from 'react';
+import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 
-export default function NavBar() {
-  const [value, setValue] = React.useState(1);
+const NavBar = ({currentUser, logoutCurrentUser}) => {
+  const [navItemValue,setNavItemValue] = useState(1);
 
   const handleChange = (event, newValue) => {
     console.log(event);
     console.log(newValue);
-    setValue(newValue);
+    setNavItemValue(newValue);
   };
 
-  return (
-    <div className="navigation-bar">
+    return(
+      <div className="navigation-bar">
         <AppBar position="static">
-          <Tabs
-            className="nav-items"
-            variant="fullWidth"
-            value={value}
-            onChange={handleChange}
-            aria-label="nav tabs example"
-          >
-            <Tab className="no-hover" label="LOGO" />
-            <Tab label="Home" component={Link} to="/"/>
-            <Tab label="Cart" component={Link} to={"/checkout"} />
-            <Tab label="Profile" component={Link} to={"/profile"} />
-            <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
-            <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
-            <Tab label="Login" component={Link} to={"/Login"} />
-            <Tab label="About" component={Link} to={"/about"} />
-          </Tabs>
+            {
+              currentUser ? 
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={navItemValue}
+                  aria-label="nav tabs example"
+                  onChange={handleChange}
+            
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Profile" component={Link} to={"/profile"} />
+                  <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+                  {<Tab label="Logout" onClick={() => logoutCurrentUser()}/> }
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+              :
+              (
+                <Tabs
+                  className="nav-items"
+                  variant="fullWidth"
+                  value={navItemValue}
+                  aria-label="nav tabs example"
+                  onChange={handleChange}
+                >
+                  <Tab className="no-hover" label="LOGO" />
+                  <Tab label="Home" component={Link} to="/"/>
+                  <Tab label="Checkout" component={Link} to={"/checkout"} />
+                  <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
+                  <Tab label="Login" component={Link} to={"/Login"} />
+                  <Tab label="About" component={Link} to={"/about"} />
+                </Tabs>
+              )
+            }
         </AppBar>
         <div>
           <Header/>
         </div>
     </div>
-  );
-}
+    )
+  }
+
+  const mapStateToProps = ({user}) => ({
+    currentUser: user.currentUser
+  });
+
+  const mapDispatchToProps = dispatch => ({
+    logoutCurrentUser:() => dispatch(logoutCurrentUser())
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
