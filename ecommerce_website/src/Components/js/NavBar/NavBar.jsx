@@ -10,12 +10,12 @@ import {useState} from 'react';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 
 const NavBar = ({currentUser, logoutCurrentUser}) => {
-  const [value,setValue] = useState(1);
+  const [navItemValue,setNavItemValue] = useState(1);
 
   const handleChange = (event, newValue) => {
     console.log(event);
     console.log(newValue);
-    setValue(newValue);
+    setNavItemValue(newValue);
   };
 
     return(
@@ -27,7 +27,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={value}
+                  value={navItemValue}
                   aria-label="nav tabs example"
                   onChange={handleChange}
             
@@ -46,7 +46,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                 <Tabs
                   className="nav-items"
                   variant="fullWidth"
-                  value={value}
+                  value={navItemValue}
                   aria-label="nav tabs example"
                   onChange={handleChange}
                 >
