@@ -39,7 +39,7 @@ const CheckoutPage = ({cartItems, total}) => (
     ) 
     :
     (
-        <div> your cart is empty </div>
+        <div align="center"> <h2> Your cart is empty </h2></div>
     )
     }
     </div>
