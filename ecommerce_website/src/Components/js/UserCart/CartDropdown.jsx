@@ -16,7 +16,7 @@ const CartDropdown = ({cartItems, history, dispatch}) => (
         {cartItems.length ? 
         (cartItems.map(cartItem => (<CartItem key={cartItem.id} item={cartItem}/> ))) 
         :
-        (<span>Your cart is empty</span>)}
+        (<span align="center">Your cart is empty</span>)}
         </div>
         <Button variant="contained" onClick={()=>{
             history.push('/checkout');

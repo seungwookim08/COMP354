@@ -53,7 +53,6 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                 >
                   <Tab className="no-hover" label="LOGO" />
                   <Tab label="Home" component={Link} to="/"/>
-                  <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
                   <Tab label="Login" component={Link} to={"/Login"} />
                   <Tab label="About" component={Link} to={"/about"} />
