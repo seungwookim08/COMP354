@@ -62,7 +62,10 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Typography>Seller Name: {firstName + " " + lastName} Seller ID: {sellerId}</Typography>
+        <div align="center">
+          <Typography> <h2> {firstName + " " + lastName}, Seller ID: {sellerId} </h2> </Typography>
+        </div>
+        
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Chart */}
