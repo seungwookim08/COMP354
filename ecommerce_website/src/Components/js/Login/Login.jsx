@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
+import ForgetPassword from "./ForgetPassword.js";
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -109,7 +110,7 @@ const Login = ({ setCurrentUser }) => {
           </Button>
         <Grid container justify="flex-end">
           <Grid item>
-            <Link href="#" variant="body2" /* onClick={ } */ > Forgot your password ? </Link>
+            <ForgetPassword/>
           </Grid>
         </Grid>
       </form>
@@ -124,7 +125,5 @@ const mapDispatchToProps = dispatch => ({
 export default connect(null, mapDispatchToProps)(Login);
 
 /*
-error
-id="standard-error"
-label="Error"
+ <Link href="#" variant="body2"  > Forgot your password ? </Link>
 */
