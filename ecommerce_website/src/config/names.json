@@ -1,0 +1,73 @@
+[
+    {
+        "id":1,
+        "name":"Uriel Bitton",
+        "program":"Computer Science (Web Apps)",
+        "image":"https://picsum.photos/200/300",
+        "website":"https://scorpionedge.com"
+    }, 
+    {
+        "id":2,
+        "name":"Patrick Leduc",
+        "program":"Software Engineer",
+        "image":"https://picsum.photos/201/300",
+        "website":"www.patrickleduc.ca"
+    },
+    {
+        "id":3,
+        "name":"Jeremy Gaudet",
+        "program":"Computer Science (General)",
+        "image":"https://picsum.photos/202/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":4,
+        "name":"Francesco Benzi",
+        "program":"Software Engineer",
+        "image":"https://picsum.photos/203/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":5,
+        "name":"Alexander Alessi",
+        "program":"Software Engineer",
+        "image":"https://picsum.photos/204/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":6,
+        "name":"Seungwoo Kim",
+        "program":"Computer Science (General)",
+        "image":"https://picsum.photos/205/300",
+        "website":"https://seungwoo-kim.firebaseapp.com"
+    },
+    {
+        "id":7,
+        "name":"Allan Pichardo",
+        "program":"Software Engineer",
+        "image":"https://picsum.photos/206/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":8,
+        "name":"Vincent Berardi",
+        "program":"Computer Science (Web Apps)",
+        "image":"https://picsum.photos/207/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":9,
+        "name":"Joseph Fellig",
+        "program":"Computer Science (Web Apps)",
+        "image":"https://picsum.photos/208/300",
+        "website":"https://scorpionedge.com"
+    },
+    {
+        "id":10,
+        "name":"Matthew Salaciak",
+        "program":"Computer Science (General)",
+        "image":"https://picsum.photos/209/300",
+        "website":"https://scorpionedge.com"
+    }
+
+]
