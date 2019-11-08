@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, Component } from 'react';
+import "../../css/HomePage.css"
+
 import { SearchBar } from "./SearchBar";
 import ItemList from "./ItemList";
 import axios from "axios";
 import FilterByDropdown from "./FilterByDropdown";
 import SortOrderDropdown from "./SortOrderDropdown";
+
+import logo from '../../../ImageAssets/logo.png';
 
 export default class HomePage extends Component {
 
@@ -52,7 +56,7 @@ export default class HomePage extends Component {
     let url = `https://rocky-shore-99218.herokuapp.com/products?page=${this.state.page}&max=${this.state.max}&sort=${this.state.sort}&search=${this.state.search}&asc=${this.state.asc}`;
     return url;
   }
-
+  
   handleSearchChanged(searchValue) {
     this.setState({
       search: searchValue,
@@ -82,10 +86,17 @@ export default class HomePage extends Component {
     return (
         <div className="App">
           <div>
-            <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
-            <FilterByDropdown onFilterColumnChange={c => this.handleFilterColumnChanged(c)}/>
-            <SortOrderDropdown onSortOrderChanged={o => this.handleSortOrderChanged(o)}/>
+          <div class="central_search_elements">
+              <img class="central_logo" src={logo}/>
+              <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
+              <br></br>
+              <div class="central_search_filters"> 
+                  <FilterByDropdown onFilterColumnChange={c => this.handleFilterColumnChanged(c)}/>
+                  <SortOrderDropdown onSortOrderChanged={o => this.handleSortOrderChanged(o)}/>
+              </div>
+            </div>
           </div>
+          <br></br><br></br><br></br>
           <ItemList items={this.state.items} page={this.state.page}
                     pages={this.state.pages} max={this.state.max}
                     onPageClicked={this.handlePageChanged}/>

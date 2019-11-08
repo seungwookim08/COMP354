@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../css/NavBar.css";
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -8,6 +7,8 @@ import Header  from "../UserCart/Header";
 import {connect} from 'react-redux';
 import {useState} from 'react';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
+import logo from '../../../ImageAssets/logo_smaller.svg';
+import "../../css/NavBar.css";
 
 const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [navItemValue,setNavItemValue] = useState(1);
@@ -30,9 +31,9 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   value={navItemValue}
                   aria-label="nav tabs example"
                   onChange={handleChange}
-            
+                  TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
                 >
-                  <Tab className="no-hover" label="LOGO" />
+                  <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>} />
                   <Tab label="Home" component={Link} to="/"/>
                   <Tab label="Checkout" component={Link} to={"/checkout"} />
                   <Tab label="Profile" component={Link} to={"/profile"} />
@@ -49,8 +50,9 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   value={navItemValue}
                   aria-label="nav tabs example"
                   onChange={handleChange}
+                  TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
                 >
-                  <Tab className="no-hover" label="LOGO" />
+                  <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>}  />
                   <Tab label="Home" component={Link} to="/"/>
                   <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
                   <Tab label="Login" component={Link} to={"/Login"} />

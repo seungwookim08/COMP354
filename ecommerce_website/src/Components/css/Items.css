@@ -28,9 +28,19 @@
 
 .button {
     text-align: center;
+    text-transform: none;
 }
 
 img {
   width: 225px ;
   height: auto;
+}
+
+
+.central_search_elements{
+  display: block;
+  margin: 0 auto;
+
+  width: 65%;
+  height: 65%;
 }
