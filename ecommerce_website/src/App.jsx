@@ -11,9 +11,10 @@ import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
 import ProfilePage from "./Components/js/ProfilePage/ProfilePage";
 import UserDetails from "./Components/js/RegisterPage/RegisterPage";
 import {connect} from "react-redux";
+import AboutPage from './Components/js/AboutPage/About';
 
 class App extends Component {
-
+ 
   render() {
     return (
       <React.Fragment>
@@ -27,7 +28,7 @@ class App extends Component {
             path='/dashboard' 
             render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
-          <Route path="/about"/>
+          <Route path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route 
             path='/RegisterPage' 
