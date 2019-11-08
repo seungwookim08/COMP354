@@ -19,7 +19,7 @@ const Item = ({item, history, addItem}) => {
                 }}
             >
                 <div className='item-container'>
-                    <img alt="item" src={imageUrl} />
+                    <img alt="item" src={imageUrl} /> 
                     <Typography variant="h5" component="h2"> {name} </Typography>
                     {/* <Typography> ID: {id} </Typography> */}
                     <Typography> Price: {price} $</Typography>
@@ -29,7 +29,7 @@ const Item = ({item, history, addItem}) => {
                 </div>
             </CardContent>
             <div className="button">
-                <Button variant="contained" onClick={() => addItem(item)}>Add To Cart</Button>
+                <Button variant="outlined" onClick={() => addItem(item)}>Add To Cart</Button>
             </div>
         </Card>
 )};
