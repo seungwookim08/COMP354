@@ -9,8 +9,7 @@ import {connect} from 'react-redux';
 import {addItem} from '../../../Redux/cart/cart.actions';
 
 const Item = ({item, history, addItem}) => {
-    const {id, name, price, imageUrl, category, manufacturer} = item;
-
+    const {id, name, price, images, category, manufacturer} = item;
     return(
         <Card>
             <CardContent
@@ -19,7 +18,7 @@ const Item = ({item, history, addItem}) => {
                 }}
             >
                 <div className='item-container'>
-                    <img alt="item" src={imageUrl} /> 
+                    <img alt="item" src={images[0]} style={{width: 200, height: 200}} />
                     <Typography variant="h5" component="h2"> {name} </Typography>
                     {/* <Typography> ID: {id} </Typography> */}
                     <Typography> Price: {price} $</Typography>
