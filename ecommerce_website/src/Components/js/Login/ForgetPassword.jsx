@@ -30,8 +30,11 @@ export default function FormDialog() {
   const submit = () => {
    
     console.log(email);
+
+    const formData = new FormData();
+    formData.append('email', email);
     
-    /* axios.post('https://rocky-shore-99218.herokuapp.com/passwordreset',  {email: email}, {})
+    axios.post('https://rocky-shore-99218.herokuapp.com/passwordreset',  formData, {})
         .then(function (response) {
            // The servers response 
            console.log(response.data.is_success);
@@ -40,7 +43,6 @@ export default function FormDialog() {
         .catch(function (error) {
           console.log(error);
         });
-    */
       handleClose();    
     };
 
@@ -48,7 +50,7 @@ export default function FormDialog() {
     <div>
       <Link variant="body2" onClick={handleClickOpen} > Forgot your password ? </Link>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Forget Password</DialogTitle>
+        <DialogTitle id="form-dialog-title"> Forget Password </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please enter your email address here, and we will send you a new password.
