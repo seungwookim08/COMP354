@@ -1,6 +1,5 @@
 
 import axios from "axios";
-import FormData from 'form-data'
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
@@ -209,7 +208,7 @@ class Register extends Component {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2" /* onClick={ } */> Already have an account? Sign in  </Link>
+                            <Link href="Login" variant="body2"> Already have an account? Sign in  </Link>
                         </Grid>
                     </Grid>
                 </form>
