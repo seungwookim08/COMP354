@@ -9,22 +9,6 @@ import {connect} from 'react-redux';
 import {selectUser} from '../../../Redux/user/user.selectors';
 import {createStructuredSelector} from 'reselect';
 
-// class ProfilePage extends React.Component {
-  
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       userContents: props.userContents,
-//       userId: props.userID,
-//       profileImageUrl: props.profileImageUrl,
-//       firstName: props.firstName,
-//       lastName: props.lastName,
-//       address: props.primaryAddress,
-//       alternateAddress: props.alternateAddress,
-//       emailAddress: props.emailAddress,
-//     }
-//   }
-
  const ProfilePage = ({user}) => {
 
   const [firstName,setFirstName] = useState(user.firstName);
@@ -33,18 +17,24 @@ import {createStructuredSelector} from 'reselect';
   const [primaryAddress, setPrimaryAddress] = useState(user.primaryAddress);
   const [alternateAddress, setAlternateAddress] = useState(user.alternateAddress);
   const [emailAddress, setEmailAddress] = useState(user.currentUser);
+  const [currentUser, setCurrentuser] = useState(user.currentUser);
   
+  
+ 
+
 
   function setUserInfo() {
-    // TODO: Change id to userID rather than '1'
-    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId, {
-      imageUrl: imageUrl,
-      firstName: firstName,
-      lastName: lastName,
-      primaryAddress: primaryAddress,
-      alternateAddress: alternateAddress,
-      emailAddress: emailAddress
-    }).then(function (response) {
+
+    const formData = new FormData();
+    formData.append("imageUrl", imageUrl);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("primaryAddress", primaryAddress);
+    formData.append("alternateAddress", alternateAddress);
+    formData.append("emailAddress", emailAddress);
+    
+    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId, formData)
+    .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
@@ -57,7 +47,7 @@ import {createStructuredSelector} from 'reselect';
     <Paper className="paper">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-         <img alt="User Profile Image" src={user.imageUrl}/>
+         <img alt="User Profile Image" src={imageUrl}/>
         </Grid>
         <Grid item xs={12} sm={8} container>
           <Grid item xs container direction="column" spacing={2}>
@@ -68,10 +58,10 @@ import {createStructuredSelector} from 'reselect';
                 defaultValue="First Name"
                 className="text-field"
                 margin="normal"
-                value={user.firstName}
-                onChange={e => {
+                value={firstName}
+                onChange={e => 
                   setFirstName(e.target.value)
-                }}
+                }
                 InputProps={{
                   readOnly: false,
                 }}
@@ -85,10 +75,10 @@ import {createStructuredSelector} from 'reselect';
                 defaultValue="Last Name"
                 className="text-field"
                 margin="normal"
-                value={user.lastName}
-                onChange={e => {
+                value={lastName}
+                onChange={e => 
                   setLastName(e.target.value)
-                }}
+                }
                 InputProps={{
                   readOnly: false,
                 }}
@@ -104,7 +94,7 @@ import {createStructuredSelector} from 'reselect';
                 className="text-field"
                 margin="normal"
                 variant="outlined"
-                value={user.currentUser}
+                value={currentUser}
               />
             </Grid>
             <Grid item xs>
@@ -114,10 +104,10 @@ import {createStructuredSelector} from 'reselect';
                 defaultValue="Primary Address"
                 className="text-field"
                 margin="normal"
-                value={user.primaryAddress}
-                onChange={e => {
+                value={primaryAddress}
+                onChange={e => 
                   setPrimaryAddress(e.target.value)
-                }}
+                }
                 InputProps={{
                   readOnly: false,
                 }}
@@ -131,10 +121,10 @@ import {createStructuredSelector} from 'reselect';
                 defaultValue="Alternate Address"
                 className="text-field"
                 margin="normal"
-                value={user.alternateAddress}
-                onChange={e => {
+                value={alternateAddress}
+                onChange={e => 
                   setAlternateAddress(e.target.value)
-                }}
+                }
                 InputProps={{
                   readOnly: false,
                 }}
@@ -145,12 +135,11 @@ import {createStructuredSelector} from 'reselect';
         </Grid>
         <Grid item xs={12}>
           <Button 
-            disabled
             variant="contained" 
             style={{
               margin: "25px"
             }}
-            onClick={e => setUserInfo()}
+            onClick={e=>{setUserInfo();}}
           >
             Save
           </Button>
