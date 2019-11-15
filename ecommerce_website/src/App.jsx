@@ -21,7 +21,7 @@ class App extends Component {
         <NavBar/>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/COMP354" component={HomePage} />
+          <Route path="/COMP354" component={HomePage} />
           <Route path="cart" />
           <Route path="profile" 
           render={()=> this.props.currentUser ? <ProfilePage/> : (<Redirect to='/login'/>)}
