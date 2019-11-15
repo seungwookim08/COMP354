@@ -21,26 +21,26 @@ class App extends Component {
         <NavBar/>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/COMP354" component={HomePage} />
-          <Route path="/cart" />
-          <Route path="/profile" 
+          <Route exact path="/COMP354" component={HomePage} />
+          <Route path="/COMP354/cart" />
+          <Route path="/COMP354/profile" 
           render={()=> this.props.currentUser ? <ProfilePage/> : (<Redirect to='/login'/>)}
           />
           <Route 
-            path='/dashboard' 
+            path='/COMP354/dashboard' 
             render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
-          <Route path="/about"component={AboutPage}/>
-          <Route path="/product/:id" component={ItemDetailsPage}/>
+          <Route exact path="/COMP354/about"component={AboutPage}/>
+          <Route path="/COMP354/product/:id" component={ItemDetailsPage}/>
           <Route 
-            path='/RegisterPage' 
-            render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }
+            path='/COMP354/RegisterPage' 
+            render={()=> this.props.currentUser ? (<Redirect to='/COMP354'/>) : <RegisterPage/> }
           />
-          <Route path='/Login' 
-            render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
+          <Route path='/COMP354/Login' 
+            render={()=> this.props.currentUser ? (<Redirect to='/COMP354'/>) : <Login/> }
           />
-          <Route path='/checkout' component={CheckoutPage}/>
-          <Route path='/login' component={UserDetails} />
+          <Route path='/COMP354/checkout' component={CheckoutPage}/>
+          <Route path='/COMP354/login' component={UserDetails} />
         </Switch>
       </React.Fragment>
     );
