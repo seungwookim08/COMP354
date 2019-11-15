@@ -19,7 +19,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 lastName: action.payload.lastName,
                 imageUrl: action.payload.imageUrl,
                 primaryAddress: action.payload.primaryAddress,
-                alternateAddress: action.payload.alternateAddress
+                alternateAddress: (action.payload.alternateAddress === ("undefined" || undefined || null)) ? "" : action.payload.alternateAddress
 
             };
         case'LOGOUT_CURRENT_USER':

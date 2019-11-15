@@ -32,8 +32,8 @@ import {createStructuredSelector} from 'reselect';
     formData.append("primaryAddress", primaryAddress);
     formData.append("alternateAddress", alternateAddress);
     formData.append("emailAddress", emailAddress);
-    
-    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId, formData)
+
+    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.userId, formData)
     .then(function (response) {
       console.log(response);
     })
