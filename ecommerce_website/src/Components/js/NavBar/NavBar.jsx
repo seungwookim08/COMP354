@@ -34,12 +34,12 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
                 >
                   <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>} />
-                  <Tab label="Home" component={Link} to="/"/>
-                  <Tab label="Checkout" component={Link} to={"/checkout"} />
-                  <Tab label="Profile" component={Link} to={"/profile"} />
-                  <Tab label="Seller Dashboard" component={Link} to={"/dashboard"} />
+                  <Tab label="Home" component={Link} to="/COMP354"/>
+                  <Tab label="Checkout" component={Link} to={"/COMP354/checkout"} />
+                  <Tab label="Profile" component={Link} to={"/COMP354/profile"} />
+                  <Tab label="Seller Dashboard" component={Link} to={"/COMP354/dashboard"} />
                   {<Tab label="Logout" onClick={() => logoutCurrentUser()}/> }
-                  <Tab label="About" component={Link} to={"/about"} />
+                  <Tab label="About" component={Link} to={"/COMP354/about"} />
                 </Tabs>
               )
               :
@@ -53,10 +53,10 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
                 >
                   <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>}  />
-                  <Tab label="Home" component={Link} to="/"/>
-                  <Tab label="Sign Up" component={Link} to={"/RegisterPage"} />
-                  <Tab label="Login" component={Link} to={"/Login"} />
-                  <Tab label="About" component={Link} to={"/about"} />
+                  <Tab label="Home" component={Link} to="/COMP354"/>
+                  <Tab label="Sign Up" component={Link} to={"/COMP354/RegisterPage"} />
+                  <Tab label="Login" component={Link} to={"/COMP354/Login"} />
+                  <Tab label="About" component={Link} to={"/COMP354/about"} />
                 </Tabs>
               )
             }
