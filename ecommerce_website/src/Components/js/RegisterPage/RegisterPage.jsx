@@ -110,7 +110,11 @@ class Register extends Component {
                     console.log('FAILURE!!');
 
                 });
-        } 
+        }
+        else {
+            console.log("You have entered something invalid. Please try again");
+            this.print();
+          } 
       
     }
 
