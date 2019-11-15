@@ -23,7 +23,9 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/COMP354" component={HomePage} />
           <Route path="/COMP354/cart" />
-          <Route path="/COMP354/profile" component={ProfilePage}/>
+          <Route path="/COMP354/profile" 
+          render={()=> this.props.currentUser ? <ProfilePage/> : (<Redirect to='/login'/>)}
+          />
           <Route 
             path='/COMP354/dashboard' 
             render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}

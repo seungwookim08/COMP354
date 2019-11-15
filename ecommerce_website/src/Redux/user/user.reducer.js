@@ -4,7 +4,8 @@ const INITIAL_STATE = {
     firstName: null,
     lastName: null,
     imageUrl: null,
-    primaryAddress: null
+    primaryAddress: null,
+    alternateAddress: null
 }
 //if state is ever unset, it will pass Initial state
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -17,7 +18,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 firstName: action.payload.firstName,
                 lastName: action.payload.lastName,
                 imageUrl: action.payload.imageUrl,
-                primaryAddress: action.payload.primaryAddress
+                primaryAddress: action.payload.primaryAddress,
+                alternateAddress: (action.payload.alternateAddress === ("undefined" || undefined || null)) ? "" : action.payload.alternateAddress
 
             };
         case'LOGOUT_CURRENT_USER':
@@ -28,7 +30,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 firstName: null,
                 lastName: null,
                 imageUrl: null,
-                primaryAddress: null
+                primaryAddress: null,
+                alternateAddress: null
             }
 
         default:
