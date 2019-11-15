@@ -22,15 +22,15 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/COMP354" component={HomePage} />
-          <Route path="cart" />
-          <Route path="profile" 
+          <Route path="/cart" />
+          <Route path="/profile" 
           render={()=> this.props.currentUser ? <ProfilePage/> : (<Redirect to='/login'/>)}
           />
           <Route 
-            path='dashboard' 
+            path='/dashboard' 
             render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
-          <Route exact path="about"component={AboutPage}/>
+          <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route 
             path='/RegisterPage' 
