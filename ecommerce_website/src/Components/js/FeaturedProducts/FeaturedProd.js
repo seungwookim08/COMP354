@@ -7,16 +7,10 @@ import p5 from './images/p5.jpg';
 import Products from './Products'
 import $ from 'jquery';
 
-
 class FeaturedProd extends Component {
 
-     
-
     render() {
-          
-         
         return ( 
-            
             <div className="grid"> 
             <div class="fcont">  
                 <h1>Featured Products</h1>
@@ -26,24 +20,9 @@ class FeaturedProd extends Component {
                     <Products prodimg={p4} prodtitle="Men's Jackets" prodprice="$175.00" proddescript="This is a short description about the product" />
                     <Products prodimg={p5} prodtitle="Women's Pants" prodprice="$120.00" proddescript="This is a short description about the product" />
             </div>
-
             <div className="spacer"/>
-
-            
-
             </div> 
             )
     }
-}
- 
+} 
 export default FeaturedProd;
-
-
-  
-
-
-
-
-
-
-
