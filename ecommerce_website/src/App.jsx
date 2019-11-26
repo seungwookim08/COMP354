@@ -35,13 +35,7 @@ class App extends Component {
             render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }
           />
           <Route path='/Login' 
-            render={()=> this.props.currentUser ? 
-              (
-              <Redirect to={{
-                pathname: "/",
-              }}/>) 
-              : 
-              <Login/> }
+            render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
           />
           <Route path='/checkout' component={CheckoutPage}/>
           <Route path='/login' component={UserDetails} />
