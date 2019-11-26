@@ -1,12 +1,14 @@
 import axios from "axios";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import L from '@material-ui/core/Link';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import  { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import HomePage from "../HomePage/HomePage";
 
 
 const emailRegex = RegExp(
@@ -14,7 +16,7 @@ const emailRegex = RegExp(
 );
 
 class Register extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +28,12 @@ class Register extends Component {
             password: props.password,
             repeat_password: props.repeat_password,
             imageUrl: props.imageUrl,
+            errorCondition1: false, 
+            errorCondition2: false, 
+            errorCondition3: false, 
+            errorCondition4: false, 
+            errorCondition5: false, 
+            errorCondition6: false,            
         }
     }
 
@@ -51,14 +59,67 @@ class Register extends Component {
         else if ([input] == 'imageUrl') {
             this.setState({ imageUrl: e.target.files[0] });
         }
-        else if ([input] == 'password' && e.target.value.length != 0) {
+        else if ([input] == 'password' && e.target.value.length != 0 &&  e.target.value.length > 7) {
             this.setState({ [input]: e.target.value });
         }
-        else if ([input] == 'repeat_password' && e.target.value.length != 0) {
+        else if ([input] == 'repeat_password' && e.target.value.length != 0 && e.target.value.length > 7) {
             this.setState({ [input]: e.target.value });
         }
-        else
+        else {
             this.setState({ [input]: null });
+        }
+    };
+
+    displayErrors1 = () => {
+        if (this.state.firstName != null) {
+            this.state.errorCondition1 = false;
+        }
+        else {
+            this.state.errorCondition1 = true;
+        }
+    };
+
+    displayErrors2 = () => {
+        if (this.state.lastName != null) {
+            this.state.errorCondition2 = false;
+        }
+        else {
+            this.state.errorCondition2 = true;
+        }
+    };
+
+    displayErrors3 = () => {
+        if (emailRegex.test(this.state.email) == true) {
+            this.state.errorCondition3 = false;
+        }
+        else {
+            this.state.errorCondition3 = true;
+        }
+    };
+
+    displayErrors4 = () => {
+        if (this.state.primaryAddress != null) {
+            this.state.errorCondition4 = false;
+        }
+        else 
+            this.state.errorCondition4 = true;
+            
+    };
+    displayErrors5 = () => {
+        if (this.state.password != null) {
+            this.state.errorCondition5 = false;
+        }
+        else 
+            this.state.errorCondition5 = true;
+            
+    };
+    displayErrors6 = () => {
+        if ((this.state.password != null &&  this.state.repeat_password != null) && this.state.password == this.state.repeat_password ) {
+            this.state.errorCondition6 = false;
+        }
+        else 
+            this.state.errorCondition6 = true;
+            
     };
 
     // A function that console logs the fields of the form
@@ -74,7 +135,15 @@ class Register extends Component {
     };
 
     // A function that submits the form to the backend (restAPI)
-    submit = () => { 
+    submit = () => {
+
+        this.displayErrors1();
+        this.displayErrors2();
+        this.displayErrors3();
+        this.displayErrors4();
+        this.displayErrors5();
+        this.displayErrors6();
+
         // if condition to make sure all the required fields have some input (some value)
         if (this.state.firstName != null && this.state.lastName != null && this.state.email != null && this.state.primaryAddress != null && this.state.imageUrl != null && this.state.password != null && this.state.password == this.state.repeat_password) {
 
@@ -86,7 +155,7 @@ class Register extends Component {
             formData.append('alternateAddress', this.state.alternateAddress);
             formData.append('password', this.state.password);
             formData.append('repeat_password', this.state.repeat_password);
-            formData.append('imageUrl', this.state.imageUrl, this.state.imageUrl.name) ;
+            formData.append('imageUrl', this.state.imageUrl, this.state.imageUrl.name);
 
             for (var key of formData.entries()) {
                 console.log(key[0] + ' , ' + key[1])
@@ -96,11 +165,12 @@ class Register extends Component {
             axios.post('https://rocky-shore-99218.herokuapp.com/users', formData, {})
                 .then(function (response) {
                     if (response.data.is_success) {
-                        console.log("success");
-                        // If successful then we need to store the response.data.contents obeject somewhere
-                        // console.log(response.data.contents[0]);
+                        console.log("success"); 
+                        alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
+                        // Redirect Should Go Here
                     } else {
                         console.log(response.data.message);
+                        alert("Something went wrong please try again");
                     }
                     console.log(response)
                     console.log('SUCCESS!!');
@@ -108,14 +178,14 @@ class Register extends Component {
                 .catch(function (response) {
                     console.log(response);
                     console.log('FAILURE!!');
-
                 });
         }
         else {
-            console.log("You have entered something invalid. Please try again");
+            alert("You have entered something invalid. Please try again. \nPlease make sure you have uploaded a profile picture.");
+            this.forceUpdate();
             this.print();
-          } 
-      
+        }
+
     }
 
     // rendering the actually form 
@@ -135,6 +205,7 @@ class Register extends Component {
                                 placeholder="Enter Your First Name"
                                 defaultValue={this.props.firstName}
                                 onChange={this.handleChange('firstName')}
+                                error={this.state.errorCondition1}
                             />
                         </Grid> <br />
                         <Grid item xs={12} sm={6}>
@@ -147,6 +218,7 @@ class Register extends Component {
                                 placeholder="Enter Your Last Name"
                                 defaultValue={this.props.lastName}
                                 onChange={this.handleChange('lastName')}
+                                error={this.state.errorCondition2}
                             />
                         </Grid>
                     </Grid>
@@ -159,6 +231,7 @@ class Register extends Component {
                         placeholder="Enter Your Email"
                         defaultValue={this.props.email}
                         onChange={this.handleChange('email')}
+                        error={this.state.errorCondition3}
                     /> <br />
                     <TextField
                         required
@@ -169,6 +242,7 @@ class Register extends Component {
                         placeholder="Enter Your Primary Address"
                         defaultValue={this.props.primaryAddress}
                         onChange={this.handleChange('primaryAddress')}
+                        error={this.state.errorCondition4}
                     /><br />
                     <TextField
                         margin="normal"
@@ -189,6 +263,7 @@ class Register extends Component {
                         placeholder="Enter A Password"
                         defaultValue={this.props.password}
                         onChange={this.handleChange('password')}
+                        error={this.state.errorCondition5}
                     />
                     <TextField
                         required
@@ -200,6 +275,7 @@ class Register extends Component {
                         placeholder="Re-enter Your Password"
                         defaultValue={this.props.repeat_password}
                         onChange={this.handleChange('repeat_password')}
+                        error={this.state.errorCondition6}
                     /> <br />
                     <input id="image_id" type="file" onChange={this.handleChange('imageUrl')} />
                     <br /> <br />
