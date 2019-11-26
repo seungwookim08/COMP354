@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerId}) => {
   const classes = useStyles();
   const [sellerFullName, setSellerFullName] = useState("");
+  const [isRedirect, setRedirect] = useState(false);
 
   // retrieve specific name for seller personal info
   useEffect(() => {
@@ -67,7 +68,15 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                 <Typography variant="subtitle1">
                   Price: {price}
                 </Typography>
-                <L variant="body2" color="textSecondary" label="Login" component={Link} to={{ pathname: '/SellerDetails', state: {id: sellerId}}} >  Seller: {sellerFullName} </L>
+                <L variant="body2" color="textSecondary" label="Login" component={Link} to={
+                  { 
+                    pathname: '/SellerDetails', 
+                    state: {
+                      name: sellerFullName,
+                      sellerId: sellerId
+                    }
+                  }
+                } >  Seller: {sellerFullName} </L>
               </Grid>
               <Grid item>
                  <Typography variant="body2">

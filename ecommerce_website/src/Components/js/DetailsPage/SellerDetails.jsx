@@ -19,30 +19,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-var db = "https://rocky-shore-99218.herokuapp.com/users/";
-db = db.concat(134);
-
-const SellerDetails = ({sellerId,imageUrl, name}) => {
+const SellerDetails = props => {
   const classes = useStyles();
   const [sellerFullName, setSellerFullName] = useState("");
   const [sellerEmail, setSellerEmail] = useState("");
   const [sellerProfilePic, setSellerProfilePic] = useState("");
+  const [sellerRatings, setSellerRatings] = useState("");
+  const [sellerReviews, setSellerReviews] = useState("");
 
-  // retrieve specific name for seller personal info
+  // retrieve specific details about the seller
   useEffect(() => {
+    console.log(props.location.state.sellerId);
     axios
-    .get(db)
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
     .then(({data}) => {
       if(data.is_success) {
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
-        setSellerEmail(data.contents[0].email)
-        setSellerProfilePic(data.contents[0].imageUrl)
-        //console
+        setSellerEmail(data.contents[0].email);
+        setSellerProfilePic(data.contents[0].imageUrl);
       }
     });
   });
 
-  //console.log(id)
+  // retrieve ratings and reviews of the seller
+  useEffect(() => {
+    axios
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId + "/ratings")
+    .then(({data}) => {
+      if(data.is_success) {
+        console.log(data.contents[0]);
+      }
+    });
+  });
 
   return (
     <div className="container">
@@ -51,14 +59,14 @@ const SellerDetails = ({sellerId,imageUrl, name}) => {
           <Grid item sm={4}>
             <ButtonBase className="image">
               {/* TODO: Add props.imageURL */}
-              <img className="img" alt="product image" src={"https://comp354-allan.s3.amazonaws.com/profiles/559948147d37f8c9a93aeb18c5e8d6c11573767799510.png"} />
+              <img className="img" alt="product image" src={sellerProfilePic} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm={8} container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {name}
+                  {props.location.state.name}
                   </Typography>
               </Grid>
               <Grid item>
