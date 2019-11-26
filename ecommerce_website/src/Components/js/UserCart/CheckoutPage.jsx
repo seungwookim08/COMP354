@@ -33,9 +33,16 @@ const CheckoutPage = ({cartItems, total}) => (
                     ))}
                 </TableBody>
             </Table>
-    <div>Total:${total}</div>
-    <Button variant="contained" color="primary"> Complete Purchase </Button>
+
+    <p></p>
+    <div class="center_total">Total: ${total}</div>
+
+    {/*<Button variant="contained" color="primary"> Complete Purchase </Button>*/}
+    
+
+
     </div>
+
     ) 
     :
     (

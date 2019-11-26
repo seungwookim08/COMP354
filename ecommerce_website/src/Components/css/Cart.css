@@ -101,3 +101,8 @@ img {
 .value {
   text-align: center;
 }
+
+.center_total {
+    text-align: center;
+    font-weight: bold;
+}
