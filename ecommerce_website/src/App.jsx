@@ -23,12 +23,14 @@ class App extends Component {
           <Route exact path="/" component={HomePage} />
           <Route path="/COMP354" component={HomePage} />
           <Route path="/cart" />
-          <Route path="/profile" component={ProfilePage}/>
+          <Route path="/profile" 
+          render={()=> this.props.currentUser ? <ProfilePage/> : (<Redirect to='/login'/>)}
+          />
           <Route 
             path='/dashboard' 
             render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
-          <Route path="/about"component={AboutPage}/>
+          <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
           <Route 
             path='/RegisterPage' 

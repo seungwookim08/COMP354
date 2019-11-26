@@ -1,65 +1,40 @@
-import React from "react";
+import React, {useState}from "react";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import "../../css/ProfilePage.css"
+import "../../css/ProfilePage.css";
 import axios from "axios";
+import {connect} from 'react-redux';
+import {selectUser} from '../../../Redux/user/user.selectors';
+import {createStructuredSelector} from 'reselect';
 
-class ProfilePage extends React.Component {
+ const ProfilePage = ({user}) => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      userContents: props.userContents,
-      userId: props.userID,
-      profileImageUrl: props.profileImageUrl,
-      firstName: props.firstName,
-      lastName: props.lastName,
-      address: props.primaryAddress,
-      alternateAddress: props.alternateAddress,
-      emailAddress: props.emailAddress,
-    }
-  }
+  const [firstName,setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [imageUrl, setImageUrl] = useState(user.imageUrl);
+  const [primaryAddress, setPrimaryAddress] = useState(user.primaryAddress);
+  const [alternateAddress, setAlternateAddress] = useState(user.alternateAddress);
+  const [emailAddress, setEmailAddress] = useState(user.currentUser);
+  const [currentUser, setCurrentuser] = useState(user.currentUser);
+  
+  
+ 
 
-  // Called once rendering occurs
-  componentDidMount() {
-    this.getUserInfo();
-  }
 
-  getUserInfo() {
-    axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + localStorage.getItem("userId"))
-    .then(({data}) => {
-      console.log("receiving data");
-      if(data.is_success) {
-        console.log("success");
-        const tempData = data.contents[0];
-        this.setState({
-          userContents: tempData,
-          profileImage: tempData.imageUrl,
-          firstName: tempData.firstName,
-          lastName: tempData.lastName,
-          emailAddress: tempData.email,
-          primaryAddress: tempData.primaryAddress,
-          alternateAddress: tempData.alternateAddress,
-        });
-      } else {
-        console.log("error");
-      }
-    });
-  }
+  function setUserInfo() {
 
-  setUserInfo() {
-    // TODO: Change id to userID rather than '1'
-    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + this.state.userId, {
-      imageUrl: this.state.profileImageUrl,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      primaryAddress: this.state.primaryAddress,
-      alternateAddress: this.state.alternateAddress,
-      emailAddress: this.state.emailAddress
-    }).then(function (response) {
+    const formData = new FormData();
+    formData.append("imageUrl", imageUrl);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("primaryAddress", primaryAddress);
+    formData.append("alternateAddress", alternateAddress);
+    formData.append("emailAddress", emailAddress);
+
+    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.userId, formData)
+    .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
@@ -67,200 +42,116 @@ class ProfilePage extends React.Component {
     });
   }
 
-  render() {
-    return(
-      <div className="container">
-        <Paper className="paper">
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-             <img alt="User Profile Image" src={this.state.profileImageUrl}/>
-            </Grid>
-            <Grid item xs={12} sm={8} container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="First Name"
-                    defaultValue="First Name"
-                    className="text-field"
-                    margin="normal"
-                    value={this.state.firstName}
-                    onChange={e => {
-                      this.setState({
-                        firstName: e.target.value
-                      })
-                    }}
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Last Name"
-                    defaultValue="Last Name"
-                    className="text-field"
-                    margin="normal"
-                    value={this.state.lastName}
-                    onChange={e => {
-                      this.setState({
-                        lastName: e.target.value
-                      })
-                    }}
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>  
-                  <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Email Address"
-                    defaultValue="Email Address"
-                    className="text-field"
-                    margin="normal"
-                    variant="outlined"
-                    value={this.state.emailAddress}
-                  />
-                </Grid>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Primary Address"
-                    defaultValue="Primary Address"
-                    className="text-field"
-                    margin="normal"
-                    value={this.state.primaryAddress}
-                    onChange={e => {
-                      this.setState({
-                        primaryAddress: e.target.value
-                      })
-                    }}
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Alternate Address"
-                    defaultValue="Alternate Address"
-                    className="text-field"
-                    margin="normal"
-                    value={this.state.alternateAddress}
-                    onChange={e => {
-                      this.setState({
-                        alternateAddress: e.target.value
-                      })
-                    }}
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Button 
-                disabled
-                variant="contained" 
-                style={{
-                  margin: "25px"
+  return (
+    <div className="container">
+    <Paper className="paper">
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4}>
+         <img alt="User Profile Image" src={imageUrl}/>
+        </Grid>
+        <Grid item xs={12} sm={8} container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <TextField
+                id="outlined-read-only-input"
+                label="First Name"
+                defaultValue="First Name"
+                className="text-field"
+                margin="normal"
+                value={firstName}
+                onChange={e => 
+                  setFirstName(e.target.value)
+                }
+                InputProps={{
+                  readOnly: false,
                 }}
-                onClick={e => this.setUserInfo()}
-              >
-                Save
-              </Button>
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="outlined-read-only-input"
+                label="Last Name"
+                defaultValue="Last Name"
+                className="text-field"
+                margin="normal"
+                value={lastName}
+                onChange={e => 
+                  setLastName(e.target.value)
+                }
+                InputProps={{
+                  readOnly: false,
+                }}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs>  
+              <TextField
+                disabled
+                id="outlined-disabled"
+                label="Email Address"
+                defaultValue="Email Address"
+                className="text-field"
+                margin="normal"
+                variant="outlined"
+                value={currentUser}
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="outlined-read-only-input"
+                label="Primary Address"
+                defaultValue="Primary Address"
+                className="text-field"
+                margin="normal"
+                value={primaryAddress}
+                onChange={e => 
+                  setPrimaryAddress(e.target.value)
+                }
+                InputProps={{
+                  readOnly: false,
+                }}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs>
+              <TextField
+                id="outlined-read-only-input"
+                label="Alternate Address"
+                defaultValue="Alternate Address"
+                className="text-field"
+                margin="normal"
+                value={alternateAddress}
+                onChange={e => 
+                  setAlternateAddress(e.target.value)
+                }
+                InputProps={{
+                  readOnly: false,
+                }}
+                variant="outlined"
+              />
             </Grid>
           </Grid>
-        </Paper>
-        {/* <Paper className="paper">
-          <Grid container spacing={2}>
-            <Grid item sm={4}>
-             <img alt="Seller Profile Image" src={this.state.profileImageUrl}/>
-            </Grid>
-            <Grid item xs={12} sm={8} container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Business Name"
-                    defaultValue="Business Name"
-                    className="text-field"
-                    margin="normal"
-                    value="Coming Soon"
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>  
-                  <TextField
-                    disabled
-                    id="outlined-disabled"
-                    label="Email Address"
-                    defaultValue="Email Address"
-                    className="text-field"
-                    margin="normal"
-                    value="Coming Soon"
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Primary Address"
-                    defaultValue="Primary Address"
-                    className="text-field"
-                    margin="normal"
-                    value="Coming Soon"
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs>
-                  <TextField
-                    id="outlined-read-only-input"
-                    label="Alternate Address"
-                    defaultValue="Alternate Address"
-                    className="text-field"
-                    margin="normal"
-                    value="Coming Soon"
-                    InputProps={{
-                      readOnly: false,
-                    }}
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Button 
-                disabled
-                variant="contained" 
-                style={{
-                  margin: "25px"
-                }}
-                onClick={e => this.setUserInfo()}
-              >
-                Save
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper> */}
-      </div>
-    );
-  }
+        </Grid>
+        <Grid item xs={12}>
+          <Button 
+            variant="contained" 
+            style={{
+              margin: "25px"
+            }}
+            onClick={e=>{setUserInfo();}}
+          >
+            Save
+          </Button>
+        </Grid>
+      </Grid>
+    </Paper>
+    </div>
+  );
 }
+ 
+const mapStateToProps = createStructuredSelector({
+  user:selectUser
+})
 
-export default ProfilePage;
+export default connect(mapStateToProps)(ProfilePage);

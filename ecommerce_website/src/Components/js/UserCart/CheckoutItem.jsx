@@ -6,10 +6,10 @@ import { clearItemFromCart, addItem, removeItem } from "../../../Redux/cart/cart
 import "../../css/Cart.css";
 
 const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
-    const { name, imageUrl, price, quantity } = cartItem;
+    const { name, images, price, quantity } = cartItem;
     return (
         <TableRow>
-            <TableCell><img alt="item" src={imageUrl} /></TableCell>
+            <TableCell><img alt="item" src={images} /></TableCell>
             <TableCell>{name}</TableCell>
             <TableCell>
                 <span className="quantity">

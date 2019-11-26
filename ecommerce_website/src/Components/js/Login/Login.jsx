@@ -2,7 +2,6 @@
 import axios from "axios";
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
 import ForgetPassword from "./ForgetPassword.jsx";
 import TextField from '@material-ui/core/TextField';
@@ -17,8 +16,8 @@ const Login = ({ setCurrentUser }) => {
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
   );
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   // A function that vaildates input and then changes state 
   const handleChange = (input) => e => {
@@ -29,11 +28,12 @@ const Login = ({ setCurrentUser }) => {
     else if ([input] == 'password' && e.target.value.length != 0) {
       setPassword(e.target.value);
     }
-    else {
+    else if ([input] == 'email'){
       setEmail(null);
+    }
+    else if ([input] == 'password' && e.target.value.length == 0){
       setPassword(null);
     }
-
   };
 
   // A function that submits the form to the backend (restAPI)
@@ -62,10 +62,11 @@ const Login = ({ setCurrentUser }) => {
           console.log(error);
         });
     }
-    else
-      console.log("not vaild");
-
-    print();
+    else {
+      console.log("You have entered an invalid email or password. Please try again");
+      print();
+    }
+    
   }
 
   // A function that console logs the fields of the form
