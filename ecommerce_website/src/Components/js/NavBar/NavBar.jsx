@@ -91,7 +91,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   <Tab label="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}/>
                   <Tab label="Profile" component={Link} to={profilePageString} index={profilePageIndex}/>
                   <Tab label="Seller Dashboard" component={Link} to={dashboardPageString} index={dashboardPageIndex}/>
-                  {<Tab label="Logout" onClick={() => logoutCurrentUser()}/> }
+                  {<Tab label="Logout" component={Link} to={homePageString} onClick={() => logoutCurrentUser()}/> }
                   <Tab label="About" component={Link} to={aboutPageString} index={aboutPageIndexTwo}/>
                 </Tabs>
               )
