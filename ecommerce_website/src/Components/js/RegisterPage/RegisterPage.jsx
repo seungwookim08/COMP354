@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import HomePage from "../HomePage/HomePage";
 
 
 const emailRegex = RegExp(
@@ -168,6 +167,7 @@ class Register extends Component {
                         console.log("success"); 
                         alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
                         // Redirect Should Go Here
+                        //<Redirect ></Redirect>
                     } else {
                         console.log(response.data.message);
                         alert("Something went wrong please try again");

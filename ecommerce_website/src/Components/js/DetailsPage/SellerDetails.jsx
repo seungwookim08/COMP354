@@ -4,13 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import Button from '@material-ui/core/Button';
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css"
 import axios from "axios";
-import L from '@material-ui/core/Link';
-import { Link } from 'react-router-dom';
 
 
 // Basic style for paper - can't retrieve 'theme.spacing(2)' inside css file
@@ -22,20 +19,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerId}) => {
+var db = "https://rocky-shore-99218.herokuapp.com/users/";
+db = db.concat(134);
+
+const SellerDetails = ({sellerId,imageUrl, name}) => {
   const classes = useStyles();
   const [sellerFullName, setSellerFullName] = useState("");
+  const [sellerEmail, setSellerEmail] = useState("");
+  const [sellerProfilePic, setSellerProfilePic] = useState("");
 
   // retrieve specific name for seller personal info
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + sellerId)
+    .get(db)
     .then(({data}) => {
       if(data.is_success) {
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
+        setSellerEmail(data.contents[0].email)
+        setSellerProfilePic(data.contents[0].imageUrl)
+        //console
       }
     });
   });
+
+  //console.log(id)
 
   return (
     <div className="container">
@@ -44,7 +51,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
           <Grid item sm={4}>
             <ButtonBase className="image">
               {/* TODO: Add props.imageURL */}
-              <img className="img" alt="product image" src={imageUrl} />
+              <img className="img" alt="product image" src={"https://comp354-allan.s3.amazonaws.com/profiles/559948147d37f8c9a93aeb18c5e8d6c11573767799510.png"} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm={8} container>
@@ -53,23 +60,18 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                 <Typography gutterBottom variant="subtitle1">
                   {name}
                   </Typography>
-                <Typography variant="body2" gutterBottom>
-                  {description}
-                </Typography>
-                {/* <Typography variant="body2" color="textSecondary">
-                  {props.id}
-                </Typography> */}
-                <Typography variant="body2" color="textSecondary">
-                  Category: {category}
-                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="subtitle1">
-                  Price: {price}
-                </Typography>
-                <L variant="body2" color="textSecondary" label="Login" component={Link} to={{ pathname: '/SellerDetails', state: {id: sellerId}}} >  Seller: {sellerFullName} </L>
-              </Grid>
-              <Grid item>
+                 <Typography variant="body2">
+                    Seller: {sellerFullName}
+                  </Typography>
+               </Grid>
+               <Grid item>
+                 <Typography variant="body2">
+                    Email: {sellerEmail}
+                  </Typography>
+               </Grid>
+               <Grid item>
                  <Typography variant="body2">
                    Ratings: coming soon
                   </Typography>
@@ -79,11 +81,6 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                    Customer Reviews: coming soon
                   </Typography>
                </Grid>
-              <Grid item>
-                <Button variant="contained" onClick={() => {addItem(item);}}>
-                  Add To Cart
-                </Button>
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
@@ -96,4 +93,4 @@ const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps)(ContainerDetailsPage);
+export default connect(null, mapDispatchToProps)(SellerDetails);
