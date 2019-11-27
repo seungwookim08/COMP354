@@ -18,14 +18,14 @@ const emailRegex = RegExp(
 
 const Register = (props) => {
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [primaryAddress, setPrimaryAddress] = useState("");
-    const [alternateAddress, setAlternateAddress] = useState("");
-    const [password, setPassword] = useState("");
-    const [repeatPassword, setRepeatPassword] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [primaryAddress, setPrimaryAddress] = useState(null);
+    const [alternateAddress, setAlternateAddress] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [repeatPassword, setRepeatPassword] = useState(null);
+    const [imageUrl, setImageUrl] = useState(null);
     const [errorCondition1, setErrorCondition1] = useState(false);
     const [errorCondition2, setErrorCondition2] = useState(false);
     const [errorCondition3, setErrorCondition3] = useState(false);
@@ -180,7 +180,6 @@ const Register = (props) => {
         }
         else {
             alert("You have entered something invalid. Please try again: /n Please make sure you have uploaded a profile picture");
-            //what does this do?
             //this.forceUpdate();
             print();
         }
