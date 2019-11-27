@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import L from '@material-ui/core/Link';
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import  { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
@@ -18,14 +18,14 @@ const emailRegex = RegExp(
 
 const Register = (props) => {
 
-    const [firstName, setFirstName] = useState(props.firstName);
-    const [lastName, setLastName] = useState(props.lastName);
-    const [email, setEmail] = useState(props.email);
-    const [primaryAddress, setPrimaryAddress] = useState(props.primaryAddress);
-    const [alternateAddress, setAlternateAddress] = useState(props.alternateAddress);
-    const [password, setPassword] = useState(props.password);
-    const [repeatPassword, setRepeatPassword] = useState(props.repeatPassword);
-    const [imageUrl, setImageUrl] = useState(props.imageUrl);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [primaryAddress, setPrimaryAddress] = useState("");
+    const [alternateAddress, setAlternateAddress] = useState("");
+    const [password, setPassword] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
     const [errorCondition1, setErrorCondition1] = useState(false);
     const [errorCondition2, setErrorCondition2] = useState(false);
     const [errorCondition3, setErrorCondition3] = useState(false);
@@ -53,16 +53,17 @@ const Register = (props) => {
             setAlternateAddress(e.target.value);
         }
         else if ([input] == 'imageUrl') {
-            setImageUrl(e.target.value);
+            setImageUrl(e.target.files[0]);
         }
-        else if ([input] == 'password' && e.target.value.length != 0 &&  e.target.value.length > 7) {
+        else if ([input] == 'password' && e.target.value.length != 0 && e.target.value.length > 7) {
             setPassword(e.target.value);
         }
         else if ([input] == 'repeat_password' && e.target.value.length != 0 && e.target.value.length > 7) {
             setRepeatPassword(e.target.value);
         }
+        //removing this because initial state will be set to null instead
         // else {
-        //     this.setState({ [input]: null });
+        //      this.setState({ [input]: null });
         // }
     };
 
@@ -97,25 +98,25 @@ const Register = (props) => {
         if (primaryAddress != null) {
             setErrorCondition4(false);
         }
-        else 
+        else
             setErrorCondition4(true);
-            
+
     };
     const displayErrors5 = () => {
         if (password != null) {
             setErrorCondition5(false);
         }
-        else 
+        else
             setErrorCondition5(true);
-            
+
     };
     const displayErrors6 = () => {
-        if ((password != null &&  repeatPassword != null) && password == repeatPassword ) {
+        if ((password != null && repeatPassword != null) && password == repeatPassword) {
             setErrorCondition6(false);
         }
-        else 
+        else
             setErrorCondition6(false);
-            
+
     };
 
     // A function that console logs the fields of the form
@@ -152,8 +153,7 @@ const Register = (props) => {
             formData.append('password', password);
             formData.append('repeat_password', repeatPassword);
             //this line was giving me an error "Parameter 2 is not of type 'Blob'."
-            //formData.append('imageUrl', imageUrl, imageUrl.name);
-            formData.append('imageUrl', imageUrl);
+            formData.append('imageUrl', imageUrl, imageUrl.name);
             for (var key of formData.entries()) {
                 console.log(key[0] + ' , ' + key[1])
             }
@@ -162,7 +162,7 @@ const Register = (props) => {
             axios.post('https://rocky-shore-99218.herokuapp.com/users', formData, {})
                 .then(function (response) {
                     if (response.data.is_success) {
-                        console.log("success"); 
+                        console.log("success");
                         alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
                         console.log(response);
                         props.setCurrentUser(response.data.contents[0]);
@@ -296,6 +296,6 @@ const Register = (props) => {
 
 const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))
-  });
+});
 
-export default connect(null,mapDispatchToProps)(Register);
+export default connect(null, mapDispatchToProps)(Register);
