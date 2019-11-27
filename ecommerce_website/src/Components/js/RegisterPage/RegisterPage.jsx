@@ -11,9 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { setCurrentUser } from '../../../Redux/user/user.actions';
 import { connect } from 'react-redux';
 
-const emailRegex = RegExp(
-    /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-);
+
 
 const Register = (props) => {
 
@@ -32,6 +30,7 @@ const Register = (props) => {
     const [errorCondition5, setErrorCondition5] = useState(false);
     const [errorCondition6, setErrorCondition6] = useState(false);
 
+    const emailRegex = RegExp(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
     // A function that vaildates input and changes the state of my attributes. 
     const handleChange = (input) => e => {
         e.preventDefault();
@@ -86,9 +85,11 @@ const Register = (props) => {
 
     const displayErrors3 = () => {
         if (emailRegex.test(email) == true) {
+            console.log("email regex: "+ emailRegex.test(email));
             setErrorCondition3(false);
         }
         else {
+            console.log("email regex: "+ emailRegex.test(email));
             setErrorCondition3(true);
         }
     };
