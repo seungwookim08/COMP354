@@ -1,0 +1,13 @@
+@media(max-width: 1100px) {
+	.item-list {
+	   display:block;
+	   text-align:center;	
+	}
+	.item-list img {	
+	   margin:20px auto;
+	   object-fit:cover;
+	}
+	.MuiCard-root {
+	   display:inline-block;	
+	}
+}
