@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
 import { setCurrentUser } from '../../../Redux/user/user.actions';
 import { connect } from 'react-redux';
 
@@ -165,7 +164,9 @@ const Register = (props) => {
                         console.log("success");
                         alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
                         console.log(response);
-                        props.setCurrentUser(response.data.contents[0]);
+                        // If successful then we need to store the response.data.contents object somewhere
+                        // console.log(response.data.contents[0]);
+                        setCurrentUser(response.data.contents[0]);
                     } else {
                         console.log(response.data.message);
                         alert("Something went wrong please try again");
