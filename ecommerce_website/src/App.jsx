@@ -6,6 +6,7 @@ import Login from "./Components/js/Login/Login";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
 import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetailsPage";
+import SellerDetails from "./Components/js/DetailsPage/SellerDetails";
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
 import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
 import ProfilePage from "./Components/js/ProfilePage/ProfilePage";
@@ -32,6 +33,7 @@ class App extends Component {
           />
           <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
+          <Route path="/SellerDetails/" component={SellerDetails}/>
           <Route 
             path='/RegisterPage' 
             render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <RegisterPage/> }

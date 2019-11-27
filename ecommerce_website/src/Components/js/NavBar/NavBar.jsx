@@ -9,7 +9,6 @@ import {useState} from 'react';
 import {logoutCurrentUser} from '../../../Redux/user/user.actions';
 import logo from '../../../ImageAssets/logo_smaller.svg';
 import "../../css/NavBar.css";
-import axios from 'axios';
 
 const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [navItemValue,setNavItemValue] = useState(1);
