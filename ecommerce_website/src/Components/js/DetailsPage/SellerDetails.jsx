@@ -24,14 +24,17 @@ const SellerDetails = props => {
   const [sellerFullName, setSellerFullName] = useState("");
   const [sellerEmail, setSellerEmail] = useState("");
   const [sellerProfilePic, setSellerProfilePic] = useState("");
-  const [sellerRatings, setSellerRatings] = useState("");
+  const [sellerRating, setSellerRating] = useState("");
   const [sellerReviews, setSellerReviews] = useState("");
+
+  // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
+  // props.location.state.sellerId
 
   // retrieve specific details about the seller
   useEffect(() => {
     console.log(props.location.state.sellerId);
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + 2)
     .then(({data}) => {
       if(data.is_success) {
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
@@ -39,18 +42,40 @@ const SellerDetails = props => {
         setSellerProfilePic(data.contents[0].imageUrl);
       }
     });
-  });
+  }, []);
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId + "/ratings")
+    .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
     .then(({data}) => {
       if(data.is_success) {
-        console.log(data.contents[0]);
+        console.log(data.contents);
+        setSellerRating(computeAverageRating(data.contents));
+        retrieveReviews(data.contents);
       }
     });
-  });
+  }, []);
+
+  function computeAverageRating(contents) {
+    var total = 0, count = 0;
+    contents.map(content => {
+      count++;
+      total += content.rate;
+    })
+    return total/count;
+  }
+
+  function retrieveReviews(contents) {
+    var messages = [];
+    console.log("inside reviews function" + contents);
+    contents.map(content => {
+      messages.push(content.text)
+      // setSellerReviews(sellerReviews.concat(content.text));
+    })
+    setSellerReviews(messages);
+    console.log("All the seller's reviews: ");
+  }
 
   return (
     <div className="container">
@@ -58,15 +83,14 @@ const SellerDetails = props => {
         <Grid container spacing={2}>
           <Grid item sm={4}>
             <ButtonBase className="image">
-              {/* TODO: Add props.imageURL */}
-              <img className="img" alt="product image" src={sellerProfilePic} />
+              <img className="img" alt="seller image" src={sellerProfilePic} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm={8} container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.location.state.name}
+                  {sellerFullName}
                   </Typography>
               </Grid>
               <Grid item>
@@ -81,12 +105,12 @@ const SellerDetails = props => {
                </Grid>
                <Grid item>
                  <Typography variant="body2">
-                   Ratings: coming soon
+                   Rating: {sellerRating}
                   </Typography>
                </Grid>
                <Grid item>
                  <Typography variant="body2" color="textSecondary">
-                   Customer Reviews: coming soon
+                   Customer Reviews: {sellerReviews}
                   </Typography>
                </Grid>
             </Grid>
