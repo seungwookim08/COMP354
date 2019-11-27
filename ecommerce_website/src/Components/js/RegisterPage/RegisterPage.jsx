@@ -7,7 +7,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
+import { setCurrentUser } from '../../../Redux/user/user.actions';
+import { connect } from 'react-redux';
 
 const emailRegex = RegExp(
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -99,6 +100,7 @@ class Register extends Component {
                         console.log("success");
                         // If successful then we need to store the response.data.contents obeject somewhere
                         // console.log(response.data.contents[0]);
+                        setCurrentUser(response.data.contents[0]);
                     } else {
                         console.log(response.data.message);
                     }
@@ -220,4 +222,9 @@ class Register extends Component {
         );
     }
 }
-export default Register;
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(Register);
