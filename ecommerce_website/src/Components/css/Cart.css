@@ -106,3 +106,10 @@ img {
     text-align: center;
     font-weight: bold;
 }
+.pay_button{
+  display: block;
+  margin: 0 auto;
+
+  width: 50%;
+  height: 50%;
+}
