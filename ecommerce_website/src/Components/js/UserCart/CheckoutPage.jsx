@@ -35,12 +35,12 @@ const CheckoutPage = ({cartItems, total}) => (
                 </TableBody>
             </Table>
 
-    <p></p>
-        <div class="center_total">Total: ${total}</div><p></p>
+    <p></p><br></br>
+        <div class="center_total">Total: ${total}</div><p></p><br></br>
             <div class="pay_button">
                    {/*<Button variant="contained" color="primary"> Complete Purchase </Button>*/}          
                    <PayPalButton
-                        amount="0.01"
+                        amount={total}
                         onSuccess={(details, data) => {
                           alert("Transaction completed by " + details.payer.name.given_name);
                           return fetch("/paypal-transaction-complete", {
@@ -50,6 +50,10 @@ const CheckoutPage = ({cartItems, total}) => (
                             })
                           });
                         }}
+                        /*options={{
+                            clientId: "AWzSg6-sl6mTpYBnxEvA8MTgVuH_lL0iBkGggYnx3nsQV55WP5JqMiKVEQzunnskanuBz2WKl5fZzNxC"
+                            ,currency:"CAD"
+                        }}*/
                       />
               </div>
     </div>
