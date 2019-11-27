@@ -11,6 +11,7 @@ import {createStructuredSelector} from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../../Redux/cart/cart.selectors';
 import {toggleCartHidden} from "../../../Redux/cart/cart.actions";
 import CheckoutItem from "./CheckoutItem";
+import { PayPalButton } from "react-paypal-button-v2";
 
 const CheckoutPage = ({cartItems, total}) => (
     <div>
@@ -33,9 +34,30 @@ const CheckoutPage = ({cartItems, total}) => (
                     ))}
                 </TableBody>
             </Table>
-    <div>Total:${total}</div>
-    <Button variant="contained" color="primary"> Complete Purchase </Button>
+
+    <p></p><br></br>
+        <div class="center_total">Total: ${total}</div><p></p><br></br>
+            <div class="pay_button">
+                   {/*<Button variant="contained" color="primary"> Complete Purchase </Button>*/}          
+                   <PayPalButton
+                        amount={total}
+                        onSuccess={(details, data) => {
+                          alert("Transaction completed by " + details.payer.name.given_name);
+                          return fetch("/paypal-transaction-complete", {
+                            method: "post",
+                            body: JSON.stringify({
+                              orderID: data.orderID
+                            })
+                          });
+                        }}
+                        /*options={{
+                            clientId: "AWzSg6-sl6mTpYBnxEvA8MTgVuH_lL0iBkGggYnx3nsQV55WP5JqMiKVEQzunnskanuBz2WKl5fZzNxC"
+                            ,currency:"CAD"
+                        }}*/
+                      />
+              </div>
     </div>
+
     ) 
     :
     (
