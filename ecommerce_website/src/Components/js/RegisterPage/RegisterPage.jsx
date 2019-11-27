@@ -165,13 +165,7 @@ const Register = (props) => {
                         console.log("success");
                         alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
                         console.log(response);
-<<<<<<< HEAD
                         props.setCurrentUser(response.data.contents[0]);
-=======
-                        // If successful then we need to store the response.data.contents object somewhere
-                        // console.log(response.data.contents[0]);
-                        setCurrentUser(response.data.contents[0]);
->>>>>>> d0f481abeeeeaf16d98b41af11483da3a3750d0d
                     } else {
                         console.log(response.data.message);
                         alert("Something went wrong please try again");
