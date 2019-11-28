@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Ratings from "./Ratings";
+import Reviews from "./Reviews";
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css"
@@ -68,13 +70,10 @@ const SellerDetails = props => {
 
   function retrieveReviews(contents) {
     var messages = [];
-    console.log("inside reviews function" + contents);
-    contents.map(content => {
-      messages.push(content.text)
-      // setSellerReviews(sellerReviews.concat(content.text));
+    contents.forEach(content => {
+      messages.push(content.text);
     })
     setSellerReviews(messages);
-    console.log("All the seller's reviews: ");
   }
 
   return (
@@ -105,15 +104,17 @@ const SellerDetails = props => {
                </Grid>
                <Grid item>
                  <Typography variant="body2">
-                   Rating: {sellerRating}
-                  </Typography>
-               </Grid>
-               <Grid item>
-                 <Typography variant="body2" color="textSecondary">
-                   Customer Reviews: {sellerReviews}
+                   <Ratings 
+                    value={sellerRating}
+                   />
                   </Typography>
                </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs={12} sm={8} container>
+            <Reviews
+              reviews={sellerReviews}
+            />
           </Grid>
         </Grid>
       </Paper>

@@ -1,0 +1,8 @@
+.rating-container, .rating-box {
+  margin: 0px;
+  padding: 0px;
+}
+
+.rating-text {
+  font-size: 18px !important;
+}
