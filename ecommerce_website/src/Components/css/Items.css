@@ -1,3 +1,12 @@
+.item-list img {
+	object-fit:cover;
+	margin:20px auto;
+}
+.item-list button {	
+	margin: 20px auto;
+}
+
+
 .item-container {
     display: flex;
     flex-direction: column;
@@ -7,6 +16,7 @@
     backface-visibility: hidden;
     transform: translateZ(0);
     transition: transform 0.25s ease-out;
+text-align:center;
   }
   
 .item-container:hover {
@@ -43,4 +53,27 @@ img {
 
   width: 65%;
   height: 65%;
+}
+
+
+@media(max-width:1100px) {
+    .item-list {
+	display:block;	
+	text-align:left;
+}	 
+     .item-list h2 {
+	width:300px;
+}	
+}
+@media(max-width:800px) {
+.aboutsection p {
+	width:90%!important;
+
+}
+} 
+@media(max-width:750px) {
+.item-list {
+	display:block;	
+	text-align:center;
+}
 }
