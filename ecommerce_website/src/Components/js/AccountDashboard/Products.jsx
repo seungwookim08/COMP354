@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Title from './Title';
 import AddProduct from './AddProduct';
+import ModifyProduct from './ModifyProduct';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +47,8 @@ export default function Products(props) {
     return (
         <React.Fragment>
             <Title>Products</Title>
-            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose} />
+            <AddProduct  sellerId={props.sellerId} open={open} handleClose={handleClose} />
+            <ModifyProduct allItems={allItems} open={open} handleClose={handleClose}/>
             <Grid spacing={6}>
                 <div>
                     <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button>
@@ -55,7 +57,7 @@ export default function Products(props) {
                     <Button variant="contained" color="Secondary">Delete Product </Button>
 
 
-                    <Button variant="contained" color="default"> Modify Product </Button>
+                    <Button variant="contained" color="default" onClick={handleClickOpen}> Modify Product </Button>
                 </div>
             </Grid>
             <Grid item xs={3}>

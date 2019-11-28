@@ -3,7 +3,7 @@
 //this will be current products not yet sold
 //need to make a seperate table for products sold
 //need to make "add product" function 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -12,16 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
-
-// Generate Order Data
-function createData(id, date, item, quantity, shipTo, paymentMethod, amount) {
-  return { id, date, item, quantity, shipTo, paymentMethod, amount };
-}
-
-const rows = [
-  
-  
-];
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
@@ -29,7 +20,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Sales() {
+export default function Sales(props) {
+
+  const [allItems, setAllItems] = useState([]);
+
+  useEffect(() => {
+    let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
+    axios
+      .get(url)
+      .then(({ data }) => {
+        if (data.is_success) {
+          setAllItems(data.contents);
+        }
+      });
+  });
+
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -46,7 +51,7 @@ export default function Sales() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => (
+          {allItems.map(row => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
               <TableCell>{row.item}</TableCell>
