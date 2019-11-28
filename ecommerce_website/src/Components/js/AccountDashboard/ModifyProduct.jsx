@@ -41,13 +41,14 @@ const ModifyProduct = (props) => {
         let manufacturer = selectProduct.manufacturer;
         let category = selectProduct.category;
 
-        console.log(id);
-        console.log(name);
-        console.log(price);
+        console.log(JSON.stringify(id));
+        console.log(JSON.stringify(name));
+        console.log(JSON.stringify);
         console.log(quantity);
         console.log(description);
         console.log(manufacturer);
         console.log(category);
+        console.log(price);
 
     }
     function sendPostRequest() {
