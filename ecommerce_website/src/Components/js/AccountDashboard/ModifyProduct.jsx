@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -23,34 +23,28 @@ const ModifyProduct = (props) => {
     const [manufacturer, setManufacturer] = useState("");
     const [category, setCategory] = useState("");
 
+    useEffect(() => {
+        if (selectProduct) {
+            var productJson;
+            try {
+                productJson = JSON.parse(selectProduct);
 
-    function updateFields() {
-        // console.log(selectProduct);
-        // setProductId(selectProduct.id);
-        // setProduct(selectProduct.name);
-        // setPrice(selectProduct.price);
-        // setQuantity(selectProduct.quantity);
-        // setDescription(selectProduct.description);
-        // setManufacturer(selectProduct.manufacturer);
-        // setCategory(selectProduct.category);
-        let id = selectProduct.id;
-        let name = selectProduct.name;
-        let price = selectProduct.price;
-        let quantity = selectProduct.quantity;
-        let description = selectProduct.description;
-        let manufacturer = selectProduct.manufacturer;
-        let category = selectProduct.category;
+            } catch (e) {
+                // Oh well, but whatever...
+            }
+            //console.log(productJson);
+            
+            setProductId(productJson.id);
+            setProduct(productJson.name);
+            setPrice(productJson.price);
+            setQuantity(productJson.quantity);
+            setDescription(productJson.description);
+            setManufacturer(productJson.manufacturer);
+            setCategory(productJson.category);
+        }
 
-        console.log(JSON.stringify(id));
-        console.log(JSON.stringify(name));
-        console.log(JSON.stringify);
-        console.log(quantity);
-        console.log(description);
-        console.log(manufacturer);
-        console.log(category);
-        console.log(price);
-
-    }
+    }, [selectProduct]);
+    
     function sendPostRequest() {
         //handle form submission
 
@@ -91,16 +85,12 @@ const ModifyProduct = (props) => {
                         <InputLabel htmlFor="age-native-simple">Product</InputLabel>
                         <Select
                             native
-                            onChange={e => {
-                                setSelectProduct(e.target.value);
-                                updateFields();
-                            }
-                            }
+                            onChange={e => setSelectProduct(e.target.value)}
                             autoWidth={true}
                         >
                             <option value={""}></option>
                             {props.allItems.map(item =>
-                                <option value={JSON.stringify(item)}>{item.name}</option>)}
+                                <option id={item.id} value={JSON.stringify(item)}>{item.name}</option>)}
                         </Select>
                     </FormControl>
 
@@ -110,7 +100,7 @@ const ModifyProduct = (props) => {
                         id="productName"
                         label="Product Name"
                         fullWidth
-                        defaultValue={product}
+                        value={product}
                         onChange={e => setProduct(e.target.value)}
                     />
                     <TextField
@@ -120,7 +110,7 @@ const ModifyProduct = (props) => {
                         label="Price"
                         fullWidth
                         type="number"
-                        defaultValue={price}
+                        value={price}
                         onChange={e => setPrice(e.target.value)}
                     />
                     <TextField
@@ -130,7 +120,7 @@ const ModifyProduct = (props) => {
                         label="Quantity"
                         type="number"
                         fullWidth
-                        defaultValue={quantity}
+                        value={quantity}
                         onChange={e => setQuantity(e.target.value)}
                     />
                     <TextField
@@ -139,7 +129,7 @@ const ModifyProduct = (props) => {
                         id="description"
                         label="Description"
                         fullWidth
-                        defaultValue={description}
+                        value={description}
                         onChange={e => setDescription(e.target.value)}
                     />
 
@@ -149,6 +139,7 @@ const ModifyProduct = (props) => {
                         id="category"
                         label="category"
                         fullWidth
+                        value={category}
                         onChange={e => setCategory(e.target.value)}
                     />
                     <TextField
@@ -157,6 +148,7 @@ const ModifyProduct = (props) => {
                         id="manufacturer"
                         label="manufacturer"
                         fullWidth
+                        value={manufacturer}
                         onChange={e => setManufacturer(e.target.value)}
                     />
                 </DialogContent>
