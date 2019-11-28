@@ -27,14 +27,16 @@ const SellerDetails = props => {
   const [sellerEmail, setSellerEmail] = useState("");
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
-  const [sellerReviews, setSellerReviews] = useState("");
+  const [reviewContents, setReviewContents] = useState("");
+  const [buyerReviews, setBuyerReviews] = useState("");
+  const [sellerReplies, setSellerReplies] = useState("");
+  const [buyerIds, setBuyerIds] = useState("");
 
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
 
   // retrieve specific details about the seller
   useEffect(() => {
-    console.log(props.location.state.sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + 2)
     .then(({data}) => {
@@ -54,7 +56,9 @@ const SellerDetails = props => {
       if(data.is_success) {
         console.log(data.contents);
         setSellerRating(computeAverageRating(data.contents));
-        retrieveReviews(data.contents);
+        retrieveBuyerReviews(data.contents);
+        retrieveSellerReplies(data.contents);
+        retrieveUserIds(data.contents);
       }
     });
   }, []);
@@ -68,12 +72,28 @@ const SellerDetails = props => {
     return total/count;
   }
 
-  function retrieveReviews(contents) {
-    var messages = [];
+  function retrieveBuyerReviews(contents) {
+    var buyerMessages = [];
     contents.forEach(content => {
-      messages.push(content.text);
+      buyerMessages.push(content.text);
     })
-    setSellerReviews(messages);
+    setBuyerReviews(buyerMessages);
+  }
+
+  function retrieveSellerReplies(contents) {
+    var sellerMessages = [];
+    contents.forEach(content => {
+      sellerMessages.push(content.sellerText);
+    })
+    setSellerReplies(sellerMessages);
+  }
+
+  function retrieveUserIds(contents) {
+    var buyerIds = [];
+    contents.forEach(content => {
+      buyerIds.push(content.userId);
+    })
+    setBuyerIds(buyerIds);
   }
 
   return (
@@ -111,10 +131,10 @@ const SellerDetails = props => {
                </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={8} container>
-            <Reviews
-              reviews={sellerReviews}
-            />
+          <Grid item xs={12} container>
+            {
+              
+            }
           </Grid>
         </Grid>
       </Paper>
