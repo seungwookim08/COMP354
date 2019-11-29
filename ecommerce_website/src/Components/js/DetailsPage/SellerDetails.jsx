@@ -5,10 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Ratings from "./Ratings";
-import Reviews from "./Reviews";
+import Review from "./Review";
+import Pagination from "material-ui-flat-pagination";
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
-import "../../css/ContainerDetails.css"
+import "../../css/ContainerDetails.css";
+import "../../css/SellerDetails.css";
 import axios from "axios";
 
 
@@ -18,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     margin: 'auto',
     maxWidth: "95%",
+    minHeight: "100%",
   },
 }));
 
@@ -28,9 +31,6 @@ const SellerDetails = props => {
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
   const [reviewContents, setReviewContents] = useState("");
-  const [buyerReviews, setBuyerReviews] = useState("");
-  const [sellerReplies, setSellerReplies] = useState("");
-  const [buyerIds, setBuyerIds] = useState("");
 
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
@@ -54,11 +54,9 @@ const SellerDetails = props => {
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
     .then(({data}) => {
       if(data.is_success) {
-        console.log(data.contents);
+        console.log("data contents" + data.contents);
         setSellerRating(computeAverageRating(data.contents));
-        retrieveBuyerReviews(data.contents);
-        retrieveSellerReplies(data.contents);
-        retrieveUserIds(data.contents);
+        setReviewContents(data.contents);
       }
     });
   }, []);
@@ -72,35 +70,31 @@ const SellerDetails = props => {
     return total/count;
   }
 
-  function retrieveBuyerReviews(contents) {
-    var buyerMessages = [];
-    contents.forEach(content => {
-      buyerMessages.push(content.text);
-    })
-    setBuyerReviews(buyerMessages);
+  function retrieveUserId(content) {
+    console.log("user id: " + content.userId);
+    return content.userId;
   }
 
-  function retrieveSellerReplies(contents) {
-    var sellerMessages = [];
-    contents.forEach(content => {
-      sellerMessages.push(content.sellerText);
-    })
-    setSellerReplies(sellerMessages);
+  function retrieveBuyerReview(content) {
+    console.log("review: " + content.text);
+    return content.text;
   }
 
-  function retrieveUserIds(contents) {
-    var buyerIds = [];
-    contents.forEach(content => {
-      buyerIds.push(content.userId);
-    })
-    setBuyerIds(buyerIds);
+  function retrieveSellerReply(content) {
+    console.log("reply: " + content.sellerText);
+    return content.sellerText;
+  }
+
+  function retrieveBuyerRating(content) {
+    console.log("rating: " + content.rate);
+    return content.rate;
   }
 
   return (
     <div className="container">
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
-          <Grid item sm={4}>
+          <Grid item xs ={12} sm={4}>
             <ButtonBase className="image">
               <img className="img" alt="seller image" src={sellerProfilePic} />
             </ButtonBase>
@@ -126,16 +120,35 @@ const SellerDetails = props => {
                  <Typography variant="body2">
                    <Ratings 
                     value={sellerRating}
+                    optionalText="Seller"
                    />
                   </Typography>
                </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} container>
-            {
-              
-            }
+          <Grid container xs={12} className="grid-container" spacing={2}>
+          {
+            reviewContents ?
+            (
+              reviewContents.map(contents => (
+                <Grid item xs={12} sm={6} md={3}>
+                  <Review
+                    buyerId={retrieveUserId(contents)}
+                    buyerReview={retrieveBuyerReview(contents)}
+                    buyerRating={retrieveBuyerRating(contents)}
+                    sellerName={sellerFullName}
+                    sellerReply={retrieveSellerReply(contents)}
+                  />
+                </Grid>
+              ))
+            )
+            :
+            (
+              <div>{/*Empty Container*/}</div>
+            )
+          }
           </Grid>
+          
         </Grid>
       </Paper>
     </div>
