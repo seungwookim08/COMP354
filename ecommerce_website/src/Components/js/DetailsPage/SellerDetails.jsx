@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Ratings from "./Ratings";
 import Review from "./Review";
-import Pagination from "material-ui-flat-pagination";
+import Pagination from "material-ui-flat-pagination"
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css";
@@ -31,6 +31,10 @@ const SellerDetails = props => {
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
   const [reviewContents, setReviewContents] = useState("");
+  const [amountOfBuyerReviews, setAmountOfBuyerReviews] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [amountOfRowsPerPage] = useState(2);
+  const [reviewsPerRow] = useState(4);
 
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
@@ -67,7 +71,16 @@ const SellerDetails = props => {
       count++;
       total += content.rate;
     })
+    setAmountOfBuyerReviews(count);
     return total/count;
+  }
+
+  function computeTotalRows() {
+    if(amountOfBuyerReviews) {
+      return Math.ceil(amountOfBuyerReviews/reviewsPerRow);
+    } else {
+      return 0;
+    }
   }
 
   function retrieveUserId(content) {
@@ -88,6 +101,14 @@ const SellerDetails = props => {
   function retrieveBuyerRating(content) {
     console.log("rating: " + content.rate);
     return content.rate;
+  }
+
+  function updatePageNumber(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
+  function loadNewReviews() {
+
   }
 
   return (
@@ -148,8 +169,14 @@ const SellerDetails = props => {
             )
           }
           </Grid>
-          
         </Grid>
+        <Pagination
+          size = 'large'
+          limit={amountOfRowsPerPage}
+          total={computeTotalRows()}
+          offset={currentPage}
+          onClick={(e, offset)=>updatePageNumber(offset)}
+        />
       </Paper>
     </div>
   );
