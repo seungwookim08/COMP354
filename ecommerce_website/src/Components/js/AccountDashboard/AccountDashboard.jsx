@@ -71,7 +71,7 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Chart />
+                <Chart sellerId={sellerId}/>
               </Paper>
             </Grid>
             {/* Recent Deposits */}
