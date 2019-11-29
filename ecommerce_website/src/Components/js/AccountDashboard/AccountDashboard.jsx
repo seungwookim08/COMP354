@@ -77,13 +77,13 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <TotalSales/>
+                <TotalSales sellerId={sellerId}/>
               </Paper>
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Sales />
+                <Sales sellerId={sellerId}/>
               </Paper>
             </Grid>
             <Grid item xs={12}>

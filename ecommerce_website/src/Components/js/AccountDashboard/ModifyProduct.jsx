@@ -45,11 +45,11 @@ const ModifyProduct = (props) => {
 
     }, [selectProduct]);
     
-    function sendPostRequest() {
+    function sendPutRequest() {
         //handle form submission
 
         const formData = new FormData();
-
+        formData.append("name", product);
         formData.append("price", price);
         formData.append("quantity", quantity);
         formData.append("description", description);
@@ -59,9 +59,9 @@ const ModifyProduct = (props) => {
 
         console.log("Function called with the following info:");
         console.log(formData);
-
+        console.log(productId);
         axios
-            .post('https://rocky-shore-99218.herokuapp.com/products/', formData)
+            .put(`http://rocky-shore-99218.herokuapp.com/products/${productId}/details`, formData)
             .then(({ data }) => {
                 console.log(data);
             })
@@ -157,7 +157,7 @@ const ModifyProduct = (props) => {
                         Cancel
           </Button>
                     <Button color="primary" onClick={e => {
-                        sendPostRequest();
+                        sendPutRequest();
                     }}>
 
                         Modify Product

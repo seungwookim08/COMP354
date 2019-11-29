@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Title from './Title';
@@ -24,6 +25,8 @@ export default function Products(props) {
 
     const [allItems, setAllItems] = useState([]);
     const [open, setOpen] = useState(false);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     useEffect(() => {
         let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/products/`;
@@ -44,11 +47,20 @@ export default function Products(props) {
         setOpen(false);
     };
 
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = event => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return (
         <React.Fragment>
             <Title>Products</Title>
-            <AddProduct  sellerId={props.sellerId} open={open} handleClose={handleClose} />
-            <ModifyProduct allItems={allItems} open={open} handleClose={handleClose}/>
+            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose} />
+            <ModifyProduct allItems={allItems} open={open} handleClose={handleClose} />
             <Grid spacing={6}>
                 <div>
                     <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button>
@@ -73,7 +85,8 @@ export default function Products(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {allItems.map(item => (
+                    {allItems.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map(item => (
                         <TableRow key={item.id}>
                             <TableCell>{item.created}</TableCell>
                             <TableCell>{item.name}</TableCell>
@@ -84,6 +97,15 @@ export default function Products(props) {
                     ))}
                 </TableBody>
             </Table>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={allItems.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
         </React.Fragment>
     );
 }
