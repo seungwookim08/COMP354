@@ -19,14 +19,9 @@ export default function Chart(props) {
               }
           });
   });
-console.log(allItems);
   // Generate Sales Data
 function createData(time, amount) {
   return { time, amount };
-}
-
-function formatDate(date){
-
 }
 
 function populateData(data){
@@ -37,9 +32,7 @@ function populateData(data){
     data.push(createData(date[0], runningTotal));
  }
 }
-
 const data = [];
-
 populateData(data);
 
   return (

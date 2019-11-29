@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,20 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import Title from './Title';
 import AddProduct from './AddProduct';
 import ModifyProduct from './ModifyProduct';
+import DeleteProduct from './DeleteProduct';
 import axios from 'axios';
-
-const useStyles = makeStyles(theme => ({
-    seeMore: {
-        marginTop: theme.spacing(3),
-    },
-}));
-
-
 
 export default function Products(props) {
 
     const [allItems, setAllItems] = useState([]);
-    const [open, setOpen] = useState(false);
+    const [openAdd, setOpenAdd] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+    const [openModify, setOpenModify] = useState(false);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -39,12 +33,26 @@ export default function Products(props) {
             });
     });
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpenAdd = () => {
+        setOpenAdd(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleCloseAdd = () => {
+        setOpenAdd(false);
+    };
+    const handleClickOpenModify = () => {
+        setOpenModify(true);
+    };
+
+    const handleCloseModify = () => {
+        setOpenModify(false);
+    };
+    const handleClickOpenDelete = () => {
+        setOpenDelete(true);
+    };
+
+    const handleCloseDelete = () => {
+        setOpenDelete(false);
     };
 
     const handleChangePage = (event, newPage) => {
@@ -59,17 +67,14 @@ export default function Products(props) {
     return (
         <React.Fragment>
             <Title>Products</Title>
-            <AddProduct sellerId={props.sellerId} open={open} handleClose={handleClose} />
-            <ModifyProduct allItems={allItems} open={open} handleClose={handleClose} />
+            <AddProduct sellerId={props.sellerId} open={openAdd} handleClose={handleCloseAdd} />
+            <DeleteProduct sellerId={props.sellerId}  allItems={allItems} open={openDelete} handleClose={handleCloseDelete} />
+            <ModifyProduct allItems={allItems} open={openModify} handleClose={handleCloseModify} />
             <Grid spacing={6}>
                 <div>
-                    <Button variant="contained" color="primary" onClick={handleClickOpen}>Add Product </Button>
-
-
-                    <Button variant="contained" color="Secondary">Delete Product </Button>
-
-
-                    <Button variant="contained" color="default" onClick={handleClickOpen}> Modify Product </Button>
+                    <Button variant="contained" color="primary" onClick={handleClickOpenAdd}> Add Product </Button>
+                    <Button variant="contained" color="Secondary" onClick={handleClickOpenDelete}>Delete Product </Button>
+                    <Button variant="contained" color="default" onClick={handleClickOpenModify}> Modify Product </Button>
                 </div>
             </Grid>
             <Grid item xs={3}>
