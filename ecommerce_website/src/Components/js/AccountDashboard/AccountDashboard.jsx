@@ -63,7 +63,7 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div align="center">
-          <Typography> <h2> {firstName + " " + lastName}, Seller ID: {sellerId} </h2> </Typography>
+          <Typography variant="h4">  {firstName + " " + lastName}, Seller ID: {sellerId}  </Typography>
         </div>
         
         <Container maxWidth="lg" className={classes.container}>
@@ -71,19 +71,19 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Chart />
+                <Chart sellerId={sellerId}/>
               </Paper>
             </Grid>
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <TotalSales/>
+                <TotalSales sellerId={sellerId}/>
               </Paper>
             </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Sales />
+                <Sales sellerId={sellerId}/>
               </Paper>
             </Grid>
             <Grid item xs={12}>

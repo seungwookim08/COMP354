@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Title from './Title';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   depositContext: {
@@ -11,16 +12,34 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TotalSales() {
+export default function TotalSales(props) {
+
+  const [totalUnits, setTotalUnits] = useState("");
+  const [totalRevenue, setTotalRevenue] = useState("");
+
+
+  useEffect(() => {
+    let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/stats/`;
+    axios
+      .get(url)
+      .then(({ data }) => {
+        if (data.is_success) {
+          setTotalUnits(data.contents[0].totalUnits);
+          setTotalRevenue(data.contents[0].totalRevenue);
+        }
+      });
+  });
+
+
   const classes = useStyles();
   return (
     <React.Fragment>
       <Title>Total Sales</Title>
       <Typography component="p" variant="h4">
-        $0
+        ${totalRevenue}
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
-        from 0 amount of products sold
+        from {totalUnits} products sold
       </Typography>
       <div>
       </div>

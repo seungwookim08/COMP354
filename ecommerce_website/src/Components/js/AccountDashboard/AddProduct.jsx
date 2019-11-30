@@ -34,21 +34,6 @@ const AddProduct = props => {
     formData.append("category", category);
     formData.append("image1", image1);
 
-   
-    console.log(name);
-    console.log(price);
-    console.log(quantity);
-    console.log(description);
-    console.log(sellerID);
-    console.log(manufacturer);
-    console.log(category);
-    console.log(image1);
-
-
-
-    console.log("Function called with the following info:");
-    console.log(formData);
-
     axios
       .post('https://rocky-shore-99218.herokuapp.com/products/', formData)
       .then(({ data }) => {
