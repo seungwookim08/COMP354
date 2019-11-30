@@ -42,14 +42,12 @@ const SellerDetails = props => {
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
   const [currentSellerIdViewingPage] = useState(props.user);
 
+  // TODO: Add back this route once testing and full implementation is done
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
 
   // retrieve specific details about the seller
   useEffect(() => {
-    console.log("Seller: " + currentSellerIdViewingPage);
-    console.log("seller id of viewer: " + currentSellerIdViewingPage.sellerId);
-    console.log("seller id of seller page: " + sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + 2)
     .then(({data}) => {
@@ -63,9 +61,6 @@ const SellerDetails = props => {
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
-    console.log("Seller: " + currentSellerIdViewingPage);
-    console.log("seller id of viewer: " + currentSellerIdViewingPage.sellerId);
-    console.log("seller id of seller page: " + sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
     .then(({data}) => {
@@ -107,7 +102,7 @@ const SellerDetails = props => {
   }
 
   function updateSellerReply(sellerText) {
-    // Post function
+    // TODO: Add post function
     console.log("post function called, text: " + sellerText)
   }
 
@@ -186,7 +181,7 @@ const SellerDetails = props => {
                     sellerName={sellerFullName}
                     sellerId={sellerId}
                     sellerIdOfViewer={currentSellerIdViewingPage}
-                    sellerReply={e => retrieveSellerReply(contents)}
+                    sellerReply={retrieveSellerReply(contents)}
                     updateSellerReply= {updateSellerReply}
                   />
                 </Grid>
