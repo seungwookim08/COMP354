@@ -1,17 +1,40 @@
-import React from 'react';
+import React ,{useState, useEffect} from 'react';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
+import axios from "axios";
 
-// Generate Sales Data
+
+export default function Chart(props) {
+
+  const [allItems, setAllItems] = useState([]);
+  
+    useEffect(() => {
+      let url = `http://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
+      axios
+          .get(url)
+          .then(({ data }) => {
+              if (data.is_success) {
+                  setAllItems(data.contents);
+                            
+              }
+          });
+  });
+  // Generate Sales Data
 function createData(time, amount) {
   return { time, amount };
 }
 
-const data = [
- //todo when we start selling items
-];
+function populateData(data){
+  let runningTotal = 0;
+  for(let i = 0; i < allItems.length; i++){
+    runningTotal = runningTotal + allItems[i].totalCost;
+    let date = allItems[i].created.split('T'); //change to split('.') if you want to time of the sale to display in chart
+    data.push(createData(date[0], runningTotal));
+ }
+}
+const data = [];
+populateData(data);
 
-export default function Chart() {
   return (
     <React.Fragment>
       <Title> Product Sales </Title>
