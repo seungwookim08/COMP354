@@ -18,6 +18,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [registerPageIndex] = useState(3);
   const [loginPageIndex] = useState(4);
   const [dashboardPageIndex] = useState(4);
+  const [adminDashboardPageIndex] = useState(4);
   const [aboutPageIndexOne] = useState(5);
   const [aboutPageIndexTwo] = useState(6);
   const [localHostString] = useState("http://localhost:3000");
@@ -25,6 +26,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [checkoutPageString] = useState("/checkout");
   const [profilePageString] = useState("/profile");
   const [dashboardPageString] = useState("/dashboard");
+  const [adminDashboardString] = useState("admindashboard");
   const [registerPageString] = useState("/RegisterPage");
   const [loginPageString] = useState("/Login");
   const [aboutPageString] = useState("/about");
@@ -47,6 +49,9 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
     }
     else if(currentLocation == (localHostString + dashboardPageString)) {
       setNavItemValue(dashboardPageIndex);
+    }
+    else if(currentLocation == (localHostString + adminDashboardString)) {
+      setNavItemValue(adminDashboardPageIndex);
     }
     else if(currentLocation == (localHostString + registerPageString)) {
       setNavItemValue(registerPageIndex);
@@ -89,7 +94,17 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
                   <Tab label="Home" component={Link} to={homePageString} index={homePageIndex}/>
                   <Tab label="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}/>
                   <Tab label="Profile" component={Link} to={profilePageString} index={profilePageIndex}/>
-                  <Tab label="Seller Dashboard" component={Link} to={dashboardPageString} index={dashboardPageIndex}/>
+                  {
+                    !(currentUser == "patrick.leduc13@gmail.com") ? 
+                    (
+                      <Tab label="Seller Dashboard" component={Link} to={dashboardPageString} index={dashboardPageIndex}/>
+                    ) 
+                    : 
+                    (
+                      <Tab label="Admin Dashboard" component={Link} to={adminDashboardString} index={adminDashboardPageIndex}/>
+                    )
+                  }
+                  
                   {<Tab label="Logout" component={Link} to={homePageString} onClick={() => logoutCurrentUser()}/> }
                   <Tab label="About" component={Link} to={aboutPageString} index={aboutPageIndexTwo}/>
                 </Tabs>

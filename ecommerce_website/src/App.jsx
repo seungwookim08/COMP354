@@ -5,6 +5,7 @@ import { Route, Switch, Redirect} from "react-router-dom";
 import Login from "./Components/js/Login/Login";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
+import AdminDashboard from "./Components/js/AdminDashboard/AdminDashboard";
 import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetailsPage";
 import SellerDetails from "./Components/js/DetailsPage/SellerDetails";
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
@@ -29,7 +30,11 @@ class App extends Component {
           />
           <Route 
             path='/dashboard' 
-            render={()=> this.props.currentUser ? <AccountDashboard/> : (<Redirect to='/'/>)}
+            render={()=> this.props.currentUser && !(this.props.currentUser == "patrick.leduc13@gmail.com") ? <AccountDashboard/> : (<Redirect to='/'/>)}
+          />
+          <Route 
+            path='/admindashboard' 
+            render={()=> this.props.currentUser == "patrick.leduc13@gmail.com" ? <AdminDashboard/> : (<Redirect to='/'/>)}
           />
           <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
