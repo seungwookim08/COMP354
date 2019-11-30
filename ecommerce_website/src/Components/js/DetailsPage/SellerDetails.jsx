@@ -33,6 +33,7 @@ const SellerDetails = props => {
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
   const [sellerId] = useState(props.location.state.sellerId);
+  const [sellerIdOfItem, setSellerIdOfItem] = useState("");
   const [reviewContents, setReviewContents] = useState("");
   const [amountOfBuyerReviews, setAmountOfBuyerReviews] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,7 +41,8 @@ const SellerDetails = props => {
   const [reviewsPerRow] = useState(4);
   const [beginningIndex, setBeginningIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
-  const [currentSellerIdViewingPage] = useState(props.user);
+  // const [currentSellerIdViewingPage] = useState("");
+  // const [refreshPage, setRefreshPage] = useState(false);
 
   // TODO: Add back this route once testing and full implementation is done
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
@@ -49,7 +51,7 @@ const SellerDetails = props => {
   // retrieve specific details about the seller
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + 2)
+    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
     .then(({data}) => {
       if(data.is_success) {
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
@@ -62,14 +64,14 @@ const SellerDetails = props => {
   // retrieve ratings and reviews of the seller
   useEffect(() => {
     axios
-    .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
+    .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
     .then(({data}) => {
       if(data.is_success) {
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
       }
     });
-  }, []);
+  });
 
   function computeAverageRating(contents) {
     var total = 0, count = 0;
@@ -93,17 +95,36 @@ const SellerDetails = props => {
     return content.userId;
   }
 
+  function retrieveSellerIdFromReview(content) {
+    return content.sellerId;
+  }
+
   function retrieveBuyerReview(content) {
     return content.text;
   }
 
-  function retrieveSellerReply(content) {
+  function retrieveSellerText(content) {
     return content.sellerText;
   }
 
-  function updateSellerReply(sellerText) {
-    // TODO: Add post function
-    console.log("post function called, text: " + sellerText)
+  function retrieveReviewId(content) {
+    return content.id;
+  }
+
+  function updateSellerText(sellerText, reviewId, buyerId, sellerId) {
+    axios.put('https://rocky-shore-99218.herokuapp.com/ratings/' + reviewId, {
+      userId: buyerId,
+      sellerId: sellerId,
+      sellerText: sellerText,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+    console.log("post function called ")
   }
 
   function retrieveBuyerRating(content) {
@@ -176,13 +197,15 @@ const SellerDetails = props => {
                 <Grid item xs={12} sm={6} md={3}>
                   <Review
                     buyerId={retrieveUserId(contents)}
+                    reviewId={retrieveReviewId(contents)}
                     buyerReview={retrieveBuyerReview(contents)}
                     buyerRating={retrieveBuyerRating(contents)}
                     sellerName={sellerFullName}
                     sellerId={sellerId}
-                    sellerIdOfViewer={currentSellerIdViewingPage}
-                    sellerReply={retrieveSellerReply(contents)}
-                    updateSellerReply= {updateSellerReply}
+                    sellerIdFromItem={retrieveSellerIdFromReview(contents)}
+                    // sellerIdOfViewer={currentSellerIdViewingPage}
+                    sellerText={retrieveSellerText(contents)}
+                    updateSellerText= {updateSellerText}
                   />
                 </Grid>
               ))

@@ -17,7 +17,7 @@ import "../../css/Review.css";
 const Review = (props) => {
   const [areValuesSet, setBooleanValuesSet] = useState(false);
   const [sellerName, setSellerName] = useState("");
-  const [sellerReply, setSellerReply] = useState("");
+  const [sellerText, setSellerText] = useState("");
   const [sellerId, setSellerId] = useState("");
   const [sellerIdOfViewer, setSellerIdOfViewer] = useState("");
   const [buyerReview, setBuyerReview] = useState("");
@@ -26,19 +26,21 @@ const Review = (props) => {
   const [buyerName, setBuyerName] = useState("");
   const [areSellerIdsMatching, setSellerIdMatchingBoolean] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [tempSellerReply, setTempSellerReply] = useState("");
+  const [tempSellerText, setTempSellerText] = useState("");
+  const [reviewId, setReviewId] = useState("");
+  const [sellerIdFromItem, setSellerIdFromItem] = useState();
 
   useEffect(() => {
     if(props.buyerId) {
       setBooleanValuesSet(true);
       setBuyerId(props.buyerId);
+      setReviewId(props.reviewId);
       setBuyerRating(props.buyerRating);
       setBuyerReview(props.buyerReview);
       setSellerId(props.sellerId);
-      setSellerReply(props.sellerReply);
-      setSellerIdOfViewer(props.sellerIdOfViewer);
-      // setSellerIdMatchingBoolean(sellerId == sellerIdOfViewer)
-      setSellerIdMatchingBoolean(1 == 1)
+      setSellerText(props.sellerText);
+      setSellerIdFromItem(props.sellerIdFromItem);
+      setSellerIdMatchingBoolean(sellerId == sellerIdFromItem)
     }
   })
 
@@ -59,22 +61,22 @@ const Review = (props) => {
     setOpen(true);
   };
 
-  const updateSellerReply = (sellerText) => {
-    props.updateSellerReply(sellerText);
+  const updateSellerText = (sellerText, reviewId, buyerId, sellerId) => {
+    props.updateSellerText(sellerText, reviewId, buyerId, sellerId);
   }
 
   const handleClose = (isSubmit) => {
-    if(isSubmit && tempSellerReply) {
-      updateSellerReply(tempSellerReply);
-      setTempSellerReply("");
+    if(isSubmit && tempSellerText) {
+      updateSellerText(tempSellerText, reviewId, buyerId, sellerId);
+      setTempSellerText("");
     } else {
-      setSellerReply("");
+      setSellerText("");
     }
     setOpen(false);
   };
 
   const textFieldChanged = (value) => {
-    setTempSellerReply(value);
+    setTempSellerText(value);
   }
 
   return(
@@ -102,11 +104,11 @@ const Review = (props) => {
                 }
                 <br/>
                 {
-                  sellerReply ?
+                  sellerText ?
                   (
                     <div>
                       <Typography component="h2"> <span className="name">{sellerName}</span> </Typography>
-                      <Typography component="h2"> <span className="message">{sellerReply}</span> </Typography>
+                      <Typography component="h2"> <span className="message">{sellerText}</span> </Typography>
                     </div>
                   )
                   :
