@@ -3,7 +3,7 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Ratings from "./Ratings";
 import axios from "axios";
 import "../../css/Review.css";
@@ -18,13 +18,8 @@ const Review = (props) => {
   const [buyerName, setBuyerName] = useState("");
 
   useEffect(() => {
-    console.log("Use effect called!!!!");
     if(props.buyerId) {
       setBooleanValuesSet(true);
-      console.log("inside review reply: " + props.sellerReply);
-      console.log("inside review buyer id: " +props.buyerId);
-      console.log("inside review buyer review: " +props.buyerReview);
-      console.log("inside review buyer rating: " +props.buyerRating);
       setBuyerId(props.buyerId);
       setBuyerRating(props.buyerRating);
       setBuyerReview(props.buyerReview);
@@ -77,8 +72,11 @@ const Review = (props) => {
                   )
                   :
                   (
-                    // Add post to submit reply
-                    <div></div>
+                    <CardActions>
+                      <Button size="small">
+                        Comment
+                      </Button>
+                    </CardActions>
                   )
                 }
               </div>

@@ -35,6 +35,8 @@ const SellerDetails = props => {
   const [currentPage, setCurrentPage] = useState(1);
   const [amountOfRowsPerPage] = useState(2);
   const [reviewsPerRow] = useState(4);
+  const [beginningIndex, setBeginningIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
 
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
@@ -58,7 +60,6 @@ const SellerDetails = props => {
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
     .then(({data}) => {
       if(data.is_success) {
-        console.log("data contents" + data.contents);
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
       }
@@ -84,31 +85,40 @@ const SellerDetails = props => {
   }
 
   function retrieveUserId(content) {
-    console.log("user id: " + content.userId);
     return content.userId;
   }
 
   function retrieveBuyerReview(content) {
-    console.log("review: " + content.text);
     return content.text;
   }
 
   function retrieveSellerReply(content) {
-    console.log("reply: " + content.sellerText);
     return content.sellerText;
   }
 
   function retrieveBuyerRating(content) {
-    console.log("rating: " + content.rate);
     return content.rate;
   }
 
   function updatePageNumber(pageNumber) {
+    if(pageNumber > currentPage) {
+      // Clicked on next page
+      loadNewReviews(endIndex, (endIndex+(reviewsPerRow*amountOfRowsPerPage)));
+    } else {
+      // Clicked on previous page
+      loadNewReviews((beginningIndex-(reviewsPerRow*amountOfRowsPerPage)), beginningIndex);
+    }
     setCurrentPage(pageNumber);
   }
 
-  function loadNewReviews() {
-
+  function loadNewReviews(beginningIndex, endIndex) {
+    if(reviewContents.length < endIndex) {
+      setBeginningIndex(beginningIndex);
+      setEndIndex(reviewContents.length);
+    } else {
+      setBeginningIndex(beginningIndex);
+      setEndIndex(endIndex);
+    }
   }
 
   return (
@@ -151,7 +161,7 @@ const SellerDetails = props => {
           {
             reviewContents ?
             (
-              reviewContents.map(contents => (
+              reviewContents.slice(beginningIndex,(endIndex)).map(contents => (
                 <Grid item xs={12} sm={6} md={3}>
                   <Review
                     buyerId={retrieveUserId(contents)}
@@ -170,12 +180,13 @@ const SellerDetails = props => {
           }
           </Grid>
         </Grid>
+        <br/>
         <Pagination
           size = 'large'
           limit={amountOfRowsPerPage}
           total={computeTotalRows()}
-          offset={currentPage}
-          onClick={(e, offset)=>updatePageNumber(offset)}
+          offset={currentPage-1}
+          onClick={(e, offset)=>updatePageNumber(offset+1)}
         />
       </Paper>
     </div>
