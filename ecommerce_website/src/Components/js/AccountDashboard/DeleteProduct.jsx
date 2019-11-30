@@ -30,6 +30,7 @@ const DeleteProduct = (props) => {
             //console.log(productJson);
 
             setProductId(productJson.id);
+            console.log(productId);
             setProduct(productJson.name);
 
         }
@@ -38,7 +39,7 @@ const DeleteProduct = (props) => {
 
     function sendDeleteRequest() {
         axios
-            .delete(`http://rocky-shore-99218.herokuapp.com/products/${productId}/`)
+            .delete(`http://rocky-shore-99218.herokuapp.com/products/${productId}`)
             .then(({ data }) => {
                 console.log(data);
             })
@@ -79,11 +80,19 @@ const DeleteProduct = (props) => {
                     
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.handleClose} color="primary">
+                    <Button onClick={e=> {
+                        props.handleClose();
+                        setSelectProduct("");
+                        setProductId("");
+                        setProduct("");
+                    }} color="primary">
                         Cancel
           </Button>
                     <Button color="primary" onClick={e => {
                         sendDeleteRequest();
+                        setSelectProduct("");
+                        setProductId("");
+                        setProduct("");
                     }}>
 
                         Delete Product

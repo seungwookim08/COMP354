@@ -63,7 +63,7 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <div align="center">
-          <Typography> <h2> {firstName + " " + lastName}, Seller ID: {sellerId} </h2> </Typography>
+          <Typography variant="h4">  {firstName + " " + lastName}, Seller ID: {sellerId}  </Typography>
         </div>
         
         <Container maxWidth="lg" className={classes.container}>

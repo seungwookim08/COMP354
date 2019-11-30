@@ -33,7 +33,7 @@ const ModifyProduct = (props) => {
                 // Oh well, but whatever...
             }
             //console.log(productJson);
-            
+
             setProductId(productJson.id);
             setProduct(productJson.name);
             setPrice(productJson.price);
@@ -44,7 +44,7 @@ const ModifyProduct = (props) => {
         }
 
     }, [selectProduct]);
-    
+
     function sendPutRequest() {
         //handle form submission
 
@@ -153,11 +153,29 @@ const ModifyProduct = (props) => {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={props.handleClose} color="primary">
+                    <Button onClick={e => {
+                        props.handleClose();
+                        setSelectProduct("");
+                        setProductId("");
+                        setProduct("");
+                        setPrice("");
+                        setQuantity("");
+                        setDescription("");
+                        setManufacturer("");
+                        setCategory("");
+                    }} color="primary">
                         Cancel
           </Button>
                     <Button color="primary" onClick={e => {
                         sendPutRequest();
+                        setSelectProduct("");
+                        setProductId("");
+                        setProduct("");
+                        setPrice("");
+                        setQuantity("");
+                        setDescription("");
+                        setManufacturer("");
+                        setCategory("");
                     }}>
 
                         Modify Product
