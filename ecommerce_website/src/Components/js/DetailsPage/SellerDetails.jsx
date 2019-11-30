@@ -9,6 +9,8 @@ import Review from "./Review";
 import Pagination from "material-ui-flat-pagination"
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
+import {selectUser} from '../../../Redux/user/user.selectors';
+import {createStructuredSelector} from 'reselect';
 import "../../css/ContainerDetails.css";
 import "../../css/SellerDetails.css";
 import axios from "axios";
@@ -30,6 +32,7 @@ const SellerDetails = props => {
   const [sellerEmail, setSellerEmail] = useState("");
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
+  const [sellerId] = useState(props.location.state.sellerId);
   const [reviewContents, setReviewContents] = useState("");
   const [amountOfBuyerReviews, setAmountOfBuyerReviews] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,12 +40,16 @@ const SellerDetails = props => {
   const [reviewsPerRow] = useState(4);
   const [beginningIndex, setBeginningIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
+  const [currentSellerIdViewingPage] = useState(props.user);
 
   // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
   // props.location.state.sellerId
 
   // retrieve specific details about the seller
   useEffect(() => {
+    console.log("Seller: " + currentSellerIdViewingPage);
+    console.log("seller id of viewer: " + currentSellerIdViewingPage.sellerId);
+    console.log("seller id of seller page: " + sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + 2)
     .then(({data}) => {
@@ -56,6 +63,9 @@ const SellerDetails = props => {
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
+    console.log("Seller: " + currentSellerIdViewingPage);
+    console.log("seller id of viewer: " + currentSellerIdViewingPage.sellerId);
+    console.log("seller id of seller page: " + sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + 2 + "/ratings")
     .then(({data}) => {
@@ -94,6 +104,11 @@ const SellerDetails = props => {
 
   function retrieveSellerReply(content) {
     return content.sellerText;
+  }
+
+  function updateSellerReply(sellerText) {
+    // Post function
+    console.log("post function called, text: " + sellerText)
   }
 
   function retrieveBuyerRating(content) {
@@ -152,6 +167,7 @@ const SellerDetails = props => {
                    <Ratings 
                     value={sellerRating}
                     optionalText="Seller"
+                    totalRatings={reviewContents.length}
                    />
                   </Typography>
                </Grid>
@@ -168,7 +184,10 @@ const SellerDetails = props => {
                     buyerReview={retrieveBuyerReview(contents)}
                     buyerRating={retrieveBuyerRating(contents)}
                     sellerName={sellerFullName}
-                    sellerReply={retrieveSellerReply(contents)}
+                    sellerId={sellerId}
+                    sellerIdOfViewer={currentSellerIdViewingPage}
+                    sellerReply={e => retrieveSellerReply(contents)}
+                    updateSellerReply= {updateSellerReply}
                   />
                 </Grid>
               ))
@@ -193,8 +212,12 @@ const SellerDetails = props => {
   );
 }
 
+const mapStateToProps = createStructuredSelector({
+  user:selectUser
+})
+
 const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item))
 })
 
-export default connect(null, mapDispatchToProps)(SellerDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(SellerDetails);
