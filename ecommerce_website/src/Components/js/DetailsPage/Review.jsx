@@ -13,13 +13,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Ratings from "./Ratings";
 import axios from "axios";
 import "../../css/Review.css";
+import userReducer from '../../../Redux/user/user.reducer';
 
 const Review = (props) => {
   const [areValuesSet, setBooleanValuesSet] = useState(false);
   const [sellerName, setSellerName] = useState("");
   const [sellerText, setSellerText] = useState("");
   const [sellerId, setSellerId] = useState("");
-  const [sellerIdOfViewer, setSellerIdOfViewer] = useState("");
   const [buyerReview, setBuyerReview] = useState("");
   const [buyerId, setBuyerId] = useState("");
   const [buyerRating, setBuyerRating] = useState("");
@@ -28,7 +28,6 @@ const Review = (props) => {
   const [open, setOpen] = React.useState(false);
   const [tempSellerText, setTempSellerText] = useState("");
   const [reviewId, setReviewId] = useState("");
-  const [sellerIdFromItem, setSellerIdFromItem] = useState();
 
   useEffect(() => {
     if(props.buyerId) {
@@ -39,12 +38,14 @@ const Review = (props) => {
       setBuyerReview(props.buyerReview);
       setSellerId(props.sellerId);
       setSellerText(props.sellerText);
-      setSellerIdFromItem(props.sellerIdFromItem);
-      setSellerIdMatchingBoolean(sellerId == sellerIdFromItem)
+      console.log("user viewing item: " + props.currentUserId);
+      console.log("same user? " + sellerId == props.currentUserId)
+      setSellerIdMatchingBoolean(sellerId == props.currentUserId)
     }
   })
 
   useEffect(() => {
+    console.log("buyerId = " + buyerId);
     if(buyerId) {
       axios
       .get("https://rocky-shore-99218.herokuapp.com/users/" + buyerId)

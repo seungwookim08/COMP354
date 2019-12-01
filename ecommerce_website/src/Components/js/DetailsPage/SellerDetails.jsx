@@ -33,7 +33,6 @@ const SellerDetails = props => {
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
   const [sellerId] = useState(props.location.state.sellerId);
-  const [sellerIdOfItem, setSellerIdOfItem] = useState("");
   const [reviewContents, setReviewContents] = useState("");
   const [amountOfBuyerReviews, setAmountOfBuyerReviews] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,15 +40,10 @@ const SellerDetails = props => {
   const [reviewsPerRow] = useState(4);
   const [beginningIndex, setBeginningIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
-  // const [currentSellerIdViewingPage] = useState("");
-  // const [refreshPage, setRefreshPage] = useState(false);
-
-  // TODO: Add back this route once testing and full implementation is done
-  // .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
-  // props.location.state.sellerId
 
   // retrieve specific details about the seller
   useEffect(() => {
+    console.log("sellerid = " + props.location.state.sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
     .then(({data}) => {
@@ -63,6 +57,7 @@ const SellerDetails = props => {
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
+    console.log("sellerId = " + props.location.state.sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
     .then(({data}) => {
@@ -202,10 +197,9 @@ const SellerDetails = props => {
                     buyerRating={retrieveBuyerRating(contents)}
                     sellerName={sellerFullName}
                     sellerId={sellerId}
-                    sellerIdFromItem={retrieveSellerIdFromReview(contents)}
-                    // sellerIdOfViewer={currentSellerIdViewingPage}
                     sellerText={retrieveSellerText(contents)}
                     updateSellerText= {updateSellerText}
+                    currentUserId={props.user ? props.user.sellerId : null}
                   />
                 </Grid>
               ))
