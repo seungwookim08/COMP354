@@ -43,7 +43,6 @@ const SellerDetails = props => {
 
   // retrieve specific details about the seller
   useEffect(() => {
-    console.log("sellerid = " + props.location.state.sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
     .then(({data}) => {
@@ -57,7 +56,6 @@ const SellerDetails = props => {
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
-    console.log("sellerId = " + props.location.state.sellerId);
     axios
     .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
     .then(({data}) => {
@@ -118,8 +116,6 @@ const SellerDetails = props => {
     .catch(function (error) {
       console.log(error);
     });
-
-    console.log("post function called ")
   }
 
   function retrieveBuyerRating(content) {

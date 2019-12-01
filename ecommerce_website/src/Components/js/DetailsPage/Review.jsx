@@ -38,14 +38,11 @@ const Review = (props) => {
       setBuyerReview(props.buyerReview);
       setSellerId(props.sellerId);
       setSellerText(props.sellerText);
-      console.log("user viewing item: " + props.currentUserId);
-      console.log("same user? " + sellerId == props.currentUserId)
       setSellerIdMatchingBoolean(sellerId == props.currentUserId)
     }
   })
 
   useEffect(() => {
-    console.log("buyerId = " + buyerId);
     if(buyerId) {
       axios
       .get("https://rocky-shore-99218.herokuapp.com/users/" + buyerId)
