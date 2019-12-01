@@ -36,7 +36,16 @@ const CheckoutPage = ({cartItems, total}) => (
             </Table>
 
     <p></p><br></br>
-        <div class="center_total">Total: ${total}</div><p></p><br></br>
+        <div class="center_total">
+
+        SubTotal: ${total} 
+        <p></p>
+        Taxes (15% QC + 8% commission):  ${total*0.15 + total*0.08}
+        <p></p>
+        Total: ${total*1.23}
+        <p></p>
+
+        </div><p></p><br></br>
             <div class="pay_button">
                    {/*<Button variant="contained" color="primary"> Complete Purchase </Button>*/}          
                    <PayPalButton
