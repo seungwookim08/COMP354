@@ -32,7 +32,7 @@ const SellerDetails = props => {
   const [sellerEmail, setSellerEmail] = useState("");
   const [sellerProfilePic, setSellerProfilePic] = useState("");
   const [sellerRating, setSellerRating] = useState("");
-  const [sellerId] = useState(props.location.state.sellerId);
+  const [sellerId, setSellerId] = useState("");
   const [reviewContents, setReviewContents] = useState("");
   const [amountOfBuyerReviews, setAmountOfBuyerReviews] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,27 +43,57 @@ const SellerDetails = props => {
 
   // retrieve specific details about the seller
   useEffect(() => {
-    axios
-    .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
-    .then(({data}) => {
+    if(props.location.state) {
+      console.log("props location: ");
+      axios
+      .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
+      .then(({data}) => {
       if(data.is_success) {
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
         setSellerEmail(data.contents[0].email);
         setSellerProfilePic(data.contents[0].imageUrl);
+        setSellerId(props.location.state.sellerId);
       }
     });
+    }
+    else if(props.user) {
+      console.log("props user: ");
+      axios
+      .get('https://rocky-shore-99218.herokuapp.com/users/' + props.user.sellerId)
+      .then(({data}) => {
+      if(data.is_success) {
+        setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
+        setSellerEmail(data.contents[0].email);
+        setSellerProfilePic(data.contents[0].imageUrl);
+        setSellerId(props.user.sellerId);
+      }
+    });
+    }
   }, []);
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
-    axios
-    .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
-    .then(({data}) => {
+    if(props.location.state) {
+      axios
+      .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
+      .then(({data}) => {
       if(data.is_success) {
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
       }
     });
+    }
+    else if(props.user) {
+      axios
+      .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.user.sellerId + "/ratings")
+      .then(({data}) => {
+      if(data.is_success) {
+        setSellerRating(computeAverageRating(data.contents));
+        setReviewContents(data.contents);
+      }
+    });
+    }
+    
   });
 
   function computeAverageRating(contents) {
