@@ -47,6 +47,21 @@ export default function Users(props) {
             });
       }
 
+    function sendPasswordReset(email){
+        let url = `http://rocky-shore-99218.herokuapp.com/passwordreset`;
+        const formData = new FormData();
+        formData.append('email', email);
+        axios.post(url,  formData, {})
+        .then(function (response) {
+           // The servers response 
+           console.log(response.data.is_success);
+           console.log(response.data.message);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
     return (
         <React.Fragment>
             <Title>Users</Title>
@@ -78,7 +93,7 @@ export default function Users(props) {
                                  Delete </Button>
                             </TableCell>
                             <TableCell align="right"> 
-                            <Button variant="contained" color="primary"> Send </Button>
+                            <Button variant="contained" color="primary"onClick={e => {sendPasswordReset(user.email)}}> Send </Button>
                             </TableCell>
                         </TableRow>
                     ))}
