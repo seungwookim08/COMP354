@@ -44,10 +44,10 @@ const Register = (props) => {
         else if ([input] == 'email' && emailRegex.test(e.target.value) == true) {
             setEmail(e.target.value);
         }
-        else if ([input] == 'primaryAddress') {
+        else if ([input] == 'primaryAddress' && e.target.value.length != 0) {
             setPrimaryAddress(e.target.value);
         }
-        else if ([input] == 'alternateAddress') {
+        else if ([input] == 'alternateAddress' && e.target.value.length != 0) {
             setAlternateAddress(e.target.value);
         }
         else if ([input] == 'imageUrl') {
@@ -60,9 +60,37 @@ const Register = (props) => {
             setRepeatPassword(e.target.value);
         }
         //removing this because initial state will be set to null instead
-        // else {
-        //      this.setState({ [input]: null });
-        // }
+        else {
+            switch(input) {
+                case 'firstName':
+                    setFirstName(null);
+                  break;
+                case 'lastName':
+                    setLastName(null);
+                    console.log("\n" + input);
+                  break;
+                case 'email':
+                    setEmail(null);
+                  break;
+                case 'primaryAddress':
+                    setPrimaryAddress(null);    
+                  break;
+                case 'alternateAddress':
+                    setAlternateAddress(null);
+                  break;
+                case  'imageUrl':
+                    setImageUrl(null);
+                  break;
+                case  'password':
+                    setPassword(null);
+                  break;
+                  case  'repeat_password':
+                    setRepeatPassword(null);
+                break;
+                default:
+                  console.log(input);
+              } 
+        }
     };
 
     const displayErrors1 = () => {
@@ -115,8 +143,7 @@ const Register = (props) => {
             setErrorCondition6(false);
         }
         else
-            setErrorCondition6(false);
-
+            setErrorCondition6(true);
     };
 
     // A function that console logs the fields of the form
@@ -152,11 +179,13 @@ const Register = (props) => {
             formData.append('alternateAddress', alternateAddress);
             formData.append('password', password);
             formData.append('repeat_password', repeatPassword);
-            //this line was giving me an error "Parameter 2 is not of type 'Blob'."
             formData.append('imageUrl', imageUrl, imageUrl.name);
             for (var key of formData.entries()) {
                 console.log(key[0] + ' , ' + key[1])
             }
+
+            const emailData = new FormData();
+            emailData.append('email', email);
 
             // Sending the form to the backend 
             axios.post('https://rocky-shore-99218.herokuapp.com/users', formData, {})
@@ -164,6 +193,16 @@ const Register = (props) => {
                     if (response.data.is_success) {
                         console.log("success");
                         alert("Thank you for registering to 354TheStars. Check your email for a email conformation");
+                        axios.post('https://rocky-shore-99218.herokuapp.com/welcome', emailData, {})
+                        .then(function (response) {
+                            console.log("Inside the email post request");
+                            console.log(response.data.is_success);
+                            console.log(response.data.message);
+                        })
+                        .catch(function (error) {
+                            console.log("Inside the email post request")
+                            console.log(error);
+                        });
                         console.log(response);
                         props.setCurrentUser(response.data.contents[0]);
                     } else {
@@ -179,8 +218,7 @@ const Register = (props) => {
                 });
         }
         else {
-            alert("You have entered something invalid. Please try again: /n Please make sure you have uploaded a profile picture");
-            //this.forceUpdate();
+            alert("You have entered something invalid. Please try again: \n Please make sure you have uploaded a profile picture");
             print();
         }
 
