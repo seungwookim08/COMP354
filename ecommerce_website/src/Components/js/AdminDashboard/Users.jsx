@@ -8,6 +8,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Title from './Title';
+import { SearchBar } from './SearchBar';
 import axios from 'axios';
 
 export default function Users(props) {
@@ -15,6 +16,7 @@ export default function Users(props) {
     const [allUsers, setAllUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [deleteTrigger, setDeleteTrigger] = useState(false);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         let url = `https://rocky-shore-99218.herokuapp.com/users?page=${page}`;
@@ -25,7 +27,7 @@ export default function Users(props) {
                     setAllUsers(data.contents);
                 }
             });
-    },[page,deleteTrigger]);
+    },[page,deleteTrigger,search]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -66,6 +68,7 @@ export default function Users(props) {
         <React.Fragment>
             <Title>Users</Title>
             <Grid spacing={6}>
+                <SearchBar handleChange={e => setSearch(e.target.value)}/>
             </Grid>
             <Grid item xs={3}>
             </Grid>

@@ -6,7 +6,7 @@ import Login from "./Components/js/Login/Login";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
 import AdminDashboard from "./Components/js/AdminDashboard/AdminDashboard";
-import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetailsPage";
+import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetailsPage";
 import SellerDetails from "./Components/js/DetailsPage/SellerDetails";
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
 import CheckoutPage from "./Components/js/UserCart/CheckoutPage";

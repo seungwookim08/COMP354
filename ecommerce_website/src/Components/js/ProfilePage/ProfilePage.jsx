@@ -19,10 +19,6 @@ import {createStructuredSelector} from 'reselect';
   const [emailAddress, setEmailAddress] = useState(user.currentUser);
   const [currentUser, setCurrentuser] = useState(user.currentUser);
   
-  
- 
-
-
   function setUserInfo() {
 
     const formData = new FormData();
