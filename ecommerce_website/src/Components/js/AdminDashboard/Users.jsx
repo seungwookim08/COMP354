@@ -13,7 +13,8 @@ import axios from 'axios';
 export default function Users(props) {
 
     const [allUsers, setAllUsers] = useState([]);
-    const [page, setPage] = React.useState(1);
+    const [page, setPage] = useState(1);
+    const [deleteTrigger, setDeleteTrigger] = useState(false);
 
     useEffect(() => {
         let url = `https://rocky-shore-99218.herokuapp.com/users?page=${page}`;
@@ -24,11 +25,27 @@ export default function Users(props) {
                     setAllUsers(data.contents);
                 }
             });
-    },[page]);
+    },[page,deleteTrigger]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
+    function deleteUser(id){
+        let url = `http://rocky-shore-99218.herokuapp.com/users/${id}`;
+          axios
+              .delete(url)
+              .then(({ data }) => {
+                console.log(data);
+                //triggers the table to update
+                setDeleteTrigger(true);
+                setDeleteTrigger(false);
+                alert("User with id:" + id + " deleted successfully.")
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
+      }
 
     return (
         <React.Fragment>
@@ -57,7 +74,8 @@ export default function Users(props) {
                             <TableCell>{user.firstName + " " + user.lastName}</TableCell>
                             <TableCell>{user.id}</TableCell>
                             <TableCell>
-                                 <Button variant="contained" color="secondary"> Delete </Button>
+                                 <Button variant="contained" color="secondary"onClick={e => {deleteUser(user.id)}}> 
+                                 Delete </Button>
                             </TableCell>
                             <TableCell align="right"> 
                             <Button variant="contained" color="primary"> Send </Button>

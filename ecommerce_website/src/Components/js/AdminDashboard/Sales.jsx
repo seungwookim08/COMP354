@@ -19,10 +19,11 @@ export default function Sales(props) {
 
   const [allItems, setAllItems] = useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
 
     useEffect(() => {
-      let url = `http://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
+      let url = `http://rocky-shore-99218.herokuapp.com/orders?page=${page}`;
       axios
           .get(url)
           .then(({ data }) => {
@@ -30,7 +31,7 @@ export default function Sales(props) {
                   setAllItems(data.contents);          
               }
           });
-  });
+  },[page]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -56,11 +57,11 @@ export default function Sales(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allItems.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          {allItems
           .map(item => (
             <TableRow key={item.id}>
               <TableCell>{item.created}</TableCell>
-              <TableCell>{item.name}</TableCell>
+              <TableCell>{item.productName}</TableCell>
               <TableCell>{item.quantity}</TableCell>
               <TableCell>{item.firstName + " " + item.lastName}</TableCell>
               <TableCell>{item.shippingAddress ? item.shippingAddress : "unknown"}</TableCell>
@@ -70,14 +71,14 @@ export default function Sales(props) {
         </TableBody>
       </Table>
       <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={allItems.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+         component="div"
+         count={allItems.length}
+         page={page}
+         rowsPerPageOptions={[]}
+         rowsPerPage={[]}
+         labelDisplayedRows={() => ""}
+         onChangePage={handleChangePage}
+     />
     </React.Fragment>
   );
 }
