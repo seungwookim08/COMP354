@@ -26,8 +26,8 @@ export default function TotalSales(props) {
       .then(({ data }) => {
         if (data.is_success) {
           setTotalUnits(data.contents[0].totalUnitsSold);
-          setTotalRevenue(data.contents[0].totalRevenues);
-          setCommission(data.contents[0].commission);
+          setTotalRevenue(data.contents[0].totalRevenues.toFixed(2));
+          setCommission(data.contents[0].commission.toFixed(2));
         }
       });
   });

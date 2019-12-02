@@ -11,16 +11,25 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
 import TablePagination from '@material-ui/core/TablePagination';
+import { SearchBar } from './SearchBar';
 import Title from './Title';
 import axios from 'axios';
 
 export default function Sales(props) {
 
   const [allItems, setAllItems] = useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
 
+  const filteredItems = allItems.filter(item =>
+    (item.productName && item.productName.toLowerCase().includes(search.toLowerCase()))
+    || (item.firstName && item.firstName.toLowerCase().includes(search.toLowerCase()))
+    || (item.lastName && item.lastName.toLowerCase().includes(search.toLowerCase()))
+    || item.shippingAddress.toLowerCase().includes(search.toLowerCase())
+    || item.totalCost.toString().includes(search.toString())
+    )
 
     useEffect(() => {
       let url = `http://rocky-shore-99218.herokuapp.com/orders?page=${page}`;
@@ -37,14 +46,14 @@ export default function Sales(props) {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return (
     <React.Fragment>
       <Title>Recent Sales</Title>
+      <Grid spacing={6}>
+                <SearchBar handleChange={e => setSearch(e.target.value)}/>
+            </Grid>
+            <Grid item xs={3}>
+            </Grid>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -57,7 +66,7 @@ export default function Sales(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allItems
+          {filteredItems
           .map(item => (
             <TableRow key={item.id}>
               <TableCell>{item.created}</TableCell>

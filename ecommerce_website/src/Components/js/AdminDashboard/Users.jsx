@@ -63,7 +63,13 @@ export default function Users(props) {
           console.log(error);
         });
     }
-
+    
+    const filteredUsers = allUsers.filter(user =>
+        user.email.toLowerCase().includes(search.toLowerCase())
+        || user.firstName.toLowerCase().includes(search.toLowerCase())
+        || user.lastName.toLowerCase().includes(search.toLowerCase())
+        || user.id.toString().includes(search.toString())
+        )
     return (
         <React.Fragment>
             <Title>Users</Title>
@@ -84,7 +90,7 @@ export default function Users(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {allUsers
+                    {filteredUsers
                     .map(user => (
                         <TableRow key={user.id}>
                             <TableCell>{user.created}</TableCell>

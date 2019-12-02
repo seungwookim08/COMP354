@@ -17,9 +17,11 @@ import Users from './Users';
 import {connect} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    
   },
   menuButton: {
     marginRight: 36,
@@ -32,8 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
+    height: '100vh'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -53,11 +54,11 @@ const useStyles = makeStyles(theme => ({
 function Dashboard({sellerId}) {
   const classes = useStyles();
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+     
 
 
       <main className={classes.content}>
