@@ -12,6 +12,7 @@
   right: 40px;
   z-index: 5;
 }
+
 .cart-items {
   padding: 20px;
   display: flex;
@@ -69,15 +70,6 @@ button {
   bottom: 12px;
 }
 
-<<<<<<< HEAD
-=======
-.cart-item {
-  display: flex;
-  height: 50%;
-  width: 50%;
-  margin-bottom: 15px;
-}
->>>>>>> master
 img {
   width: 25%;
   height: auto;
