@@ -47,11 +47,13 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
   const [dashboardPageIndex] = useState(4);
   const [adminDashboardPageIndex] = useState(4);
   const [aboutPageIndexOne] = useState(5);
-  const [aboutPageIndexTwo] = useState(6);
+  const [sellerDetailsPageIndex] = useState(6);
+  const [aboutPageIndexTwo] = useState(7);
   const [localHostString] = useState("http://localhost:3000");
   const [homePageString] = useState("/");
   const [checkoutPageString] = useState("/checkout");
   const [profilePageString] = useState("/profile");
+  const [sellerDetailsPageString] = useState("/SellerDetails");
   const [dashboardPageString] = useState("/dashboard");
   const [adminDashboardString] = useState("/admindashboard");
   const [registerPageString] = useState("/RegisterPage");
@@ -82,6 +84,9 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
     }
     else if(currentLocation == (localHostString + loginPageString)) {
       setNavItemValue(loginPageIndex);
+    }
+    else if(currentUser && currentLocation == (localHostString + sellerDetailsPageString)) {
+      setNavItemValue(sellerDetailsPageIndex);
     }
     else if(currentUser && currentLocation == (localHostString + aboutPageString)) {
       setNavItemValue(aboutPageIndexTwo);
@@ -148,8 +153,14 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
           <Divider />
           <List>
             <ListItem className="nav-items" button key="Profile" component={Link} to={profilePageString} index={profilePageIndex}>
-                <ListItemText primary="Profile" />
-              </ListItem>
+              <ListItemText primary="Profile" />
+            </ListItem>
+            <ListItem className="nav-items" button key="Seller Details" component={Link} 
+              to={sellerDetailsPageString} 
+              index={sellerDetailsPageIndex}
+              >
+              <ListItemText primary="Seller Details" />
+            </ListItem>
             <ListItem className="nav-items" button key="Logout" component={Link} to={homePageString} onClick={() => logoutCurrentUser()} >
               <ListItemText primary="Logout"/>
             </ListItem>
