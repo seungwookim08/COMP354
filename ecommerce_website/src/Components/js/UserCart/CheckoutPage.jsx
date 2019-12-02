@@ -45,9 +45,21 @@ const CheckoutPage = ({cartItems, total, user}) => (
             </Table>
 
     <p></p><br></br>
-        <div class="center_total">Total: ${total}</div><p></p><br></br>
+
+        <div class="center_total">
+
+        SubTotal: ${total} 
+        <p></p>
+        Taxes (15% QC + 8% commission):  ${(total*0.15 + total*0.08).toFixed(2)}
+        <p></p>
+        Total: ${(total*1.23).toFixed(2)}
+        <p></p>
+
+        </div><p></p><br></br>
+         
         {user.sellerId != null ?  (
             <div class="pay_button">  
+
                    <PayPalButton
                         amount={total}
                         onCancel={(details, data)  => {
