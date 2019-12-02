@@ -225,7 +225,7 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
           </Drawer>
         </Toolbar>
       </AppBar>
-        
+      <hr></hr>
   
     </div>
   )

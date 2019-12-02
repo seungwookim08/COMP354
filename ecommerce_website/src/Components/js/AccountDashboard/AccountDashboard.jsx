@@ -6,7 +6,6 @@ code has been modified to suit the needs of this project
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -56,7 +55,6 @@ function Dashboard({currentUser, firstName, lastName, sellerId}) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
 
 
       <main className={classes.content}>
