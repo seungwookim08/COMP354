@@ -6,6 +6,9 @@
 	margin: 20px auto;
 }
 
+.dialog-container {
+  margin: auto;
+}
 
 .item-container {
     display: flex;
