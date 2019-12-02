@@ -3,7 +3,7 @@ import '../../css/Cart.css';
 
 const CartItem = ({item: {id, images, price, name, quantity} }) => (
     <div className='cart-item'>
-       <img src={images} alt='item'/>
+       <img className="cart-item-image" src={images} alt='item'/>
        <div className='item-details'>
           <span className='name'> {name} </span> 
           <span className='name'> {quantity} x ${price} </span> 
