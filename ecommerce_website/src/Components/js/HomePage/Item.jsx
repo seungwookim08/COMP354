@@ -1,5 +1,6 @@
 import React from 'react';
 import "../../css/Items.css";
+import "../../css/PopUpAddToCart.css";
 import Card from '@material-ui/core/card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -65,11 +66,14 @@ const Item = ({item, history, addItem}) => {
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
+                    fullWidth={true}
                 >
                     <DialogTitle id="alert-dialog-slide-title">{"Add to cart?"}</DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-slide-description">
-                                <img alt="item" src={images[0]} style={{width: 200, height: 200}} />
+                                <div className="image-container">
+                                    <img alt="item" src={images[0]} style={{width: 200, height: 200}} />
+                                </div>
                                 <Typography variant="h5" component="h2"> {name} </Typography>
                                 <Typography> Price: {price} $</Typography>
                                 <Typography> Category: {category} </Typography>
@@ -77,10 +81,10 @@ const Item = ({item, history, addItem}) => {
                             </DialogContentText>
                         </DialogContent>
                     <DialogActions>
-                        <Button onClick={() =>cancelPressed()} color="primary">
+                        <Button onClick={() =>cancelPressed()}>
                             Cancel
                         </Button>
-                        <Button onClick={() => confirmPressed(item)} color="primary">
+                        <Button onClick={() => confirmPressed(item)}>
                             Confirm
                         </Button>
                     </DialogActions>
