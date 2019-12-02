@@ -30,11 +30,11 @@ class App extends Component {
           />
           <Route 
             path='/dashboard' 
-            render={()=> this.props.currentUser && !(this.props.currentUser == "patrick.leduc13@gmail.com") ? <AccountDashboard/> : (<Redirect to='/'/>)}
+            render={()=> this.props.currentUser && !(this.props.isAdmin == 1) ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
           <Route 
             path='/admindashboard' 
-            render={()=> this.props.currentUser == "patrick.leduc13@gmail.com" ? <AdminDashboard/> : (<Redirect to='/'/>)}
+            render={()=> this.props.isAdmin == 1 ? <AdminDashboard/> : (<Redirect to='/'/>)}
           />
           <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>

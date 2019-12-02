@@ -45,6 +45,7 @@ export default function Sales(props) {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  
 
   return (
     <React.Fragment>

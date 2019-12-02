@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = ({currentUser, logoutCurrentUser}) => {
+const NavBar = ({isAdmin, currentUser, logoutCurrentUser}) => {
   const [navItemValue,setNavItemValue] = useState(1);
   const [homePageIndex] = useState(1);
   const [checkoutPageIndex] = useState(2);
@@ -133,7 +133,7 @@ const NavBar = ({currentUser, logoutCurrentUser}) => {
             <ListItem className="nav-items" button key="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}>
               <ListItemText primary="Checkout"/>
             </ListItem>
-            {currentUser == "patrick.leduc13@gmail.com" ? 
+            {isAdmin == 1 ? 
             (
               <ListItem className="nav-items" button key="Admin Dashboard" component={Link} to={adminDashboardString} index={adminDashboardPageIndex}>
               <ListItemText primary="Admin Dashboard"/>
