@@ -1,28 +1,27 @@
 .cart-dropdown {
-  position: absolute !important;
-  max-width: 80% !important;
-  max-height: 80% !important;
-  width: 340px !important;
-  padding: 10px !important;
-  min-height: auto !important;
-  display: flex !important;
-  flex-direction: column !important;
-  background-color: white !important;
-  top: 90px !important;
-  right: 40px !important;
-  z-index: 5 !important;
+  position: absolute;
+  width: 340px;
+  padding: 10px;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  top: 90px;
+  right: 40px;
+  z-index: 5;
 }
 
 .cart-items {
-  padding: 20px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  overflow-y: scroll !important;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 80%;
 }
 
 .cart-item {
-  display: flex !important;
-  margin-bottom: 15px !important;
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .cart-item-image {
@@ -45,6 +44,12 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 0px 25px 0px 25px;
+  transition: transform 0.25s ease-out;
+}
+
+.cart-icon:hover {
+  transform: scale(1.10);
 }
 
 .header{
@@ -53,9 +58,9 @@ button {
 }
 
 .icon-outer{
-  display: flex !important;
-  justify-content: flex-end !important;
-  margin-right: 30px !important;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
 }
 
 .shopping-icon {

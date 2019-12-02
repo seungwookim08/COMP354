@@ -34,9 +34,8 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     right: 0,
   },
-  shoppingButton: {
-    marginRight: theme.spacing(2),
-    position: "absolute",
+  shopButton: {
+
     right: 1,
   },
   title: {
@@ -129,6 +128,11 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
+      <Typography className="logged-in"display="block">
+                    <Box fontWeight="fontWeightBold" m={1}>
+                      {currentUser == null ? "Not logged in." : "Welcome, " + firstName}
+                    </Box>
+                  </Typography>
       {
         currentUser ?
           (
@@ -200,13 +204,7 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
             </div>
           )
       }
-      <ListItem className="logged-in">
-        <Typography display="block">
-          <Box fontWeight="fontWeightBold" m={1}>
-            {currentUser == null ? "Not logged in." : "Welcome, " + firstName}
-          </Box>
-        </Typography>
-      </ListItem>
+      
     </div>
   );
 
@@ -216,9 +214,9 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
         <Toolbar className="toolbar">
 
           <Tab className="no-hover" icon={<img className="logo_top_left" src={logo} />} />
-          <IconButton edge="end" className={classes.shoppingButton} color="inherit" aria-label="shopping">
+          <div edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
             <Header />
-          </IconButton>
+          </div>
           <IconButton onClick={toggleDrawer('right', true)} edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
@@ -227,7 +225,8 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
           </Drawer>
         </Toolbar>
       </AppBar>
-
+        
+  
     </div>
   )
 }
