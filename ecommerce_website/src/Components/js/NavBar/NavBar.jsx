@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,10 +17,17 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import HomeIcon from '@material-ui/icons/Home';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import InfoIcon from '@material-ui/icons/Info';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import PersonIcon from '@material-ui/icons/Person';
+import BusinessIcon from '@material-ui/icons/Business';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import "../../css/NavBar.css";
 
 const useStyles = makeStyles(theme => ({
@@ -130,7 +135,7 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
     >
       <Typography className="logged-in"display="block">
                     <Box fontWeight="fontWeightBold" m={1}>
-                      {currentUser == null ? "Not logged in." : "Welcome, " + firstName}
+                      {currentUser == null ? "" : "Welcome, " + firstName}
                     </Box>
                   </Typography>
       {
@@ -139,40 +144,48 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
             <div>
               <List>
                 <ListItem className="nav-items" button key="Home" component={Link} to={homePageString} index={homePageIndex}>
+                  <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItem>
                 <ListItem className="nav-items" button key="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}>
+                  <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
                   <ListItemText primary="Checkout" />
                 </ListItem>
                 {isAdmin == 1 ?
                   (
                     <ListItem className="nav-items" button key="Admin Dashboard" component={Link} to={adminDashboardString} index={adminDashboardPageIndex}>
+                      <ListItemIcon>{<DashboardIcon/>}</ListItemIcon>
                       <ListItemText primary="Admin Dashboard" />
                     </ListItem>
                   )
                   :
                   (
                     <ListItem className="nav-items" button key="Seller Dashboard" component={Link} to={dashboardPageString} index={dashboardPageIndex}>
+                      <ListItemIcon>{<DashboardIcon/>}</ListItemIcon>
                       <ListItemText primary="Seller Dashboard" />
                     </ListItem>
                   )
                 }
                 <ListItem className="nav-items" button key="About" component={Link} to={aboutPageString} index={aboutPageIndexTwo}>
+                  <ListItemIcon>{<InfoIcon/>}</ListItemIcon>
                   <ListItemText primary="About" />
                 </ListItem>
               </List>
-              <Divider />
+              <Divider/>
               <List>
                 <ListItem className="nav-items" button key="Profile" component={Link} to={profilePageString} index={profilePageIndex}>
+                  <ListItemIcon>{<PersonIcon/>}</ListItemIcon>
                   <ListItemText primary="Profile" />
                 </ListItem>
                 <ListItem className="nav-items" button key="Seller Details" component={Link}
                   to={sellerDetailsPageString}
                   index={sellerDetailsPageIndex}
                 >
+                  <ListItemIcon>{<BusinessIcon/>}</ListItemIcon>
                   <ListItemText primary="Seller Details" />
                 </ListItem>
                 <ListItem className="nav-items" button key="Logout" component={Link} to={homePageString} onClick={() => logoutCurrentUser()} >
+                  <ListItemIcon>{<ExitToAppIcon/>}</ListItemIcon>
                   <ListItemText primary="Logout" />
                 </ListItem>
               </List>
@@ -183,21 +196,26 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
             <div>
               <List>
                 <ListItem className="nav-items" button key="Home" component={Link} to={homePageString} index={homePageIndex}>
+                  <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItem>
                 <ListItem className="nav-items" button key="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}>
+                  <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
                   <ListItemText primary="Checkout" />
                 </ListItem>
                 <ListItem className="nav-items" button key="About" component={Link} to={aboutPageString} index={aboutPageIndexOne}>
+                  <ListItemIcon>{<InfoIcon/>}</ListItemIcon>
                   <ListItemText primary="About" />
                 </ListItem>
               </List>
               <Divider />
               <List>
                 <ListItem className="nav-items" button key="Login" component={Link} to={loginPageString} index={loginPageIndex}>
+                  <ListItemIcon>{<MeetingRoomIcon/>}</ListItemIcon>
                   <ListItemText primary="Login" />
                 </ListItem>
                 <ListItem className="nav-items" button key="Register" component={Link} to={registerPageString} index={registerPageIndex}>
+                  <ListItemIcon>{<ListAltIcon/>}</ListItemIcon>
                   <ListItemText primary="Register" />
                 </ListItem>
               </List>

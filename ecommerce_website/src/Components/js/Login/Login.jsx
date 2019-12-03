@@ -10,8 +10,6 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { setCurrentUser } from '../../../Redux/user/user.actions';
 
-
-
 var error1 = false;
 var error2 = false;
 
@@ -132,11 +130,11 @@ const Login = ({ setCurrentUser }) => {
         /> <br />
         <Button
           fullWidth="true"
-          color="primary"
-          variant="contained"
+          variant="outlined" 
           onClick={submit}
-        > Sign In
-          </Button>
+        > 
+          Sign In
+        </Button>
         <Grid container justify="flex-end">
           <Grid item>
             <ForgetPassword/>

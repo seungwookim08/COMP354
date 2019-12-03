@@ -48,7 +48,15 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Link variant="body2" onClick={handleClickOpen} > Forgot your password ? </Link>
+      <Link 
+        variant="body2" 
+        onClick={handleClickOpen} 
+        style={{
+          color: "black"
+        }}
+      > 
+        Forgot your password ? 
+      </Link>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"> Forget Password </DialogTitle>
         <DialogContent>
