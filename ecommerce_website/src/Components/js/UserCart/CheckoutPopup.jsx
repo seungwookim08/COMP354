@@ -18,23 +18,84 @@ import axios from 'axios';
 
 const CheckoutPopup = props => {
 
-    function completePurchase() {
-        //handle form submission
+    let address = props.address;
+    let userId = props.user;
+    let cartItems = props.cartItems;
+    let arrFormData = [];
 
-        // axios
-        //     .post('https://rocky-shore-99218.herokuapp.com/products/', )
-        //     .then(({ data }) => {
-        //         console.log(data);
-        //     })
-        //     .catch(function (response) {
-        //         console.log(response);
-        //     });
+    
+    //adds all the productIds and quantitys to formdata then adds them to an array
+    for(let i = 0; i < cartItems.length; i++){
+        let data = `{"productId":"${cartItems[i].id}","quantity":"${cartItems[i].quantity}"}`;
+        let obj = JSON.parse(data);
+        arrFormData.push(obj);
+    }
+    
+    function completePurchase(userId,address){
+        let data =  `{"shippingAddress":"${address}"}`;
+        let obj = JSON.parse(data);
+        axios
+            .post(`https://rocky-shore-99218.herokuapp.com/users/${userId}/orders`, obj, {})
+            .then(({ data }) => {
+                console.log(data);
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
+
+        window.open('https://www.paypal.com/ca/signin','_blank');
+        handleClose();
+    }
+
+    function addToCart(arrFormData, userId) {
+     //  looping with async = a bad time, I hope this works
+    //    for(let i = 0; i < arrFormData.length; i++){
+    //         axios
+    //             .post(`https://rocky-shore-99218.herokuapp.com/users/${userId}/cart`, arrFormData[i], {})
+    //             .then(({ data }) => {
+    //                 console.log(data);
+    //             })
+    //             .catch(function (response) {
+    //                 console.log(response);
+    //             });
+    //    }
 
         props.handleClose();
     }
 
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <div>
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Complete Order</DialogTitle>
+            <DialogContentText>
+                        Thanks for Shopping with us!
+            </DialogContentText>
+            <DialogContent>
+                You are one step away, just click the PayPal button to finish this order.
+            </DialogContent>
+            <DialogActions>
+                    <Button onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button onClick={e => { 
+                        completePurchase(userId, address); 
+                        }}>
+                        <PaypalIcon />
+                    </Button>
+
+                </DialogActions>
+            </Dialog>
+
             <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Finalize Order</DialogTitle>
                 <DialogContent>
@@ -97,8 +158,11 @@ const CheckoutPopup = props => {
                     <Button onClick={props.handleClose}>
                         Cancel
                     </Button>
-                    <Button onClick={e => { completePurchase(); }}>
-                        <PaypalIcon />
+                    <Button onClick={e => { 
+                        addToCart(arrFormData, userId);
+                        handleClickOpen();
+                         }}>
+                        Finalize Purchase
                     </Button>
 
                 </DialogActions>
