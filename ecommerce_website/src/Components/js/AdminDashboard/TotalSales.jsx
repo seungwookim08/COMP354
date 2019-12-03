@@ -16,16 +16,18 @@ export default function TotalSales(props) {
 
   const [totalUnits, setTotalUnits] = useState("");
   const [totalRevenue, setTotalRevenue] = useState("");
+  const [commission, setCommission] = useState("");
 
 
   useEffect(() => {
-    let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/stats/`;
+    let url = `https://rocky-shore-99218.herokuapp.com/admin/stats`;
     axios
       .get(url)
       .then(({ data }) => {
         if (data.is_success) {
-          setTotalUnits(data.contents[0].totalUnits);
-          setTotalRevenue(data.contents[0].totalRevenue);
+          setTotalUnits(data.contents[0].totalUnitsSold);
+          setTotalRevenue(data.contents[0].totalRevenues.toFixed(2));
+          setCommission(data.contents[0].commission.toFixed(2));
         }
       });
   });
@@ -40,6 +42,9 @@ export default function TotalSales(props) {
       </Typography>
       <Typography color="textSecondary" className={classes.depositContext}>
         from {totalUnits} products sold
+      </Typography>
+      <Typography className={classes.depositContext}>
+        Commission: ${commission} 
       </Typography>
       <div>
       </div>

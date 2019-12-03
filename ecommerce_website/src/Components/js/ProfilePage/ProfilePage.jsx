@@ -19,10 +19,6 @@ import {createStructuredSelector} from 'reselect';
   const [emailAddress, setEmailAddress] = useState(user.currentUser);
   const [currentUser, setCurrentuser] = useState(user.currentUser);
   
-  
- 
-
-
   function setUserInfo() {
 
     const formData = new FormData();
@@ -135,7 +131,7 @@ import {createStructuredSelector} from 'reselect';
         </Grid>
         <Grid item xs={12}>
           <Button 
-            variant="contained" 
+            variant="outlined" 
             style={{
               margin: "25px"
             }}

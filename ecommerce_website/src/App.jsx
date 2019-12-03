@@ -5,7 +5,9 @@ import { Route, Switch, Redirect} from "react-router-dom";
 import Login from "./Components/js/Login/Login";
 import HomePage from "./Components/js/HomePage/HomePage";
 import AccountDashboard from "./Components/js/AccountDashboard/AccountDashboard";
-import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetails/ItemDetailsPage";
+import AdminDashboard from "./Components/js/AdminDashboard/AdminDashboard";
+import ItemDetailsPage from "./Components/js/DetailsPage/ItemDetailsPage";
+import SellerDetails from "./Components/js/DetailsPage/SellerDetails";
 import RegisterPage from "./Components/js/RegisterPage/RegisterPage";
 import CheckoutPage from "./Components/js/UserCart/CheckoutPage";
 import ProfilePage from "./Components/js/ProfilePage/ProfilePage";
@@ -32,6 +34,16 @@ class App extends Component {
           />
           <Route exact path="/COMP354/about"component={AboutPage}/>
           <Route path="/COMP354/product/:id" component={ItemDetailsPage}/>
+            path='/dashboard' 
+            render={()=> this.props.currentUser && !(this.props.isAdmin == 1) ? <AccountDashboard/> : (<Redirect to='/'/>)}
+          />
+          <Route 
+            path='/admindashboard' 
+            render={()=> this.props.isAdmin == 1 ? <AdminDashboard/> : (<Redirect to='/'/>)}
+          />
+          <Route exact path="/about"component={AboutPage}/>
+          <Route path="/product/:id" component={ItemDetailsPage}/>
+          <Route path="/SellerDetails/" component={SellerDetails}/>
           <Route 
             path='/COMP354/RegisterPage' 
             render={()=> this.props.currentUser ? (<Redirect to='/COMP354'/>) : <RegisterPage/> }

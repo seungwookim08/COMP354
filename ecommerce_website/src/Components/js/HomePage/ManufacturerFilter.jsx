@@ -22,7 +22,7 @@ useEffect(() => {
 //add all the categories as options
   return (
     <div className="filter">
-      <FormControl variant="outlined">
+      <FormControl>
         <InputLabel htmlFor="age-native-simple">Manufacturer</InputLabel>
         <Select
           native

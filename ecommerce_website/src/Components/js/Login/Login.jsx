@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -8,7 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { setCurrentUser } from '../../../Redux/user/user.actions';
-import { connect } from 'react-redux';
+
+var error1 = false;
+var error2 = false;
 
 const Login = ({ setCurrentUser }) => {
 
@@ -16,28 +19,52 @@ const Login = ({ setCurrentUser }) => {
     /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
   );
 
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   // A function that vaildates input and then changes state 
-  const handleChange = (input) => e => {
+  const handleChange1 = (input) => e => {
 
     if ([input] == 'email' && emailRegex.test(e.target.value) == true) {
       setEmail(e.target.value);
     }
-    else if ([input] == 'password' && e.target.value.length != 0) {
+    else 
+      setEmail(null);
+  };
+
+  const handleChange2 = (input) => e => {
+
+    if ([input] == 'password' && e.target.value.length != 0) {
       setPassword(e.target.value);
     }
-    else if ([input] == 'email'){
-      setEmail(null);
-    }
-    else if ([input] == 'password' && e.target.value.length == 0){
+    else 
       setPassword(null);
+  };
+
+
+  const errorCheck = () => {
+
+    if (email != null)
+      error1 = false;
+    else {
+      error1 = true;
     }
+    
+    if (password != null)
+      error2 = false;
+    else {
+      error2 = true;
+  }
+
   };
 
   // A function that submits the form to the backend (restAPI)
   const submit = () => {
+
+    errorCheck();
 
     // if condition to make sure all the required fields have some input (some value)
     if (email != null && password != null) {
@@ -50,12 +77,11 @@ const Login = ({ setCurrentUser }) => {
           // The servers response 
           if (response.data.is_success) {
             console.log(response);
-            // If successful then we need to store the response.data.contents obeject   
-            // console.log(response.data.contents[0]);
-            // console.log(response.data.contents[0].email);
             setCurrentUser(response.data.contents[0]);
           } else {
             console.log(response.data.message);
+            alert("User can not be found. Please try again");
+            window.location.reload(true);
           }
         })
         .catch(function (error) {
@@ -63,10 +89,10 @@ const Login = ({ setCurrentUser }) => {
         });
     }
     else {
-      console.log("You have entered an invalid email or password. Please try again");
+      alert("You have entered something invalid. Please try again");
+      forceUpdate();
       print();
     }
-    
   }
 
   // A function that console logs the fields of the form
@@ -74,8 +100,6 @@ const Login = ({ setCurrentUser }) => {
     console.log(email)
     console.log(password)
   };
-
-  // rendering the actually form 
 
   return (
     <Container component="main" maxWidth="xs">
@@ -88,8 +112,9 @@ const Login = ({ setCurrentUser }) => {
           variant="outlined"
           label="Email"
           placeholder="Enter Your Email"
-          defaultValue=""
-          onChange={handleChange('email')}
+          defaultValue=''
+          onChange={handleChange1('email')}
+          error={error1}
         /> <br />
         <TextField
           required
@@ -99,16 +124,17 @@ const Login = ({ setCurrentUser }) => {
           variant="outlined"
           label="Password"
           placeholder="Enter A Password"
-          defaultValue=""
-          onChange={handleChange('password')}
+          defaultValue=''
+          onChange={handleChange2('password')}
+          error={error2}
         /> <br />
         <Button
           fullWidth="true"
-          color="primary"
-          variant="contained"
+          variant="outlined" 
           onClick={submit}
-        > Sign In
-          </Button>
+        > 
+          Sign In
+        </Button>
         <Grid container justify="flex-end">
           <Grid item>
             <ForgetPassword/>
@@ -124,7 +150,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(null, mapDispatchToProps)(Login);
-
-/*
- <Link href="#" variant="body2"  > Forgot your password ? </Link>
-*/

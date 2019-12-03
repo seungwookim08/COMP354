@@ -9,6 +9,9 @@ import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
 import "../../css/ContainerDetails.css"
 import axios from "axios";
+import L from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
+
 
 // Basic style for paper - can't retrieve 'theme.spacing(2)' inside css file
 const useStyles = makeStyles(theme => ({
@@ -22,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, category, price, sellerId}) => {
   const classes = useStyles();
   const [sellerFullName, setSellerFullName] = useState("");
+  const [isRedirect, setRedirect] = useState(false);
 
   // retrieve specific name for seller personal info
   useEffect(() => {
@@ -64,9 +68,16 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                 <Typography variant="subtitle1">
                   Price: {price}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Seller: {sellerFullName}
-                </Typography>
+                <L variant="body2" color="textSecondary" label="Login" component={Link} to={
+                  { 
+                    pathname: '/SellerDetails', 
+                    state: {
+                      name: sellerFullName,
+                      sellerId: sellerId,
+                      isFromProductPage: true
+                    }
+                  }
+                } >  Seller: {sellerFullName} </L>
               </Grid>
               <Grid item>
                  <Typography variant="body2">
@@ -79,7 +90,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                   </Typography>
                </Grid>
               <Grid item>
-                <Button variant="contained" onClick={() => {addItem(item);}}>
+                <Button variant="outlined" onClick={() => {addItem(item);}}>
                   Add To Cart
                 </Button>
               </Grid>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ContainerDetailsPage from '../ContainerDetailsPage';
+import ContainerDetailsPage from './ContainerDetailsPage';
 import axios from "axios";
 
 const ItemDetailsPage = (props) => {

@@ -6,15 +6,16 @@ import axios from "axios";
 
 export default function Chart(props) {
 
+  const [numberPages, setNumberPages] = useState(0);
   const [allItems, setAllItems] = useState([]);
-  
+
     useEffect(() => {
       let url = `http://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
       axios
           .get(url)
           .then(({ data }) => {
               if (data.is_success) {
-                  setAllItems(data.contents);
+                  setNumberPages(data.pages);
                             
               }
           });
@@ -23,6 +24,21 @@ export default function Chart(props) {
 function createData(time, amount) {
   return { time, amount };
 }
+
+function getAllData(numberPages) {
+  for(let i = 1; i < numberPages + 1; i++){
+    let url = `http://rocky-shore-99218.herokuapp.com/orders/`;
+      axios
+          .get(url)
+          .then(({ data }) => {
+              if (data.is_success) {
+                  setAllItems([...allItems,data.contents[0]]);              
+              }
+          });
+  }
+}
+
+getAllData(numberPages);
 
 function populateData(data){
   let runningTotal = 0;
