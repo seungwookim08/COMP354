@@ -316,14 +316,24 @@ const Register = (props) => {
                 <br /> <br />
                 <Button
                     fullWidth="true"
-                    color="primary"
-                    variant="contained"
+                    variant="outlined"
                     onClick={submit}
-                > Confirm
+                > 
+                    Confirm
                 </Button>
                 <Grid container justify="flex-end">
                     <Grid item>
-                        <L variant="body2" label="Login" component={Link} to={"/Login"} > Already have an account? Sign in </L>
+                        <L 
+                            variant="body2" 
+                            label="Login" 
+                            component={Link} 
+                            to={"/Login"} 
+                            style={{
+                                color: "black"
+                            }}
+                        > 
+                            Already have an account? Sign in 
+                        </L>
                     </Grid>
                 </Grid>
             </form>

@@ -84,7 +84,7 @@ const CheckoutPage = ({cartItems, total, user}) => (
                 <Button
                     fullWidth="true"
                     color="primary"
-                    variant="contained"
+                    variant="outlined"
                     > Please Log In Before Purchase 
                 </Button>
             </L>

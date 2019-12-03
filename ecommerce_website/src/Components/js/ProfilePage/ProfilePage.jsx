@@ -131,7 +131,7 @@ import {createStructuredSelector} from 'reselect';
         </Grid>
         <Grid item xs={12}>
           <Button 
-            variant="contained" 
+            variant="outlined" 
             style={{
               margin: "25px"
             }}
