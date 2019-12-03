@@ -42,6 +42,7 @@ const SellerDetails = props => {
   const [beginningIndex, setBeginningIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
   const [didLoggedInUserBuyFromSeller, setDidLoggedInUserBuyFromSeller] = useState("");
+  const [didUserAlreadyLeaveReview, setDidUserAlreadyLeaveReview] = useState("");
 
   // retrieve specific details about the seller
   useEffect(() => {
@@ -82,6 +83,7 @@ const SellerDetails = props => {
       if(data.is_success) {
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
+        verifyIfUserAlreadyLeftAReview(data.contents);
       }
     });
     }
@@ -92,6 +94,7 @@ const SellerDetails = props => {
       if(data.is_success) {
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
+        verifyIfUserAlreadyLeftAReview(data.contents);
       }
     });
     }
@@ -103,7 +106,7 @@ const SellerDetails = props => {
       axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
       .then(({data}) => {
         if(data.is_success && sellerId) {
-          setDidLoggedInUserBuyFromSeller(verifyIfUserPurchasedFromSeller(data.contents));
+          verifyIfUserPurchasedFromSeller(data.contents);
         }
       });
     }
@@ -136,9 +139,23 @@ const SellerDetails = props => {
   function verifyIfUserPurchasedFromSeller(contents) {
     contents.map(content => {
       if(content.sellerId == sellerId) {
-        return true;
+        setDidLoggedInUserBuyFromSeller(true);
       } else {
-        return false;
+        setDidLoggedInUserBuyFromSeller(false);
+      }
+    })
+  }
+
+  function verifyIfUserAlreadyLeftAReview(contents) {
+    contents.map(content => {
+      console.log("content.userId = " + content.userId);
+      console.log("props.user.sellerId = " + props.user.sellerId);
+      if(content.userId == props.user.sellerId) {
+        console.log("user left a review");
+        setDidUserAlreadyLeaveReview(true);
+      } else {
+        console.log("user didn't leave a review");
+        setDidUserAlreadyLeaveReview(false);
       }
     })
   }
@@ -163,9 +180,9 @@ const SellerDetails = props => {
   function updateSellerText(sellerText, reviewId, buyerId, sellerId) {
     if(reviewId != null && sellerText != null && buyerId != null && sellerId != null) {
       axios.put('https://rocky-shore-99218.herokuapp.com/ratings/' + reviewId, {
-      userId: buyerId,
-      sellerId: sellerId,
-      sellerText: sellerText,
+        userId: buyerId,
+        sellerId: sellerId,
+        sellerText: sellerText,
       })
       .then(function (response) {
         console.log(response);
@@ -256,14 +273,23 @@ const SellerDetails = props => {
                    />
                   </Typography>
                </Grid>
-               <Grid item>
-                 <CommentButton
-                    buyerId={props.user.sellerId}
-                    sellerId={props.location.state.sellerId}
-                    descriptionText="Leave a comment for the seller"
-                    updateBuyerComment={updateBuyerComment}
-                 />
-               </Grid>
+               {
+                 didLoggedInUserBuyFromSeller && !didUserAlreadyLeaveReview ? 
+                 (
+                  <Grid item>
+                    <CommentButton
+                      buyerId={props.user.sellerId}
+                      sellerId={props.location.state.sellerId}
+                      descriptionText="Leave a comment for the seller"
+                      updateBuyerComment={updateBuyerComment}
+                    />
+                  </Grid>
+                 )
+                 :
+                 (
+                  <div>{/* Empty Container */}</div>
+                 )
+               }
             </Grid>
           </Grid>
           <Grid container xs={12} className="seller-reviews-grid-container" spacing={2}>

@@ -115,7 +115,7 @@ const Review = (props) => {
                     (
                       <CardActions>
                         <Button variant="outlined" onClick={handleClickOpen}>
-                          Comment
+                          Reply
                         </Button>
                         <Dialog open={open} onClose={e => handleClose(false)} aria-labelledby="form-dialog-title">
                           <DialogTitle id="form-dialog-title">Comment</DialogTitle>
