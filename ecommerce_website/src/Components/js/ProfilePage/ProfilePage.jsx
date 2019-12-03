@@ -1,4 +1,4 @@
-import React, {useState}from "react";
+import React, {useState, useEffect}from "react";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -9,30 +9,48 @@ import {connect} from 'react-redux';
 import {selectUser} from '../../../Redux/user/user.selectors';
 import {createStructuredSelector} from 'reselect';
 
- const ProfilePage = ({user}) => {
+ const ProfilePage = (props) => {
 
-  const [firstName,setFirstName] = useState(user.firstName);
-  const [lastName, setLastName] = useState(user.lastName);
-  const [imageUrl, setImageUrl] = useState(user.imageUrl);
-  const [primaryAddress, setPrimaryAddress] = useState(user.primaryAddress);
-  const [alternateAddress, setAlternateAddress] = useState(user.alternateAddress);
-  const [emailAddress, setEmailAddress] = useState(user.currentUser);
-  const [currentUser, setCurrentuser] = useState(user.currentUser);
+  const [firstName,setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [primaryAddress, setPrimaryAddress] = useState("");
+  const [alternateAddress, setAlternateAddress] = useState("");
+  const [currentUser, setCurrentuser] = useState(props.user.currentUser);
+  const [refreshPage, setRefreshPage] = useState(true);
+
+  useEffect(() => {
+    if(props.user) {
+      axios
+      .get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId)
+      .then(({data}) => {
+      if(data.is_success && refreshPage) {
+        setFirstName(data.contents[0].firstName);
+        setLastName(data.contents[0].lastName);
+        setImageUrl(data.contents[0].imageUrl);
+        setPrimaryAddress(data.contents[0].primaryAddress);
+        setAlternateAddress(data.contents[0].alternateAddress);
+        setRefreshPage(false);
+      }
+    });
+    }
+  });
   
   function setUserInfo() {
-
-    axios.put('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId + "/details", {
+    axios.put('https://rocky-shore-99218.herokuapp.com/users/' + props.user.sellerId + "/details", {
       firstName: firstName,
       lastName: lastName,
       primaryAddress: primaryAddress,
       alternateAddress: alternateAddress,
     })
     .then(function (response) {
+      setRefreshPage(true);
       console.log(response);
     })
     .catch(function (error) {
       console.log(error);
-    });
+    }
+    );
   }
 
   return (

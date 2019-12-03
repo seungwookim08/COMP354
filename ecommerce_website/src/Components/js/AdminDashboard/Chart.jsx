@@ -9,47 +9,49 @@ export default function Chart(props) {
   const [numberPages, setNumberPages] = useState(0);
   const [allItems, setAllItems] = useState([]);
 
-    useEffect(() => {
-      let url = `http://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
-      axios
-          .get(url)
-          .then(({ data }) => {
-              if (data.is_success) {
-                  setNumberPages(data.pages);
-                            
-              }
-          });
+  useEffect(() => {
+    let url = `http://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/sales/`;
+    axios
+    .get(url)
+    .then(({ data }) => {
+        if (data.is_success) {
+            setNumberPages(data.pages);
+                      
+        }
+    });
   });
+
   // Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
-
-function getAllData(numberPages) {
-  for(let i = 1; i < numberPages + 1; i++){
-    let url = `http://rocky-shore-99218.herokuapp.com/orders/`;
-      axios
-          .get(url)
-          .then(({ data }) => {
-              if (data.is_success) {
-                  setAllItems([...allItems,data.contents[0]]);              
-              }
-          });
+  function createData(time, amount) {
+    return { time, amount };
   }
-}
 
-getAllData(numberPages);
+  function getAllData(numberPages) {
+    for(let i = 1; i < numberPages + 1; i++){
+      let url = `http://rocky-shore-99218.herokuapp.com/orders/`;
+        axios
+            .get(url)
+            .then(({ data }) => {
+                if (data.is_success) {
+                    setAllItems([...allItems,data.contents[0]]);              
+                }
+            });
+    }
+  }
 
-function populateData(data){
-  let runningTotal = 0;
-  for(let i = 0; i < allItems.length; i++){
-    runningTotal = runningTotal + allItems[i].totalCost;
-    let date = allItems[i].created.split('T'); //change to split('.') if you want to time of the sale to display in chart
-    data.push(createData(date[0], runningTotal));
- }
-}
-const data = [];
-populateData(data);
+  getAllData(numberPages);
+
+  function populateData(data){
+    let runningTotal = 0;
+
+    for(let i = 0; i < allItems.length; i++){
+      runningTotal = runningTotal + allItems[i].totalCost;
+      let date = allItems[i].created.split('T'); //change to split('.') if you want to time of the sale to display in chart
+      data.push(createData(date[0], runningTotal));
+    }
+  }
+  const data = [];
+  populateData(data);
 
   return (
     <React.Fragment>
