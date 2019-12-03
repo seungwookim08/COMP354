@@ -1,7 +1,5 @@
 .cart-dropdown {
   position: absolute;
-  max-width: 80%;
-  max-height: 80%;
   width: 340px;
   padding: 10px;
   min-height: auto;
@@ -45,6 +43,12 @@ button {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 0px 25px 0px 25px;
+  transition: transform 0.25s ease-out;
+}
+
+.cart-icon:hover {
+  transform: scale(1.10);
 }
 
 .header{
@@ -116,10 +120,8 @@ img {
     text-align: center;
     font-weight: bold;
 }
+ 
 .pay_button{
-  display: block;
-  margin: 0 auto;
-
-  width: 50%;
-  height: 50%;
+  text-align:center;
+  margin: 0;
 }

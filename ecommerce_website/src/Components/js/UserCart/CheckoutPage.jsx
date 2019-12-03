@@ -11,20 +11,27 @@ import { createStructuredSelector } from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../../Redux/cart/cart.selectors';
 import { selectUser } from '../../../Redux/user/user.selectors';
 import CheckoutItem from "./CheckoutItem";
-import { PayPalButton } from "react-paypal-button-v2";
-
 import L from '@material-ui/core/Link';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import CheckoutPopup from './CheckoutPopup';
 
 function CheckoutPage({ cartItems, total, user }) {
 
     const [checkOne, setCheckOne] = useState(true);
     const [checkTwo, setCheckTwo] = useState(false);
     const [address, setAddress] = useState(user.primaryAddress);
+    const [open, setOpen] = useState(false);
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleChange = name => event => {
 
         if (name == "checkOne") {
@@ -49,6 +56,14 @@ function CheckoutPage({ cartItems, total, user }) {
             {cartItems.length ?
                 (
                     <div className="checkout">
+                        <CheckoutPopup 
+                        cartItems={cartItems}
+                        total = {total}
+                        open={open} 
+                        handleClose={handleClose}
+                        address={address}
+                        user={user.sellerId}
+                        />
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
@@ -66,18 +81,6 @@ function CheckoutPage({ cartItems, total, user }) {
                             </TableBody>
                         </Table>
 
-                        <p></p><br></br>
-
-                        <div class="center_total">
-
-                            SubTotal: ${total}
-                            <p></p>
-                            Taxes (15% QC + 8% commission):  ${(total * 0.15 + total * 0.08).toFixed(2)}
-                            <p></p>
-                            Total: ${(total * 1.23).toFixed(2)}
-                            <p></p>
-
-                        </div><p></p><br></br>
 
                         {user.alternateAddress != 0 && user.sellerId != null ? (
                             <div class="">
@@ -125,38 +128,29 @@ function CheckoutPage({ cartItems, total, user }) {
 
                         {user.sellerId != null ? (
                             <div class="pay_button">
-
-                                <PayPalButton
-                                    amount={total}
-                                    onCancel={(details, data) => {
-                                        //console.log(address)
-                                        axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId + '/orders', { "shippingAddress": address }, {})
-                                            .then(function (response) {
-                                                console.log(response.data.is_success);
-                                                console.log(response.data.message);
-                                                if (response.data.is_success == true)
-                                                    alert("Thank you for purchasing from 354thestars");
-                                            })
-                                            .catch(function (error) {
-                                                console.log(error);
-                                                alert("Something went wrong. Please try again");
-                                            });
-                                    }}
-                                />
+                                <Button 
+                                variant="outlined" 
+                                size="large"
+                                onClick={handleClickOpen}
+                                >
+                                    Complete Purchase
+                                </Button>
                             </div>
                         )
                             :
                             (
-                                <div class="pay_button">
-                                    <L variant="body2" label="Login" component={Link} to={"/Login"} >
-                                        <Button
-                                            fullWidth="true"
-                                            color="default"
-                                            variant="outlined"
-                                        > Please Log In Before Purchase
-                                    </Button>
-                                    </L>
-                                </div>
+                                
+                            <div className="pay_button">
+                                <L variant="body2" label="Login" component={Link} to={"/Login"} >
+                                    <Button
+                                        fullWidth="true"
+                                        color="default"
+                                        variant="outlined"
+                                    > Please Log In Before Purchase
+                                </Button>
+                                </L>
+                            </div>
+                               
                             )
                         }
                     </div>
