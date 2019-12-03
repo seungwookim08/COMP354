@@ -98,11 +98,11 @@ export default function Users(props) {
                             <TableCell>{user.firstName + " " + user.lastName}</TableCell>
                             <TableCell>{user.id}</TableCell>
                             <TableCell>
-                                 <Button variant="contained" color="secondary"onClick={e => {deleteUser(user.id)}}> 
+                                 <Button variant="outlined" color="secondary"onClick={e => {deleteUser(user.id)}}> 
                                  Delete </Button>
                             </TableCell>
                             <TableCell align="right"> 
-                            <Button variant="contained" color="primary"onClick={e => {sendPasswordReset(user.email)}}> Send </Button>
+                            <Button variant="outlined" color="primary"onClick={e => {sendPasswordReset(user.email)}}> Send </Button>
                             </TableCell>
                         </TableRow>
                     ))}

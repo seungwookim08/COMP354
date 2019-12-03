@@ -89,7 +89,7 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                   </Typography>
                </Grid>
               <Grid item>
-                <Button variant="contained" onClick={() => {addItem(item);}}>
+                <Button variant="outlined" onClick={() => {addItem(item);}}>
                   Add To Cart
                 </Button>
               </Grid>

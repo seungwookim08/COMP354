@@ -72,9 +72,9 @@ export default function Products(props) {
             <ModifyProduct allItems={allItems} open={openModify} handleClose={handleCloseModify} />
             <Grid spacing={6}>
                 <div>
-                    <Button variant="contained" color="primary" onClick={handleClickOpenAdd}> Add Product </Button>
-                    <Button variant="contained" color="Secondary" onClick={handleClickOpenDelete}>Delete Product </Button>
-                    <Button variant="contained" color="default" onClick={handleClickOpenModify}> Modify Product </Button>
+                    <Button variant="outlined" color="primary" onClick={handleClickOpenAdd}> Add Product </Button>
+                    <Button variant="outlined" color="Secondary" onClick={handleClickOpenDelete}>Delete Product </Button>
+                    <Button variant="outlined" color="default" onClick={handleClickOpenModify}> Modify Product </Button>
                 </div>
             </Grid>
             <Grid item xs={3}>
