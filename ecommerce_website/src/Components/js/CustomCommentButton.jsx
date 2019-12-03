@@ -18,8 +18,6 @@ const CustomCommentButton = (props) => {
   const [tempText, setTempText] = useState("");
 
   useEffect(() => {
-    // console.log("props buyer: " + props.buyerId);
-    // console.log("props seller: " + props.sellerId);
     setBuyerId(props.buyerId);
     setSellerId(props.sellerId);
   })
