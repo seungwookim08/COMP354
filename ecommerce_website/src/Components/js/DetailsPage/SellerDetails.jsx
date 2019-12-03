@@ -43,8 +43,7 @@ const SellerDetails = props => {
 
   // retrieve specific details about the seller
   useEffect(() => {
-    if(props.location.state) {
-      console.log("props location: ");
+    if(props.location.state && props.location.state.isFromProductPage) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
       .then(({data}) => {
@@ -69,11 +68,11 @@ const SellerDetails = props => {
       }
     });
     }
-  }, []);
+  });
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
-    if(props.location.state) {
+    if(props.location.state  && props.location.state.isFromProductPage) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
       .then(({data}) => {
@@ -93,21 +92,29 @@ const SellerDetails = props => {
       }
     });
     }
-    
   });
 
   function computeAverageRating(contents) {
     var total = 0, count = 0;
     contents.map(content => {
-      count++;
-      total += content.rate;
+      if(content.rate == "N/A") {
+        // console.log("NOT AVAILABLE!!!!");
+      } else {
+        count++;
+        total += content.rate;
+      }
     })
+    // console.log("count = " + count);
     setAmountOfBuyerReviews(count);
-    return total/count;
+    if (count == 0) {
+      return null;
+    } else {
+      return total/count;
+    }
   }
 
   function computeTotalRows() {
-    if(amountOfBuyerReviews) {
+    if(amountOfBuyerReviews && amountOfBuyerReviews != 0) {
       return Math.ceil(amountOfBuyerReviews/reviewsPerRow);
     } else {
       return 0;
@@ -118,9 +125,6 @@ const SellerDetails = props => {
     return content.userId;
   }
 
-  function retrieveSellerIdFromReview(content) {
-    return content.sellerId;
-  }
 
   function retrieveBuyerReview(content) {
     return content.text;
@@ -204,7 +208,7 @@ const SellerDetails = props => {
                    <Ratings 
                     value={sellerRating}
                     optionalText="Seller"
-                    totalRatings={reviewContents.length}
+                    totalRatings={sellerRating ? reviewContents.length : 0}
                    />
                   </Typography>
                </Grid>
