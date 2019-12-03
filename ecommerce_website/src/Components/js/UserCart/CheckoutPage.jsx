@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from "axios";
 import '../../css/Cart.css';
 import Table from '@material-ui/core/Table';
@@ -6,8 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { connect } from "react-redux";
-import { createStructuredSelector } from 'reselect';
+import {connect} from "react-redux";
+import {createStructuredSelector} from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../../Redux/cart/cart.selectors';
 import { selectUser } from '../../../Redux/user/user.selectors';
 import CheckoutItem from "./CheckoutItem";
@@ -18,7 +18,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckoutPopup from './CheckoutPopup';
 
-function CheckoutPage({ cartItems, total, user }) {
 
     const [checkOne, setCheckOne] = useState(true);
     const [checkTwo, setCheckTwo] = useState(false);
@@ -48,7 +47,6 @@ function CheckoutPage({ cartItems, total, user }) {
             console.log(checkTwo);
             setAddress(user.alternateAddress);
         }
-    }
 
 
     return (
@@ -166,9 +164,24 @@ function CheckoutPage({ cartItems, total, user }) {
 
 const mapStateToProps = createStructuredSelector({
     user: selectUser,
-    cartItems: selectCartItems,
-    total: selectCartTotal,
+    cartItems:selectCartItems,
+    total:selectCartTotal
 })
-
 export default connect(mapStateToProps)(CheckoutPage);
 
+/*
+onSuccess={(details, data) => {
+alert("Transaction completed by " + details.payer.name.given_name);
+return fetch("/paypal-transaction-complete", {
+method: "post",
+body: JSON.stringify({
+orderID: data.orderID
+})
+});
+}}
+*/
+/*options={{
+clientId: "AWzSg6-sl6mTpYBnxEvA8MTgVuH_lL0iBkGggYnx3nsQV55WP5JqMiKVEQzunnskanuBz2WKl5fZzNxC"
+,currency:"CAD"
+}}
+*/
