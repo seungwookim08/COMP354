@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import axios from "axios";
 import '../../css/Cart.css';
 import Table from '@material-ui/core/Table';
@@ -18,6 +18,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import CheckoutPopup from './CheckoutPopup';
 
+const CheckoutPage = ({cartItems, total, user}) => {
 
     const [checkOne, setCheckOne] = useState(true);
     const [checkTwo, setCheckTwo] = useState(false);
@@ -47,6 +48,7 @@ import CheckoutPopup from './CheckoutPopup';
             console.log(checkTwo);
             setAddress(user.alternateAddress);
         }
+    }
 
 
     return (
@@ -141,9 +143,8 @@ import CheckoutPopup from './CheckoutPopup';
                             <div className="pay_button">
                                 <L variant="body2" label="Login" component={Link} to={"/Login"} >
                                     <Button
-                                        fullWidth="true"
-                                        color="default"
-                                        variant="outlined"
+                                        variant="outlined" 
+                                        size="large"
                                     > Please Log In Before Purchase
                                 </Button>
                                 </L>
@@ -161,6 +162,7 @@ import CheckoutPopup from './CheckoutPopup';
         </div>
     )
 }
+
 
 const mapStateToProps = createStructuredSelector({
     user: selectUser,

@@ -6,8 +6,15 @@ import {connect} from "react-redux";
 const Header = ({hidden, currentUser}) => (
   <div className="header-outer">
   <div className="icon-outer">
+    {currentUser == "admin@354thestars.ca" ? null 
+    : 
+    (
+    <div>
       <CartIcon/>
       {hidden ? null : <CartDropdown /> }
+    </div>
+    )
+    }
   </div>
   </div>
 );

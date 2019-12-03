@@ -30,11 +30,11 @@ class App extends Component {
           />
           <Route 
             path='/dashboard' 
-            render={()=> this.props.currentUser && !(this.props.isAdmin == 1) ? <AccountDashboard/> : (<Redirect to='/'/>)}
+            render={()=> this.props.currentUser && !(this.props.currentUser == "admin@354thestars.ca") ? <AccountDashboard/> : (<Redirect to='/'/>)}
           />
           <Route 
             path='/admindashboard' 
-            render={()=> this.props.isAdmin == 1 ? <AdminDashboard/> : (<Redirect to='/'/>)}
+            render={()=> this.props.currentUser == "admin@354thestars.ca" ? <AdminDashboard/> : (<Redirect to='/'/>)}
           />
           <Route exact path="/about"component={AboutPage}/>
           <Route path="/product/:id" component={ItemDetailsPage}/>
@@ -46,7 +46,9 @@ class App extends Component {
           <Route path='/Login' 
             render={()=> this.props.currentUser ? (<Redirect to='/'/>) : <Login/> }
           />
-          <Route path='/checkout' component={CheckoutPage}/>
+          <Route path='/checkout' 
+          render={()=> this.props.currentUser == "admin@354thestars.ca" ? (<Redirect to='/'/>) : <CheckoutPage/>}
+          />
           <Route path='/login' component={UserDetails} />
         </Switch>
       </React.Fragment>

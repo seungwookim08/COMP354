@@ -147,11 +147,8 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
                   <ListItemIcon>{<HomeIcon/>}</ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItem>
-                <ListItem className="nav-items" button key="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}>
-                  <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
-                  <ListItemText primary="Checkout" />
-                </ListItem>
-                {isAdmin == 1 ?
+
+                {currentUser == "admin@354thestars.ca" ?
                   (
                     <ListItem className="nav-items" button key="Admin Dashboard" component={Link} to={adminDashboardString} index={adminDashboardPageIndex}>
                       <ListItemIcon>{<DashboardIcon/>}</ListItemIcon>
@@ -160,10 +157,17 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
                   )
                   :
                   (
+                    <div>
+                    <ListItem className="nav-items" button key="Checkout" component={Link} to={checkoutPageString} index={checkoutPageIndex}>
+                  <ListItemIcon>{<ShoppingCartIcon/>}</ListItemIcon>
+                  <ListItemText primary="Checkout" />
+                  </ListItem>
+
                     <ListItem className="nav-items" button key="Seller Dashboard" component={Link} to={dashboardPageString} index={dashboardPageIndex}>
                       <ListItemIcon>{<DashboardIcon/>}</ListItemIcon>
                       <ListItemText primary="Seller Dashboard" />
                     </ListItem>
+                    </div>
                   )
                 }
                 <ListItem className="nav-items" button key="About" component={Link} to={aboutPageString} index={aboutPageIndexTwo}>
@@ -177,6 +181,9 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
                   <ListItemIcon>{<PersonIcon/>}</ListItemIcon>
                   <ListItemText primary="Profile" />
                 </ListItem>
+                {currentUser == "admin@354thestars.ca" ? (<div></div>)
+                :
+                (
                 <ListItem className="nav-items" button key="Seller Details" component={Link}
                   to={sellerDetailsPageString}
                   index={sellerDetailsPageIndex}
@@ -184,6 +191,9 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
                   <ListItemIcon>{<BusinessIcon/>}</ListItemIcon>
                   <ListItemText primary="Seller Details" />
                 </ListItem>
+                )
+                }
+
                 <ListItem className="nav-items" button key="Logout" component={Link} to={homePageString} onClick={() => logoutCurrentUser()} >
                   <ListItemIcon>{<ExitToAppIcon/>}</ListItemIcon>
                   <ListItemText primary="Logout" />
