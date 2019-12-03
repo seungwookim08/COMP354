@@ -82,7 +82,7 @@ const Review = (props) => {
       {
         areValuesSet ? 
         (
-          <Card className="card-container">
+          <Card className="review-card-container">
             <CardContent>
               <div className="review-container">
                 <Ratings
