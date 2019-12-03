@@ -73,7 +73,8 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                     pathname: '/SellerDetails', 
                     state: {
                       name: sellerFullName,
-                      sellerId: sellerId
+                      sellerId: sellerId,
+                      isFromProductPage: true
                     }
                   }
                 } >  Seller: {sellerFullName} </L>

@@ -13,7 +13,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Ratings from "./Ratings";
 import axios from "axios";
 import "../../css/Review.css";
-import userReducer from '../../../Redux/user/user.reducer';
 
 const Review = (props) => {
   const [areValuesSet, setBooleanValuesSet] = useState(false);
@@ -88,6 +87,7 @@ const Review = (props) => {
                 <Ratings
                   value={buyerRating}
                   optionalText="Customer"
+                  isReadOnly={true}
                 />
                 <Typography component="legend"> <span className="name">{buyerName}</span></Typography>
                 {
@@ -115,7 +115,7 @@ const Review = (props) => {
                     (
                       <CardActions>
                         <Button variant="outlined" onClick={handleClickOpen}>
-                          Comment
+                          Reply
                         </Button>
                         <Dialog open={open} onClose={e => handleClose(false)} aria-labelledby="form-dialog-title">
                           <DialogTitle id="form-dialog-title">Comment</DialogTitle>
