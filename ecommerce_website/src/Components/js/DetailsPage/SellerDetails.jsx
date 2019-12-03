@@ -100,13 +100,17 @@ const SellerDetails = props => {
 
   // Check if user who's logged in purchased a product from the seller
   useEffect(() => {
-    if(props.user) {
-      axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
-      .then(({data}) => {
-        if(data.is_success && sellerId) {
-          verifyIfUserPurchasedFromSeller(data.contents);
-        }
-      });
+    if(props.user && props.location.state) {
+      if(props.location.state.isFromProductPage) {
+        axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
+        .then(({data}) => {
+          if(data.is_success && sellerId) {
+            console.log("props.user.sellerId: " + props.user.sellerId);
+            console.log("props.location.state.sellerId: " + props.location.state.sellerId);
+            verifyIfUserPurchasedFromSeller(data.contents);
+          }
+        });
+      }
     }
   });
 
