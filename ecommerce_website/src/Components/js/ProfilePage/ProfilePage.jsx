@@ -21,15 +21,12 @@ import {createStructuredSelector} from 'reselect';
   
   function setUserInfo() {
 
-    const formData = new FormData();
-    formData.append("imageUrl", imageUrl);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("primaryAddress", primaryAddress);
-    formData.append("alternateAddress", alternateAddress);
-    formData.append("emailAddress", emailAddress);
-
-    axios.post('https://rocky-shore-99218.herokuapp.com/users/' + user.userId, formData)
+    axios.put('https://rocky-shore-99218.herokuapp.com/users/' + user.sellerId + "/details", {
+      firstName: firstName,
+      lastName: lastName,
+      primaryAddress: primaryAddress,
+      alternateAddress: alternateAddress,
+    })
     .then(function (response) {
       console.log(response);
     })

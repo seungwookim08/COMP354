@@ -2,15 +2,21 @@ import React from 'react';
 import CartIcon from "./CartIcon";
 import CartDropdown from "./CartDropdown";
 import {connect} from "react-redux";
-import { Typography } from '@material-ui/core';
 
 const Header = ({hidden, currentUser}) => (
-    <div className="header-outer">
-      <div className="icon-outer">
-          <CartIcon/>
-          {hidden ? null : <CartDropdown /> }
-      </div>
-      </div>
+  <div className="header-outer">
+  <div className="icon-outer">
+    {currentUser == "admin@354thestars.ca" ? null 
+    : 
+    (
+    <div>
+      <CartIcon/>
+      {hidden ? null : <CartDropdown /> }
+    </div>
+    )
+    }
+  </div>
+  </div>
 );
 
 const mapStateToProps = state => ({
