@@ -14,16 +14,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
+import { removeAllItem } from "../../../Redux/cart/cart.actions";
+import { connect } from 'react-redux';
 
+const CheckoutPopup = ({address, user, cartItems, removeAllItem, open, handleClose, total}) => {
 
-const CheckoutPopup = props => {
-
-    let address = props.address;
-    let userId = props.user;
-    let cartItems = props.cartItems;
     let arrFormData = [];
 
-    
     //adds all the productIds and quantitys to formdata then adds them to an array
     for(let i = 0; i < cartItems.length; i++){
         let data = `{"productId":"${cartItems[i].id}","quantity":"${cartItems[i].quantity}"}`;
@@ -31,51 +28,54 @@ const CheckoutPopup = props => {
         arrFormData.push(obj);
     }
     
-    function completePurchase(userId,address){
+    function completePurchase(user,address){
         let data =  `{"shippingAddress":"${address}"}`;
         let obj = JSON.parse(data);
         axios
-            .post(`https://rocky-shore-99218.herokuapp.com/users/${userId}/orders`, obj, {})
+            .post(`https://rocky-shore-99218.herokuapp.com/users/${user}/orders`, obj, {})
             .then(({ data }) => {
-                console.log(data);
+                if(!data.is_success){
+                    alert("something went wrong and we couldn't process your cart.");
+                }
             })
             .catch(function (response) {
                 console.log(response);
             });
 
         window.open('https://www.paypal.com/ca/signin','_blank');
+        removeAllItem();
+        handleClose1();
+    }
+
+    function addToCart(arrFormData, user) {
+     //  looping with async = a bad time, I hope this works
+       for(let i = 0; i < arrFormData.length; i++){
+            axios
+                .post(`https://rocky-shore-99218.herokuapp.com/users/${user}/cart`, arrFormData[i], {})
+                .then(({ data }) => {
+                    console.log(data);
+                })
+                .catch(function (response) {
+                    console.log(response);
+                });
+       }
+
         handleClose();
     }
 
-    function addToCart(arrFormData, userId) {
-     //  looping with async = a bad time, I hope this works
-    //    for(let i = 0; i < arrFormData.length; i++){
-    //         axios
-    //             .post(`https://rocky-shore-99218.herokuapp.com/users/${userId}/cart`, arrFormData[i], {})
-    //             .then(({ data }) => {
-    //                 console.log(data);
-    //             })
-    //             .catch(function (response) {
-    //                 console.log(response);
-    //             });
-    //    }
+    const [open1, setOpen1] = useState(false);
 
-        props.handleClose();
-    }
-
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpen1 = () => {
+        setOpen1(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleClose1 = () => {
+        setOpen1(false);
     };
 
     return (
         <div>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open1} onClose={handleClose1} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Complete Order</DialogTitle>
             <DialogContentText>
                         Thanks for Shopping with us!
@@ -84,11 +84,11 @@ const CheckoutPopup = props => {
                 You are one step away, just click the PayPal button to finish this order.
             </DialogContent>
             <DialogActions>
-                    <Button onClick={handleClose}>
+                    <Button onClick={handleClose1}>
                         Cancel
                     </Button>
                     <Button onClick={e => { 
-                        completePurchase(userId, address); 
+                        completePurchase(user, address); 
                         }}>
                         <PaypalIcon />
                     </Button>
@@ -96,7 +96,7 @@ const CheckoutPopup = props => {
                 </DialogActions>
             </Dialog>
 
-            <Dialog open={props.open} onClose={props.handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Finalize Order</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -112,7 +112,7 @@ const CheckoutPopup = props => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {props.cartItems.map(cartItem => (
+                            {cartItems.map(cartItem => (
                                 <PopupItem key={cartItem.id} cartItem={cartItem} />
                             ))}
                         </TableBody>
@@ -124,7 +124,7 @@ const CheckoutPopup = props => {
                             Shipping Address:
                             </TableCell>
                             <TableCell>
-                            {props.address}
+                            {address}
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -132,7 +132,7 @@ const CheckoutPopup = props => {
                             SubTotal: 
                             </TableCell>
                             <TableCell>
-                            ${props.total}
+                            ${total}
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -140,7 +140,7 @@ const CheckoutPopup = props => {
                             Taxes (15% QC + 8% commission):
                             </TableCell>
                             <TableCell>
-                            ${(props.total * 0.15 + props.total * 0.08).toFixed(2)}
+                            ${(total * 0.15 + total * 0.08).toFixed(2)}
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -148,19 +148,19 @@ const CheckoutPopup = props => {
                             {<strong>Total:</strong>}
                             </TableCell>
                             <TableCell>
-                            {<strong>${(props.total * 1.23).toFixed(2)}</strong>}
+                            {<strong>${(total * 1.23).toFixed(2)}</strong>}
                             </TableCell>
                         </TableRow>
                     </Table>
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={props.handleClose}>
+                    <Button onClick={handleClose}>
                         Cancel
                     </Button>
                     <Button onClick={e => { 
-                        addToCart(arrFormData, userId);
-                        handleClickOpen();
+                        addToCart(arrFormData, user);
+                        handleClickOpen1();
                          }}>
                         Finalize Purchase
                     </Button>
@@ -170,4 +170,9 @@ const CheckoutPopup = props => {
         </div>
     );
 }
-export default CheckoutPopup;
+
+const mapDispatchToProps = dispatch => ({
+    removeAllItem: () => dispatch(removeAllItem())
+});
+
+export default connect(null, mapDispatchToProps)(CheckoutPopup);

@@ -170,20 +170,3 @@ const mapStateToProps = createStructuredSelector({
     total:selectCartTotal
 })
 export default connect(mapStateToProps)(CheckoutPage);
-
-/*
-onSuccess={(details, data) => {
-alert("Transaction completed by " + details.payer.name.given_name);
-return fetch("/paypal-transaction-complete", {
-method: "post",
-body: JSON.stringify({
-orderID: data.orderID
-})
-});
-}}
-*/
-/*options={{
-clientId: "AWzSg6-sl6mTpYBnxEvA8MTgVuH_lL0iBkGggYnx3nsQV55WP5JqMiKVEQzunnskanuBz2WKl5fZzNxC"
-,currency:"CAD"
-}}
-*/
