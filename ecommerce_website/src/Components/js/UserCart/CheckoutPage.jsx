@@ -11,6 +11,7 @@ import {createStructuredSelector} from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../../Redux/cart/cart.selectors';
 import { selectUser } from '../../../Redux/user/user.selectors';
 import CheckoutItem from "./CheckoutItem";
+import { PayPalButton } from "react-paypal-button-v2";
 import L from '@material-ui/core/Link';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';

@@ -12,6 +12,8 @@ import AddProduct from './AddProduct';
 import ModifyProduct from './ModifyProduct';
 import DeleteProduct from './DeleteProduct';
 import axios from 'axios';
+import Checkbox from '@material-ui/core/Checkbox';
+
 
 export default function Products(props) {
 
@@ -23,6 +25,10 @@ export default function Products(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     useEffect(() => {
+        fetchAllProducts();
+    });
+
+    const fetchAllProducts = () => {
         let url = `https://rocky-shore-99218.herokuapp.com/users/${props.sellerId}/products/`;
         axios
             .get(url)
@@ -31,7 +37,7 @@ export default function Products(props) {
                     setAllItems(data.contents);
                 }
             });
-    });
+    };
 
     const handleClickOpenAdd = () => {
         setOpenAdd(true);
@@ -64,6 +70,23 @@ export default function Products(props) {
         setPage(0);
     };
 
+    const handleFeaturedChecked = (e) => {
+        let itemId = e.target.value;
+
+        const fd = new FormData();
+        fd.append("isFeatured", e.target.checked ? '1' : '0');
+
+        axios.put(`https://rocky-shore-99218.herokuapp.com/products/${itemId}/details`, fd)
+            .then(({ data }) => {
+                if(data.is_success) {
+                    fetchAllProducts();
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+    };
+
     return (
         <React.Fragment>
             <Title>Products</Title>
@@ -85,6 +108,7 @@ export default function Products(props) {
                         <TableCell>Date Created</TableCell>
                         <TableCell>Item</TableCell>
                         <TableCell> Quantity </TableCell>
+                        <TableCell>Featured</TableCell>
                         <TableCell> Number Sold </TableCell>
                         <TableCell align="right">Unit Price</TableCell>
                     </TableRow>
@@ -96,6 +120,14 @@ export default function Products(props) {
                             <TableCell>{item.created}</TableCell>
                             <TableCell>{item.name}</TableCell>
                             <TableCell>{item.quantity}</TableCell>
+                            <TableCell><Checkbox
+                                checked={item.isFeatured}
+                                onChange={handleFeaturedChecked}
+                                value={item.id}
+                                inputProps={{
+                                    'aria-label': 'Feature item on home page',
+                                }}
+                            /></TableCell>
                             <TableCell>0</TableCell>
                             <TableCell align="right">${item.price}</TableCell>
                         </TableRow>
