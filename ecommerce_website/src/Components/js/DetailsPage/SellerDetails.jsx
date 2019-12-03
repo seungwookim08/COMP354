@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Ratings from "./Ratings";
 import Review from "./Review";
+import CommentButton from "../CustomCommentButton"
 import Pagination from "material-ui-flat-pagination"
 import {addItem} from '../../../Redux/cart/cart.actions';
 import {connect} from 'react-redux';
@@ -40,6 +41,7 @@ const SellerDetails = props => {
   const [reviewsPerRow] = useState(4);
   const [beginningIndex, setBeginningIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
+  const [didLoggedInUserBuyFromSeller, setDidLoggedInUserBuyFromSeller] = useState("");
 
   // retrieve specific details about the seller
   useEffect(() => {
@@ -48,6 +50,8 @@ const SellerDetails = props => {
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
       .then(({data}) => {
       if(data.is_success) {
+        // console.log("id of the seller: " + props.location.state.sellerId)
+        // console.log("id of the buyer: " + props.user.sellerId)
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
         setSellerEmail(data.contents[0].email);
         setSellerProfilePic(data.contents[0].imageUrl);
@@ -56,7 +60,6 @@ const SellerDetails = props => {
     });
     }
     else if(props.user) {
-      console.log("props user: ");
       axios
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.user.sellerId)
       .then(({data}) => {
@@ -94,17 +97,26 @@ const SellerDetails = props => {
     }
   });
 
+  // Check if user who's logged in purchased a product from the seller
+  useEffect(() => {
+    if(props.user) {
+      axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
+      .then(({data}) => {
+        if(data.is_success && sellerId) {
+          setDidLoggedInUserBuyFromSeller(verifyIfUserPurchasedFromSeller(data.contents));
+        }
+      });
+    }
+  });
+
   function computeAverageRating(contents) {
     var total = 0, count = 0;
     contents.map(content => {
-      if(content.rate == "N/A") {
-        // console.log("NOT AVAILABLE!!!!");
-      } else {
+      if(content.rate != "N/A") {
         count++;
         total += content.rate;
       }
     })
-    // console.log("count = " + count);
     setAmountOfBuyerReviews(count);
     if (count == 0) {
       return null;
@@ -119,6 +131,16 @@ const SellerDetails = props => {
     } else {
       return 0;
     }
+  }
+
+  function verifyIfUserPurchasedFromSeller(contents) {
+    contents.map(content => {
+      if(content.sellerId == sellerId) {
+        return true;
+      } else {
+        return false;
+      }
+    })
   }
 
   function retrieveUserId(content) {
@@ -139,17 +161,38 @@ const SellerDetails = props => {
   }
 
   function updateSellerText(sellerText, reviewId, buyerId, sellerId) {
-    axios.put('https://rocky-shore-99218.herokuapp.com/ratings/' + reviewId, {
+    if(reviewId != null && sellerText != null && buyerId != null && sellerId != null) {
+      axios.put('https://rocky-shore-99218.herokuapp.com/ratings/' + reviewId, {
       userId: buyerId,
       sellerId: sellerId,
       sellerText: sellerText,
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  }
+
+  function updateBuyerComment(buyerId, sellerId, rating, tempText) {
+    console.log("Updated comment");
+    if (buyerId && sellerId && rating && tempText) {
+      axios
+      .post("https://rocky-shore-99218.herokuapp.com/ratings", {
+        userId: buyerId,
+        sellerId: sellerId,
+        rate: rating,
+        text: tempText,
+      }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      })
+    } else {
+      console.log("Missing and element")
+    }
   }
 
   function retrieveBuyerRating(content) {
@@ -208,13 +251,22 @@ const SellerDetails = props => {
                    <Ratings 
                     value={sellerRating}
                     optionalText="Seller"
+                    isReadOnly={true}
                     totalRatings={sellerRating ? reviewContents.length : 0}
                    />
                   </Typography>
                </Grid>
+               <Grid item>
+                 <CommentButton
+                    buyerId={props.user.sellerId}
+                    sellerId={props.location.state.sellerId}
+                    descriptionText="Leave a comment for the seller"
+                    updateBuyerComment={updateBuyerComment}
+                 />
+               </Grid>
             </Grid>
           </Grid>
-          <Grid container xs={12} className="grid-container" spacing={2}>
+          <Grid container xs={12} className="seller-reviews-grid-container" spacing={2}>
           {
             reviewContents ?
             (
@@ -228,7 +280,7 @@ const SellerDetails = props => {
                     sellerName={sellerFullName}
                     sellerId={sellerId}
                     sellerText={retrieveSellerText(contents)}
-                    updateSellerText= {updateSellerText}
+                    updateSellerText={updateSellerText}
                     currentUserId={props.user ? props.user.sellerId : null}
                   />
                 </Grid>
