@@ -6,6 +6,7 @@ import ItemList from "./ItemList";
 import axios from "axios";
 import FilterByDropdown from "./FilterByDropdown";
 import SortOrderDropdown from "./SortOrderDropdown";
+import FeaturedProd from "../FeaturedProducts/FeaturedProd.js"
 
 import logo from '../../../ImageAssets/logo.png';
 
@@ -84,10 +85,14 @@ export default class HomePage extends Component {
 
   render() {
     return (
-        <div className="App">
+        <div className="container" style={{marginLeft: 15, marginRight: 15}}>
           <div>
+              <img className="central_logo" src={logo}/>
+              <FeaturedProd/>
+              <br/><br/>
+              <h1>Browse</h1>
           <div class="central_search_elements">
-              <img class="central_logo" src={logo}/>
+
               <SearchBar handleChange={e => this.handleSearchChanged(e.target.value)}/>
               <br></br>
               <div class="central_search_filters"> 
