@@ -48,7 +48,7 @@ const Item = ({item, history, addItem}) => {
                 }}
             >
                 <div className='item-container'>
-                    <img alt="item" src={images[0]} style={{width: 200, height: 200}} />
+                    <img alt={name} src={images[0]}/>
                     <Typography variant="h5" component="h2"> {name} </Typography>
                     <Typography> Price: {price} $</Typography>
                     <Typography> Category: {category} </Typography>
