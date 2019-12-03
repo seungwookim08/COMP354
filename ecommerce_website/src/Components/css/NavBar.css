@@ -28,3 +28,19 @@
   background-color: white;
   color: black;
 }
+
+.logged-in {
+  width: 75px;
+}
+
+.cart {
+  float: right;
+}
+
+hr {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 20px;
+  visibility: hidden;
+  }
