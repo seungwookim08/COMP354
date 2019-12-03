@@ -230,7 +230,6 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
     <div className="navigation-bar">
       <AppBar position="static">
         <Toolbar className="toolbar">
-
           <Tab className="no-hover" icon={<img className="logo_top_left" src={logo} />} />
           <div edge="end" className={classes.menuButton} color="inherit" aria-label="menu">
             <Header />
