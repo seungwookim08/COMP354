@@ -119,53 +119,6 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
     setNavItemValue(parseInt(newValue));
   };
 
-<<<<<<< HEAD
-    return(
-      <div className="navigation-bar">
-        <AppBar position="static">
-            {
-              currentUser ? 
-              (
-                <Tabs
-                  className="nav-items"
-                  variant="fullWidth"
-                  value={navItemValue}
-                  aria-label="nav tabs example"
-                  onChange={handleChange}
-                  TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
-                >
-                  <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>} />
-                  <Tab label="Home" component={Link} to="/COMP354"/>
-                  <Tab label="Checkout" component={Link} to={"/COMP354/checkout"} />
-                  <Tab label="Profile" component={Link} to={"/COMP354/profile"} />
-                  <Tab label="Seller Dashboard" component={Link} to={"/COMP354/dashboard"} />
-                  {<Tab label="Logout" onClick={() => logoutCurrentUser()}/> }
-                  <Tab label="About" component={Link} to={"/COMP354/about"} />
-                </Tabs>
-              )
-              :
-              (
-                <Tabs
-                  className="nav-items"
-                  variant="fullWidth"
-                  value={navItemValue}
-                  aria-label="nav tabs example"
-                  onChange={handleChange}
-                  TabIndicatorProps={{style: {backgroundColor: "black", height:"3px"}}}
-                >
-                  <Tab className="no-hover" icon={<img class="logo_top_left" src={logo}/>}  />
-                  <Tab label="Home" component={Link} to="/COMP354"/>
-                  <Tab label="Sign Up" component={Link} to={"/COMP354/RegisterPage"} />
-                  <Tab label="Login" component={Link} to={"/COMP354/Login"} />
-                  <Tab label="About" component={Link} to={"/COMP354/about"} />
-                </Tabs>
-              )
-            }
-        </AppBar>
-        <div>
-          <Header/>
-        </div>
-=======
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -270,7 +223,6 @@ const NavBar = ({ firstName, isAdmin, currentUser, logoutCurrentUser }) => {
           )
       }
       
->>>>>>> master
     </div>
   );
 
