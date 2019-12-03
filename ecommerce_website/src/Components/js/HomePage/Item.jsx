@@ -41,7 +41,7 @@ const Item = ({item, history, addItem}) => {
     };
 
     return(
-        <Card>
+        <Card className="card-container">
             <CardContent
                 onClick={() => {
                     history.push("/product/" + item.id);
@@ -56,8 +56,13 @@ const Item = ({item, history, addItem}) => {
                     {/* <Typography> Rating: {props.item.rating} </Typography> */}
                 </div>
             </CardContent>
-            <div className="button">
-                <Button variant="outlined" onClick={() => handleClickOpen(item)}>Add To Cart</Button>
+            <div className="item-button-container">
+                <Button 
+                    className="add-to-cart-button"
+                    variant="outlined" 
+                    onClick={() => handleClickOpen(item)}>
+                        Add To Cart
+                </Button>
                 <Dialog
                     className="dialog-container"
                     open={open}
