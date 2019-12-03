@@ -6,6 +6,12 @@ import { Typography } from '@material-ui/core';
 
 const Header = ({hidden, currentUser}) => (
     <div className="header-outer">
+    <div className="header">
+    <Typography> 
+            {currentUser == null ? "Not logged in." : "Welcome, you are logged in as: " + currentUser}
+          </Typography>
+    </div>
+    
       <div className="icon-outer">
           <CartIcon/>
           {hidden ? null : <CartDropdown /> }
