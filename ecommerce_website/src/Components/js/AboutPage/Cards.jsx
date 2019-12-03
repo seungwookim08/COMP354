@@ -7,11 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-
-
-		
-
 
 const useStyles = makeStyles({
   card: {
@@ -20,13 +15,10 @@ const useStyles = makeStyles({
   media: {
     height: 200,
   },
-   
 });		 	
 
 export const MediaCard = props => {
   const classes = useStyles();
-  
-  
 
   return ( 
     <Card className="cards">
@@ -46,10 +38,10 @@ export const MediaCard = props => {
         </CardContent> 
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" >
           Share
         </Button>
-        <a href={props.person.website} target="_blank"><Button size="small" color="primary">
+        <a href={props.person.website} target="_blank"><Button size="small" >
           Website
         </Button></a>
       </CardActions>
