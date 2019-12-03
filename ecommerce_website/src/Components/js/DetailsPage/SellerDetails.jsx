@@ -51,8 +51,6 @@ const SellerDetails = props => {
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
       .then(({data}) => {
       if(data.is_success) {
-        // console.log("id of the seller: " + props.location.state.sellerId)
-        // console.log("id of the buyer: " + props.user.sellerId)
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
         setSellerEmail(data.contents[0].email);
         setSellerProfilePic(data.contents[0].imageUrl);
@@ -148,13 +146,9 @@ const SellerDetails = props => {
 
   function verifyIfUserAlreadyLeftAReview(contents) {
     contents.map(content => {
-      console.log("content.userId = " + content.userId);
-      console.log("props.user.sellerId = " + props.user.sellerId);
       if(content.userId == props.user.sellerId) {
-        console.log("user left a review");
         setDidUserAlreadyLeaveReview(true);
       } else {
-        console.log("user didn't leave a review");
         setDidUserAlreadyLeaveReview(false);
       }
     })
@@ -194,7 +188,6 @@ const SellerDetails = props => {
   }
 
   function updateBuyerComment(buyerId, sellerId, rating, tempText) {
-    console.log("Updated comment");
     if (buyerId && sellerId && rating && tempText) {
       axios
       .post("https://rocky-shore-99218.herokuapp.com/ratings", {
@@ -208,7 +201,8 @@ const SellerDetails = props => {
         console.log(error);
       })
     } else {
-      console.log("Missing and element")
+      // TODO: Add a popup stating that information is missing
+      console.log("Missing an element");
     }
   }
 
