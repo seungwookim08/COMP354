@@ -82,8 +82,11 @@ const CheckoutPage = ({cartItems, total, user}) => {
                         </Table>
 
 
-                        {user.alternateAddress != null && user.sellerId != null ? (
+                        {user.alternateAddress != "null" && user.sellerId != null ? (
                             <div class="">
+                        <br/>
+                        <br/>
+                        <br/>
                                 Please choose a shipping address.
                         <p></p>
 
