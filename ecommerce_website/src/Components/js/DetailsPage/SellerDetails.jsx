@@ -43,30 +43,37 @@ const SellerDetails = props => {
   const [endIndex, setEndIndex] = useState(reviewsPerRow*amountOfRowsPerPage);
   const [didLoggedInUserBuyFromSeller, setDidLoggedInUserBuyFromSeller] = useState("");
   const [didUserAlreadyLeaveReview, setDidUserAlreadyLeaveReview] = useState("");
+  const [isUserDetailSet, setIsUserDetailSet] = useState(false);
+  const [isUserRatingSet, setIsUserRatingSet] = useState(false);
+  const [isPurchaseMatchedWithSellerSet, setIsPurchaseMatchedWithSellerSet] = useState(false);
 
   // retrieve specific details about the seller
   useEffect(() => {
-    if(props.location.state && props.location.state.isFromProductPage) {
+    if(props.location.state && props.location.state.isFromProductPage && !isUserDetailSet) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.location.state.sellerId)
       .then(({data}) => {
       if(data.is_success) {
+        console.log("one");
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
         setSellerEmail(data.contents[0].email);
         setSellerProfilePic(data.contents[0].imageUrl);
         setSellerId(props.location.state.sellerId);
+        setIsUserDetailSet(true);
       }
     });
     }
-    else if(props.user) {
+    else if(props.user && !isUserDetailSet) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/users/' + props.user.sellerId)
       .then(({data}) => {
       if(data.is_success) {
+        console.log("two");
         setSellerFullName(data.contents[0].firstName + " " + data.contents[0].lastName);
         setSellerEmail(data.contents[0].email);
         setSellerProfilePic(data.contents[0].imageUrl);
         setSellerId(props.user.sellerId);
+        setIsUserDetailSet(true);
       }
     });
     }
@@ -74,25 +81,29 @@ const SellerDetails = props => {
 
   // retrieve ratings and reviews of the seller
   useEffect(() => {
-    if(props.location.state  && props.location.state.isFromProductPage) {
+    if(props.location.state  && props.location.state.isFromProductPage && !isUserRatingSet) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.location.state.sellerId + "/ratings")
       .then(({data}) => {
       if(data.is_success) {
+        console.log("three");
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
         verifyIfUserAlreadyLeftAReview(data.contents);
+        setIsUserRatingSet(true);
       }
     });
     }
-    else if(props.user) {
+    else if(props.user && !isUserRatingSet) {
       axios
       .get('https://rocky-shore-99218.herokuapp.com/seller/' + props.user.sellerId + "/ratings")
       .then(({data}) => {
       if(data.is_success) {
+        console.log("four");
         setSellerRating(computeAverageRating(data.contents));
         setReviewContents(data.contents);
         verifyIfUserAlreadyLeftAReview(data.contents);
+        setIsUserRatingSet(true);
       }
     });
     }
@@ -100,17 +111,19 @@ const SellerDetails = props => {
 
   // Check if user who's logged in purchased a product from the seller
   useEffect(() => {
-    if(props.user && props.location.state) {
+    if(props.user && props.location.state && !isPurchaseMatchedWithSellerSet) {
       if(props.location.state.isFromProductPage) {
         axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
         .then(({data}) => {
           if(data.is_success && sellerId) {
+            console.log("five");
             verifyIfUserPurchasedFromSeller(data.contents);
+            setIsPurchaseMatchedWithSellerSet(true);
           }
         });
       }
     }
-  });
+  }, );
 
   function computeAverageRating(contents) {
     var total = 0, count = 0;
@@ -174,6 +187,7 @@ const SellerDetails = props => {
   }
 
   function updateSellerText(sellerText, reviewId, buyerId, sellerId) {
+    console.log("six");
     if(reviewId != null && sellerText != null && buyerId != null && sellerId != null) {
       axios.put('https://rocky-shore-99218.herokuapp.com/ratings/' + reviewId, {
         userId: buyerId,
@@ -186,11 +200,14 @@ const SellerDetails = props => {
       .catch(function (error) {
         console.log(error);
       });
+      setIsUserDetailSet(false);
+      setIsUserRatingSet(false);
     }
   }
 
   function updateBuyerComment(buyerId, sellerId, rating, tempText) {
     if (buyerId && sellerId && rating && tempText) {
+      console.log("seven");
       axios
       .post("https://rocky-shore-99218.herokuapp.com/ratings", {
         userId: buyerId,
@@ -202,6 +219,9 @@ const SellerDetails = props => {
       }).catch(function (error) {
         console.log(error);
       })
+      setIsUserDetailSet(false);
+      setIsUserRatingSet(false);
+      setIsPurchaseMatchedWithSellerSet(false);
     } else {
       // TODO: Add a popup stating that information is missing
       console.log("Missing an element");

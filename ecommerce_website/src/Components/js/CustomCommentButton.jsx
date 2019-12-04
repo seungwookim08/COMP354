@@ -7,8 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Rating from "./DetailsPage/Ratings";
-import Review from "./DetailsPage/Review";
-import axios from "axios";
 
 const CustomCommentButton = (props) => {
   const [open, setOpen] = useState(false);

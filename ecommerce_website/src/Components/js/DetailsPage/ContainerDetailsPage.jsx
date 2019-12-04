@@ -80,16 +80,6 @@ const ContainerDetailsPage = ({addItem, item, name, description, imageUrl, categ
                 } >  Seller: {sellerFullName} </L>
               </Grid>
               <Grid item>
-                 <Typography variant="body2">
-                   Ratings: coming soon
-                  </Typography>
-               </Grid>
-               <Grid item>
-                 <Typography variant="body2" color="textSecondary">
-                   Customer Reviews: coming soon
-                  </Typography>
-               </Grid>
-              <Grid item>
                 <Button variant="outlined" onClick={() => {addItem(item);}}>
                   Add To Cart
                 </Button>
