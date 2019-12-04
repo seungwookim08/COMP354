@@ -1,7 +1,7 @@
 import React from 'react';
 import "../../css/Items.css";
 import "../../css/PopUpAddToCart.css";
-import Card from '@material-ui/core/card';
+import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
