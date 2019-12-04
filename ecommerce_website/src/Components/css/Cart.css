@@ -11,6 +11,14 @@
   z-index: 5;
 }
 
+@media(max-width:430px) {
+  .cart-dropdown {
+    right:0;
+    padding:0;
+    width:300px;
+  }
+}
+
 .cart-items {
   padding: 20px;
   display: flex;
@@ -26,6 +34,7 @@
 
 .cart-item-image {
   max-width: 30%;
+  object-fit: cover;
 }
 
 .checkout-button {
@@ -78,6 +87,7 @@ button {
 img {
   width: 25%;
   height: auto;
+  object-fit: cover;
 }
 
 .item-details {
