@@ -11,3 +11,7 @@
 .scrolling-wrapper {
     -webkit-overflow-scrolling: touch;
 }
+
+.scrolling-wrapper .card {
+    min-width: 316px;
+}
