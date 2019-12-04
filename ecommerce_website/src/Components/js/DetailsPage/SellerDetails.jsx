@@ -105,8 +105,6 @@ const SellerDetails = props => {
         axios.get("https://rocky-shore-99218.herokuapp.com/users/" + props.user.sellerId + "/orders")
         .then(({data}) => {
           if(data.is_success && sellerId) {
-            console.log("props.user.sellerId: " + props.user.sellerId);
-            console.log("props.location.state.sellerId: " + props.location.state.sellerId);
             verifyIfUserPurchasedFromSeller(data.contents);
           }
         });
