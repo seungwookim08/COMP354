@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
 import { ReactComponent as PaypalIcon } from '../../../ImageAssets/PayPal.svg';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
